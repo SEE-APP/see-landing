@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background: linear-gradient(180deg, #F8FAFC 0%, #E2E8F0 100%);
+  min-height: 100vh;
+  color: #0F172A;
+  font-family: 'Bahnschrift', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
