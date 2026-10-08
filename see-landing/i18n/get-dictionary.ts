@@ -3,6 +3,7 @@ import type { Dictionary } from '@/types/i18n';
 
 const dictionaries: Record<Locale, () => Promise<Dictionary>> = {
   en: () => import('./dictionaries/en').then((module) => module.default),
+  ka: () => import('./dictionaries/ka').then((module) => module.default),
 };
 
 export function getDictionary(locale: Locale): Promise<Dictionary> {
