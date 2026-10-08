@@ -76,17 +76,22 @@ before editing those files.
 ## Structure
 
 ```
-app/                layout.tsx (Navbar + main + Footer, root metadata), page.tsx (composes sections), globals.css (Tailwind import, utilities, base styles)
+app/[lang]/         layout.tsx (root layout per locale: html lang, metadata + hreflang, Navbar + main + Footer), page.tsx (composes sections)
+app/globals.css     Tailwind import, utilities, base styles
+proxy.ts            redirects paths without a locale prefix to the visitor's language (Accept-Language)
+i18n/dictionaries/  en.ts holds EVERY user-facing string; other languages are copies typed `Dictionary`
+i18n/config.ts      locales, defaultLocale, localeNames, siteUrl (NEXT_PUBLIC_SITE_URL), hasLocale
+i18n/get-dictionary.ts  loads a dictionary on the server; i18n/format.ts fills {placeholders}
 assets/icons/       custom SVG icon components, one per file (lucide-react for the rest)
-components/common/  Navbar, Footer (rendered in the root layout)
+components/common/  Navbar, Footer, LanguageSwitcher (rendered in the root layout)
 components/ui/      Typography, Button, Eyebrow (server-safe primitives; use them for all text and buttons)
 components/         section components, still flat: Hero, About, Team, Demo, Waitlist
 lib/site.ts         site data: nav links, contact details, social links
-lib/content/        page copy and lists: team.ts, about.ts (timeline, intentions, steps, features)
+lib/content/        list structure (ids, icons, years, avatars, URLs) for team.ts, about.ts; text lives in the dictionary
 lib/motion.ts       shared Framer Motion variants (staggerContainer, fadeUpItem, easeOutExpo)
 lib/validation.ts   isValidEmail
 lib/cn.ts           className joiner (no clsx/tailwind-merge: don't pass a class that conflicts with a variant's)
-types/              all shared types: content.ts, site.ts, sections.ts, ui.ts (component props)
+types/              all shared types: content.ts, site.ts, sections.ts, layout.ts, ui.ts (component props), i18n.ts (Dictionary, Locale)
 styles/variables.css  design tokens (@theme) and layout variables (gutters, header height)
 public/             logo, favicon, team photos
 ```
@@ -101,7 +106,12 @@ Target layout (move a file when you touch it; ask before bulk moves):
 - Reuse before writing: `reuse-first` skill, `.claude/skills/reuse-first/catalog.md` and
   `known-duplicates.md`. The second copy is the trigger to promote to `components/ui/`; don't
   pre-abstract for a single use.
-- Component files hold rendering only: data and copy go in `lib/content/` or `lib/site.ts`, types
+- No hard-coded copy in components or `lib/`: every visible string, `aria-label`, `alt` and metadata
+  text goes in `i18n/dictionaries/en.ts` and reaches components as a `t` prop (server components get it
+  from the page/layout; client sections get only their own slice). Internal links use `homeHref(lang, hash)`.
+  Adding a language: copy `en.ts` to `<code>.ts` typed `Dictionary`, add the code to `locales` and
+  `localeNames`, and register it in `get-dictionary.ts`.
+- Component files hold rendering only: data goes in `lib/content/` or `lib/site.ts`, types
   and prop interfaces in `types/`, helpers in `lib/`. Icons in data are component references
   (`icon: Users`), not JSX.
 - KISS. Three similar lines beat a premature helper. Split components past ~200 lines.
