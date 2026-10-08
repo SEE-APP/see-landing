@@ -18,7 +18,7 @@ export interface TeamProps {
 export interface DemoProps {
   t: Dictionary['demo'];
   waitlistHref: string;
-  videoSrc?: string;
+  videoSrc: string;
 }
 
 export interface WaitlistProps {

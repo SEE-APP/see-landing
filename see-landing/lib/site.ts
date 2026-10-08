@@ -19,6 +19,10 @@ export const socialLinks: SocialLink[] = [
   { id: 'tiktok', href: 'https://tiktok.com/@seevrce' },
 ];
 
+export const waitlistEndpoint = 'https://formspree.io/f/xnjewqre';
+
+export const demoVideoUrl = 'https://www.youtube.com/embed/n0v4iKcuBoQ';
+
 export function homeHref(locale: Locale, hash = ''): string {
   return `/${locale}${hash}`;
 }

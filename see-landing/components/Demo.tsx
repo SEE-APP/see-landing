@@ -9,7 +9,7 @@ import Button from '@/components/ui/Button';
 import Eyebrow from '@/components/ui/Eyebrow';
 import Typography from '@/components/ui/Typography';
 
-export default function Demo({ t, waitlistHref, videoSrc = 'https://www.youtube.com/embed/n0v4iKcuBoQ' }: DemoProps) {
+export default function Demo({ t, waitlistHref, videoSrc }: DemoProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const showVideo = Boolean(videoSrc) && isPlaying;
 

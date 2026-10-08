@@ -5,7 +5,7 @@ import LanguageSwitcher from '@/components/common/LanguageSwitcher';
 import { homeHref, navLinks } from '@/lib/site';
 import type { NavbarProps } from '@/types/layout';
 
-export default function Navbar({ lang, t }: NavbarProps) {
+export default function Navbar({ lang, brand, t }: NavbarProps) {
   return (
     <header className="sticky top-0 z-[100] select-none border-b border-white/8 bg-dark-500/95 backdrop-blur-lg">
       <nav
@@ -18,7 +18,7 @@ export default function Navbar({ lang, t }: NavbarProps) {
           className="flex items-center gap-2.5 rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-300"
         >
           <Image src="/logo.png" alt="" width={40} height={40} priority className="size-10 shrink-0 object-contain" />
-          <Typography size={20} weight="bold" tone="default" className="tracking-tight">SEE</Typography>
+          <Typography size={20} weight="bold" tone="default" className="tracking-tight">{brand}</Typography>
         </Link>
 
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2 sm:gap-x-6">

@@ -8,6 +8,7 @@ import PhoneIcon from '@/assets/icons/PhoneIcon';
 import TikTokIcon from '@/assets/icons/TikTokIcon';
 import Button from '@/components/ui/Button';
 import Typography from '@/components/ui/Typography';
+import { format } from '@/i18n/format';
 import { contactDetails, homeHref, navLinks, socialLinks } from '@/lib/site';
 import type { FooterProps } from '@/types/layout';
 import type { ContactId, SocialId } from '@/types/site';
@@ -35,7 +36,7 @@ function ColumnTitle({ label }: { label: string }) {
   );
 }
 
-export default function Footer({ lang, nav, t }: FooterProps) {
+export default function Footer({ lang, brand, nav, t }: FooterProps) {
   const currentYear = new Date().getFullYear();
 
   return (
@@ -45,7 +46,7 @@ export default function Footer({ lang, nav, t }: FooterProps) {
           <div className="max-w-xs">
             <Link href={homeHref(lang)} className={`mb-5 flex w-fit items-center gap-2.5 rounded-md ${focusRing}`}>
               <Image src="/logo.png" alt="" width={40} height={40} className="size-10 shrink-0 object-contain" />
-              <Typography size={18} weight="semibold" tone="default" className="tracking-tight">SEE</Typography>
+              <Typography size={18} weight="semibold" tone="default" className="tracking-tight">{brand}</Typography>
             </Link>
             <Typography as="p" size={16} tone="muted" className="leading-relaxed">
               {t.tagline}
@@ -92,7 +93,9 @@ export default function Footer({ lang, nav, t }: FooterProps) {
         </div>
 
         <div className="flex flex-wrap items-center justify-between gap-5 pt-8">
-          <Typography as="p" size={14} tone="muted">&copy; {currentYear} SEE. {t.rights}</Typography>
+          <Typography as="p" size={14} tone="muted">
+            {format(t.copyright, { year: String(currentYear), brand })}
+          </Typography>
 
           <ul className="flex items-center gap-3">
             {socialLinks.map(({ id, href }) => {

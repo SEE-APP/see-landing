@@ -6,6 +6,7 @@ import Demo from '@/components/Demo';
 import Waitlist from '@/components/Waitlist';
 import { hasLocale } from '@/i18n/config';
 import { getDictionary } from '@/i18n/get-dictionary';
+import { demoVideoUrl, homeHref } from '@/lib/site';
 
 export default async function Home({ params }: PageProps<'/[lang]'>) {
   const { lang } = await params;
@@ -22,7 +23,7 @@ export default async function Home({ params }: PageProps<'/[lang]'>) {
         whyUs={dict.whyUs}
       />
       <Team t={dict.team} />
-      <Demo t={dict.demo} waitlistHref={`/${lang}#waitlist`} />
+      <Demo t={dict.demo} videoSrc={demoVideoUrl} waitlistHref={homeHref(lang, '#waitlist')} />
       <Waitlist t={dict.waitlist} />
     </>
   );

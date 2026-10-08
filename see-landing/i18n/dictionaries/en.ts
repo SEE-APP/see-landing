@@ -1,4 +1,6 @@
 const en = {
+  brand: 'SEE',
+
   meta: {
     title: 'SEE. Find Your Space.',
     description: 'Connecting people through meaningful small-group experiences.',
@@ -152,7 +154,7 @@ const en = {
     quickLinks: 'Quick Links',
     navLabel: 'Footer',
     contact: 'Contact',
-    rights: 'All rights reserved.',
+    copyright: '© {year} {brand}. All rights reserved.',
     social: {
       instagram: 'Instagram',
       linkedin: 'LinkedIn',

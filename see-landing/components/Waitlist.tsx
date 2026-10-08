@@ -7,6 +7,7 @@ import Button from '@/components/ui/Button';
 import Eyebrow from '@/components/ui/Eyebrow';
 import Typography from '@/components/ui/Typography';
 
+import { waitlistEndpoint } from '@/lib/site';
 import { isValidEmail } from '@/lib/validation';
 import type { WaitlistProps, WaitlistStatus } from '@/types/sections';
 
@@ -24,7 +25,7 @@ export default function Waitlist({ t }: WaitlistProps) {
     setStatus('loading');
 
     try {
-      const response = await fetch('https://formspree.io/f/xnjewqre', {
+      const response = await fetch(waitlistEndpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
