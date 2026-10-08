@@ -2,155 +2,20 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import {
-  Users,
-  Rocket,
-  UserRound,
-  DoorOpen,
-  Handshake,
-  Wand2,
-  Target,
-  Bot,
-  SplitSquareHorizontal,
-  CheckCircle2,
-} from 'lucide-react';
-
-/* ---------------------------------------------------------------- */
-/*  Shared motion variants                                          */
-/* ---------------------------------------------------------------- */
-
-const container = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
-};
-
-const item = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const } },
-};
-
-/* ---------------------------------------------------------------- */
-/*  Content                                                         */
-/* ---------------------------------------------------------------- */
-
-const timeline = [
-  {
-    year: '2023',
-    title: 'SEEvrce launches',
-    desc: 'Offline communities & curated Spaces',
-  },
-  {
-    year: '2024',
-    title: 'Youth Space of Georgia',
-    desc: 'Community grows into an NGO',
-  },
-  {
-    year: '2026',
-    title: 'SEE',
-    desc: 'Official launch as a technology startup, building platforms to scale meaningful connections.',
-  },
-];
-
-const intentions = [
-  {
-    icon: <Users size={24} />,
-    title: 'Find Friends',
-    desc: 'Find people for genuine conversation, shared interests, and new experiences.',
-  },
-  {
-    icon: <Rocket size={24} />,
-    title: 'Build Your Team',
-    desc: 'Meet collaborators, startup teammates, mentors, and people growing in similar directions.',
-  },
-];
-
-const steps = [
-  {
-    number: '01',
-    icon: <UserRound size={22} />,
-    title: 'Create your profile',
-    desc: 'Share what shapes you — your interests, goals, skills, and what you can offer to others.',
-  },
-  {
-    number: '02',
-    icon: <DoorOpen size={22} />,
-    title: 'Enter a curated Space',
-    desc: 'No endless swiping. We automatically match you into a curated micro-group of 4–6 people with meaningful shared ground.',
-  },
-  {
-    number: '03',
-    icon: <Handshake size={22} />,
-    title: 'Connect with guidance & meet offline',
-    desc: 'Our digital facilitator (SEE Guide) helps break the ice, so you can easily plan your first real-world meetup — whether it’s coffee, a city walk, or a brainstorming session.',
-  },
-];
-
-const features = [
-  {
-    icon: <Wand2 size={22} />,
-    title: 'No Swiping',
-    desc: 'We automatically curate your Space.',
-  },
-  {
-    icon: <Target size={22} />,
-    title: 'Beyond Hobbies',
-    desc: 'Matched by goals, skills, and values.',
-  },
-  {
-    icon: <Bot size={22} />,
-    title: 'Guided Connection',
-    desc: 'Digital facilitator to break the ice.',
-  },
-  {
-    icon: <SplitSquareHorizontal size={22} />,
-    title: 'Clear Intentions',
-    desc: 'Separate spaces for friends and collaborators.',
-  },
-];
-
-/* ---------------------------------------------------------------- */
-/*  Small shared pieces                                            */
-/* ---------------------------------------------------------------- */
-
-function Eyebrow({ label }: { label: string }) {
-  return (
-    <motion.div
-      variants={item}
-      style={{
-        display: 'inline-flex',
-        alignItems: 'center',
-        gap: '0.5rem',
-        padding: '0.375rem 1rem',
-        borderRadius: '9999px',
-        marginBottom: '1.5rem',
-        background: 'rgba(255, 255, 255, 0.03)',
-        backdropFilter: 'blur(20px)',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
-      }}
-    >
-      <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#47bdb2' }} />
-      <span
-        style={{
-          fontSize: '11px',
-          fontFamily: 'monospace',
-          letterSpacing: '0.15em',
-          color: '#cbd5e1',
-          textTransform: 'uppercase',
-        }}
-      >
-        {label}
-      </span>
-    </motion.div>
-  );
-}
+import Eyebrow from '@/components/ui/Eyebrow';
+import Typography from '@/components/ui/Typography';
+import { CheckCircle2 } from 'lucide-react';
+import { features, intentions, steps, timeline } from '@/lib/content/about';
+import { easeOutExpo, fadeUpItem, staggerContainer } from '@/lib/motion';
+import type { AboutProps } from '@/types/sections';
 
 /* ---------------------------------------------------------------- */
 /*  Section 1 — Our Story / Timeline                                  */
 /* ---------------------------------------------------------------- */
 
-function StorySection() {
+function StorySection({ t }: { t: AboutProps['story'] }) {
   return (
-    <section id="about" style={{ backgroundColor: '#0f172a', padding: '6rem 1.5rem', position: 'relative', overflow: 'hidden', userSelect: 'none' }}>
+    <section id="about" style={{ backgroundColor: '#0f172a', padding: '6rem 0', position: 'relative', overflow: 'hidden', userSelect: 'none' }}>
       {/* ambient glow */}
       <div
         style={{
@@ -210,46 +75,46 @@ function StorySection() {
         }
       `}</style>
 
+      <div className="page-container">
       <div style={{ maxWidth: '1100px', margin: '0 auto', position: 'relative' }}>
-        <motion.div initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }} variants={container}>
-          <Eyebrow label="Our Story" />
+        <motion.div initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }} variants={staggerContainer}>
+          <motion.div variants={fadeUpItem}>
+
+            <Eyebrow label={t.eyebrow} />
+
+          </motion.div>
         </motion.div>
 
         <motion.div
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: '-80px' }}
-          variants={container}
+          variants={staggerContainer}
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(340px, 100%), 1fr))',
             gap: '3.5rem',
             alignItems: 'start',
           }}
         >
           {/* Left: narrative */}
           <div>
-            <motion.h2
-              variants={item}
-              style={{ fontSize: '2.5rem', fontWeight: 600, color: '#ffffff', marginBottom: '1.5rem', letterSpacing: '-0.025em', lineHeight: 1.15 }}
-            >
-              Connection came before code.
-            </motion.h2>
-            <motion.p variants={item} style={{ color: '#94a3b8', fontSize: '1.0625rem', lineHeight: 1.8 }}>
-              SEE is the digital evolution of a proven offline model. It began in 2023 with SEEvrce, where we
-              manually curated small communities and organized offline Spaces for young people. As the community
-              grew, we established the NGO Youth Space of Georgia in 2024 to expand our impact. One of the people
-              we met through those early Spaces later joined the team building SEE. It was a reminder that
-              bringing the right people together can create opportunities far beyond a single event. First, we
-              built spaces for people manually. Now, we’re building the technology to help everyone find their
-              space.
-            </motion.p>
+            <motion.div variants={fadeUpItem}>
+              <Typography as="h2" size={32} weight="semibold" tone="default" className="mb-6 md:text-40">
+                {t.title}
+              </Typography>
+            </motion.div>
+            <motion.div variants={fadeUpItem}>
+              <Typography as="p" size={16} tone="muted" className="leading-[1.8] md:text-18">
+              {t.body}
+              </Typography>
+            </motion.div>
           </div>
 
           {/* Right: timeline */}
           <div className="timeline-list">
-            {timeline.map((t, i) => (
-              <motion.div key={t.year} variants={item} className="timeline-row" style={{ display: 'flex', gap: '1.25rem' }}>
+            {timeline.map((event, i) => (
+              <motion.div key={event.id} variants={fadeUpItem} className="timeline-row" style={{ display: 'flex', gap: '1.25rem' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '10px', flexShrink: 0 }}>
                   <div
                     className="timeline-dot"
@@ -291,18 +156,19 @@ function StorySection() {
                     animationDelay: `${i * 2}s`,
                   }}
                 >
-                  <span style={{ fontFamily: 'monospace', fontSize: '13px', color: '#47bdb2', letterSpacing: '0.05em' }}>
-                    {t.year}
-                  </span>
-                  <h4 style={{ color: '#ffffff', fontWeight: 600, fontSize: '1.0625rem', margin: '0.4rem 0 0.4rem' }}>
-                    {t.title}
-                  </h4>
-                  <p style={{ color: '#94a3b8', fontSize: '0.875rem', lineHeight: 1.6, margin: 0 }}>{t.desc}</p>
+                  <Typography size={13} tone="accent" className="font-mono tracking-[0.05em]">
+                    {event.year}
+                  </Typography>
+                  <Typography as="h3" size={18} weight="semibold" tone="default" className="my-1.5">
+                    {t.timeline[event.id].title}
+                  </Typography>
+                  <Typography as="p" size={14} tone="muted">{t.timeline[event.id].desc}</Typography>
                 </div>
               </motion.div>
             ))}
           </div>
         </motion.div>
+      </div>
       </div>
     </section>
   );
@@ -312,7 +178,7 @@ function StorySection() {
 /*  Section 2 — The Intention                                        */
 /* ---------------------------------------------------------------- */
 
-function IntentionSection() {
+function IntentionSection({ t }: { t: AboutProps['intention'] }) {
   const [selected, setSelected] = useState<number | null>(null);
 
   return (
@@ -320,40 +186,46 @@ function IntentionSection() {
       id="intention"
       style={{
         backgroundColor: '#0f172a',
-        padding: '6rem 1.5rem',
+        padding: '6rem 0',
         position: 'relative',
         borderTop: '1px solid rgba(255, 255, 255, 0.06)',
         userSelect: 'none',
       }}
     >
+      <div className="page-container">
       <div style={{ maxWidth: '900px', margin: '0 auto' }}>
         <motion.div
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: '-80px' }}
-          variants={container}
+          variants={staggerContainer}
           style={{ textAlign: 'center', marginBottom: '3.5rem' }}
         >
-          <Eyebrow label="The Intention" />
-          <motion.h2
-            variants={item}
-            style={{ fontSize: '2.5rem', fontWeight: 600, color: '#ffffff', marginBottom: '1rem', letterSpacing: '-0.025em' }}
-          >
-            What are you looking for?
-          </motion.h2>
-          <motion.p variants={item} style={{ color: '#94a3b8', fontSize: '1.125rem', maxWidth: '32rem', margin: '0 auto' }}>
-            Choose what matters most right now. Every Space is built around a single intention.
-          </motion.p>
+          <motion.div variants={fadeUpItem}>
+
+            <Eyebrow label={t.eyebrow} />
+
+          </motion.div>
+          <motion.div variants={fadeUpItem}>
+            <Typography as="h2" size={32} weight="semibold" tone="default" className="mb-4 md:text-40">
+              {t.title}
+            </Typography>
+          </motion.div>
+          <motion.div variants={fadeUpItem}>
+            <Typography as="p" size={18} tone="muted" className="mx-auto max-w-lg">
+              {t.description}
+            </Typography>
+          </motion.div>
         </motion.div>
 
         <motion.div
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: '-80px' }}
-          variants={container}
+          variants={staggerContainer}
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(320px, 100%), 1fr))',
             gap: '1.5rem',
           }}
         >
@@ -361,12 +233,12 @@ function IntentionSection() {
             const isSelected = selected === i;
             return (
               <motion.div
-                key={it.title}
-                variants={item}
+                key={it.id}
+                variants={fadeUpItem}
                 onClick={() => setSelected(i)}
                 whileHover={{ y: -6 }}
                 whileTap={{ scale: 0.98 }}
-                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] as const }}
+                transition={{ duration: 0.3, ease: easeOutExpo }}
                 style={{
                   position: 'relative',
                   cursor: 'pointer',
@@ -402,16 +274,17 @@ function IntentionSection() {
                     color: '#47bdb2',
                   }}
                 >
-                  {it.icon}
+                  <it.icon size={24} />
                 </div>
-                <h3 style={{ color: '#ffffff', fontWeight: 600, fontSize: '1.1875rem', marginBottom: '0.5rem' }}>
-                  {it.title}
-                </h3>
-                <p style={{ color: '#94a3b8', fontSize: '0.9375rem', lineHeight: '1.6' }}>{it.desc}</p>
+                <Typography as="h3" size={20} weight="semibold" tone="default" className="mb-2">
+                  {t.items[it.id].title}
+                </Typography>
+                <Typography as="p" size={16} tone="muted">{t.items[it.id].desc}</Typography>
               </motion.div>
             );
           })}
         </motion.div>
+      </div>
       </div>
     </section>
   );
@@ -421,55 +294,61 @@ function IntentionSection() {
 /*  Section 3 — How SEE Works                                        */
 /* ---------------------------------------------------------------- */
 
-function HowItWorksSection() {
+function HowItWorksSection({ t }: { t: AboutProps['howItWorks'] }) {
   return (
     <section
       id="how-it-works"
       style={{
         backgroundColor: '#0f172a',
-        padding: '6rem 1.5rem',
+        padding: '6rem 0',
         position: 'relative',
         borderTop: '1px solid rgba(255, 255, 255, 0.06)',
         userSelect: 'none',
       }}
     >
+      <div className="page-container">
       <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
         <motion.div
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: '-80px' }}
-          variants={container}
+          variants={staggerContainer}
           style={{ textAlign: 'center', marginBottom: '3.5rem' }}
         >
-          <Eyebrow label="How It Works" />
-          <motion.h2
-            variants={item}
-            style={{ fontSize: '2.5rem', fontWeight: 600, color: '#ffffff', marginBottom: '1rem', letterSpacing: '-0.025em' }}
-          >
-            Less searching. More belonging.
-          </motion.h2>
-          <motion.p variants={item} style={{ color: '#94a3b8', fontSize: '1.125rem', maxWidth: '34rem', margin: '0 auto' }}>
-            From a simple introduction to a real connection.
-          </motion.p>
+          <motion.div variants={fadeUpItem}>
+
+            <Eyebrow label={t.eyebrow} />
+
+          </motion.div>
+          <motion.div variants={fadeUpItem}>
+            <Typography as="h2" size={32} weight="semibold" tone="default" className="mb-4 md:text-40">
+              {t.title}
+            </Typography>
+          </motion.div>
+          <motion.div variants={fadeUpItem}>
+            <Typography as="p" size={18} tone="muted" className="mx-auto max-w-xl">
+              {t.description}
+            </Typography>
+          </motion.div>
         </motion.div>
 
         <motion.div
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: '-80px' }}
-          variants={container}
+          variants={staggerContainer}
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))',
             gap: '1.5rem',
           }}
         >
           {steps.map((s) => (
             <motion.div
-              key={s.number}
-              variants={item}
+              key={s.id}
+              variants={fadeUpItem}
               whileHover={{ y: -6 }}
-              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] as const }}
+              transition={{ duration: 0.3, ease: easeOutExpo }}
               style={{
                 position: 'relative',
                 overflow: 'hidden',
@@ -509,15 +388,16 @@ function HowItWorksSection() {
                   position: 'relative',
                 }}
               >
-                {s.icon}
+                <s.icon size={22} />
               </div>
-              <h3 style={{ color: '#ffffff', fontWeight: 600, fontSize: '1.0625rem', marginBottom: '0.5rem', position: 'relative' }}>
-                {s.title}
-              </h3>
-              <p style={{ color: '#94a3b8', fontSize: '0.875rem', lineHeight: '1.6', position: 'relative' }}>{s.desc}</p>
+              <Typography as="h3" size={18} weight="semibold" tone="default" className="relative mb-2">
+                {t.steps[s.id].title}
+              </Typography>
+              <Typography as="p" size={14} tone="muted" className="relative">{t.steps[s.id].desc}</Typography>
             </motion.div>
           ))}
         </motion.div>
+      </div>
       </div>
     </section>
   );
@@ -527,56 +407,62 @@ function HowItWorksSection() {
 /*  Section 4 — Why Us (feature grid)                                  */
 /* ---------------------------------------------------------------- */
 
-function WhyUsSection() {
+function WhyUsSection({ t }: { t: AboutProps['whyUs'] }) {
   return (
     <section
       id="why-us"
       style={{
         backgroundColor: '#0f172a',
-        padding: '6rem 1.5rem',
+        padding: '6rem 0',
         position: 'relative',
         borderTop: '1px solid rgba(255, 255, 255, 0.06)',
         userSelect: 'none',
       }}
     >
+      <div className="page-container">
       <div style={{ maxWidth: '900px', margin: '0 auto' }}>
         <motion.div
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: '-80px' }}
-          variants={container}
+          variants={staggerContainer}
           style={{ textAlign: 'center', marginBottom: '4rem' }}
         >
-          <Eyebrow label="Why SEE" />
-          <motion.h2
-            variants={item}
-            style={{ fontSize: '2.5rem', fontWeight: 600, color: '#ffffff', marginBottom: '1rem', letterSpacing: '-0.025em' }}
-          >
-            Why SEE?
-          </motion.h2>
-          <motion.p variants={item} style={{ color: '#94a3b8', fontSize: '1.125rem', maxWidth: '36rem', margin: '0 auto' }}>
-            Four commitments baked into every Space we build.
-          </motion.p>
+          <motion.div variants={fadeUpItem}>
+
+            <Eyebrow label={t.eyebrow} />
+
+          </motion.div>
+          <motion.div variants={fadeUpItem}>
+            <Typography as="h2" size={32} weight="semibold" tone="default" className="mb-4 md:text-40">
+              {t.title}
+            </Typography>
+          </motion.div>
+          <motion.div variants={fadeUpItem}>
+            <Typography as="p" size={18} tone="muted" className="mx-auto max-w-xl">
+              {t.description}
+            </Typography>
+          </motion.div>
         </motion.div>
 
         <motion.div
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: '-80px' }}
-          variants={container}
+          variants={staggerContainer}
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(380px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(380px, 100%), 1fr))',
             gap: '1.5rem',
             margin: '0 auto',
           }}
         >
           {features.map((f) => (
             <motion.div
-              key={f.title}
-              variants={item}
+              key={f.id}
+              variants={fadeUpItem}
               whileHover={{ y: -6 }}
-              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] as const }}
+              transition={{ duration: 0.3, ease: easeOutExpo }}
               style={{
                 background: 'rgba(255, 255, 255, 0.03)',
                 backdropFilter: 'blur(20px)',
@@ -601,13 +487,14 @@ function WhyUsSection() {
                   color: '#47bdb2',
                 }}
               >
-                {f.icon}
+                <f.icon size={22} />
               </div>
-              <h3 style={{ color: '#ffffff', fontWeight: 600, fontSize: '1.125rem', marginBottom: '0.5rem' }}>{f.title}</h3>
-              <p style={{ color: '#94a3b8', fontSize: '0.875rem', lineHeight: '1.6' }}>{f.desc}</p>
+              <Typography as="h3" size={18} weight="semibold" tone="default" className="mb-2">{t.items[f.id].title}</Typography>
+              <Typography as="p" size={14} tone="muted">{t.items[f.id].desc}</Typography>
             </motion.div>
           ))}
         </motion.div>
+      </div>
       </div>
     </section>
   );
@@ -617,13 +504,13 @@ function WhyUsSection() {
 /*  Export                                                          */
 /* ---------------------------------------------------------------- */
 
-export default function About() {
+export default function About({ story, intention, howItWorks, whyUs }: AboutProps) {
   return (
     <>
-      <StorySection />
-      <IntentionSection />
-      <HowItWorksSection />
-      <WhyUsSection />
+      <StorySection t={story} />
+      <IntentionSection t={intention} />
+      <HowItWorksSection t={howItWorks} />
+      <WhyUsSection t={whyUs} />
     </>
   );
 }

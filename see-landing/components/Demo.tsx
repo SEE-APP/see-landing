@@ -2,60 +2,42 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Play } from 'lucide-react';
+import { easeOutExpo, fadeUpItem, staggerContainer } from '@/lib/motion';
+import type { DemoProps } from '@/types/sections';
+import { ArrowRight, Play } from 'lucide-react';
+import Button from '@/components/ui/Button';
+import Eyebrow from '@/components/ui/Eyebrow';
+import Typography from '@/components/ui/Typography';
 
-interface DemoProps {
-  videoSrc?: string;
-}
-
-const container = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
-};
-
-const item = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const } },
-};
-
-export default function Demo({ videoSrc = 'https://www.youtube.com/embed/n0v4iKcuBoQ' }: DemoProps) {
+export default function Demo({ t, waitlistHref, videoSrc }: DemoProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const showVideo = Boolean(videoSrc) && isPlaying;
 
   return (
-    <section id="demo" style={{ backgroundColor: '#0f172a', padding: '6rem 1.5rem', position: 'relative', userSelect: 'none' }}>
+    <section id="demo" style={{ backgroundColor: '#0f172a', padding: '6rem 0', position: 'relative', userSelect: 'none' }}>
+      <div className="page-container">
       <div style={{ maxWidth: '800px', margin: '0 auto' }}>
         {/* Header */}
         <motion.div
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: '-80px' }}
-          variants={container}
+          variants={staggerContainer}
           style={{ textAlign: 'center', marginBottom: '3rem' }}
         >
-          <motion.div variants={item} style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-            padding: '0.375rem 1rem',
-            borderRadius: '9999px',
-            marginBottom: '1.5rem',
-            background: 'rgba(255, 255, 255, 0.03)',
-            backdropFilter: 'blur(20px)',
-            border: '1px solid rgba(255, 255, 255, 0.08)'
-          }}>
-            <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#47bdb2' }} />
-            <span style={{ fontSize: '11px', fontFamily: 'monospace', letterSpacing: '0.15em', color: '#cbd5e1', textTransform: 'uppercase' }}>
-              The Product
-            </span>
+          <motion.div variants={fadeUpItem}>
+            <Eyebrow label={t.eyebrow} />
           </motion.div>
-
-          <motion.h2 variants={item} style={{ fontSize: '2.5rem', fontWeight: 600, color: '#ffffff', marginBottom: '1rem', letterSpacing: '-0.025em' }}>
-            See it in action.
-          </motion.h2>
-          <motion.p variants={item} style={{ color: '#94a3b8', fontSize: '1.125rem', maxWidth: '36rem', margin: '0 auto' }}>
-            See how an online introduction becomes a real-world connection.
-          </motion.p>
+          <motion.div variants={fadeUpItem}>
+            <Typography as="h2" size={32} weight="semibold" tone="default" className="mb-4 md:text-40">
+              {t.title}
+            </Typography>
+          </motion.div>
+          <motion.div variants={fadeUpItem}>
+            <Typography as="p" size={18} tone="muted" className="mx-auto max-w-xl">
+              {t.description}
+            </Typography>
+          </motion.div>
         </motion.div>
 
         {/* Video frame */}
@@ -63,7 +45,7 @@ export default function Demo({ videoSrc = 'https://www.youtube.com/embed/n0v4iKc
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] as const }}
+          transition={{ duration: 0.7, ease: easeOutExpo }}
           whileHover={{ scale: 1.01 }}
           style={{
             position: 'relative',
@@ -79,7 +61,7 @@ export default function Demo({ videoSrc = 'https://www.youtube.com/embed/n0v4iKc
           {showVideo ? (
             <iframe
               src={`${videoSrc}?autoplay=1&rel=0`}
-              title="SEE demo video"
+              title={t.videoTitle}
               allow="autoplay; encrypted-media; picture-in-picture"
               allowFullScreen
               style={{ width: '100%', height: '100%', border: 'none' }}
@@ -116,7 +98,7 @@ export default function Demo({ videoSrc = 'https://www.youtube.com/embed/n0v4iKc
                 <span style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#475569' }} />
                 <span style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#475569' }} />
                 <span style={{ margin: '0 auto', fontSize: '11px', fontFamily: 'monospace', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#64748b' }}>
-                  Prototype Walkthrough
+                  {t.playerLabel}
                 </span>
               </div>
 
@@ -139,7 +121,7 @@ export default function Demo({ videoSrc = 'https://www.youtube.com/embed/n0v4iKc
                     border: '1px solid rgba(255, 255, 255, 0.2)',
                     cursor: 'pointer'
                   }}
-                  aria-label="Play demo video"
+                  aria-label={t.playLabel}
                 >
                   <motion.span
                     style={{ position: 'absolute', inset: 0, borderRadius: '50%', border: '2px solid #47bdb2' }}
@@ -167,34 +149,25 @@ export default function Demo({ videoSrc = 'https://www.youtube.com/embed/n0v4iKc
                 color: '#cbd5e1',
                 zIndex: 2
               }}>
-                Preview
+                {t.previewBadge}
               </div>
             </>
           )}
         </motion.div>
 
         {/* Call to Action / Caption */}
-        <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-          <p style={{ fontSize: '1.0625rem', color: '#ffffff', fontWeight: 500, margin: 0 }}>
-            Ready to find your space?{' '}
-            <button
-              onClick={() => document.querySelector('#waitlist')?.scrollIntoView({ behavior: 'smooth' })}
-              style={{
-                color: '#47bdb2',
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-                font: 'inherit',
-                fontWeight: 600,
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.25rem'
-              }}
-            >
-              Get early access →
-            </button>
-          </p>
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
+          <Typography as="p" size={16} weight="medium" tone="default">
+            {t.ctaPrompt}
+          </Typography>
+          <Button
+            variant="text"
+            href={waitlistHref}
+            label={t.ctaLabel}
+            rightIcon={<ArrowRight size={16} />}
+          />
         </div>
+      </div>
       </div>
     </section>
   );

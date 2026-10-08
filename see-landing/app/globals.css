@@ -1,37 +1,38 @@
-:root {
-  --bg-dark: #0f172a;
-  --primary: #22988e;
-  --primary-light: #47bdb2;
+@import "tailwindcss";
+@import "../styles/variables.css";
+
+@utility page-container {
+  width: 100%;
+  max-width: calc(var(--container-page) + 2 * var(--gutter-x));
+  margin-inline: auto;
+  padding-inline: var(--gutter-x);
+}
+
+@utility page-section {
+  padding-block: var(--gutter-y);
+}
+
+html {
+  scroll-padding-top: var(--header-height);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
-  background-color: var(--bg-dark) !important;
-  color: #f8fafc !important;
   font-family: system-ui, -apple-system, sans-serif;
-  margin: 0;
-  padding: 0;
   overflow-x: hidden;
 }
 
-/* Navbar */
-nav {
-  background: rgba(15, 23, 42, 0.8);
-  backdrop-filter: blur(16px);
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 1rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 /* Glass Cards & Elements */
-.glass, .glass-card {
-  background: rgba(255, 255, 255, 0.03) !important;
+.glass,
+.glass-card {
+  background: rgb(255 255 255 / 0.03);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgb(255 255 255 / 0.08);
   border-radius: 1rem;
   padding: 2rem;
   margin: 1.5rem auto;
@@ -39,22 +40,22 @@ nav {
 }
 
 .text-gradient {
-  background: linear-gradient(to right, #7dd6cd, #47bdb2);
+  background: linear-gradient(to right, var(--color-primary-200), var(--color-primary-300));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .btn-primary {
-  background-color: #22988e !important;
-  color: #ffffff !important;
+  background-color: var(--color-primary-500);
+  color: #ffffff;
   padding: 0.75rem 1.5rem;
   border-radius: 0.5rem;
   border: none;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 0 20px rgba(34, 152, 142, 0.4);
+  box-shadow: 0 0 20px rgb(34 152 142 / 0.4);
 }
 
 .btn-primary:hover {
-  background-color: #47bdb2 !important;
+  background-color: var(--color-primary-300);
 }
