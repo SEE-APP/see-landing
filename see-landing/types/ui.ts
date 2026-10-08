@@ -1,4 +1,4 @@
-import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode, SVGProps } from 'react';
+import type { AnchorHTMLAttributes, ButtonHTMLAttributes, CSSProperties, ReactNode, SVGProps } from 'react';
 
 export type IconProps = Omit<SVGProps<SVGSVGElement>, 'width' | 'height'> & { size?: number };
 
@@ -30,6 +30,8 @@ export interface EyebrowProps {
 }
 
 export type ButtonVariant = 'filled' | 'outline' | 'text' | 'icon';
+/** Height and padding of the `filled` and `outline` pills; ignored by `text` and `icon`. */
+export type ButtonSize = 'md' | 'sm';
 
 type ButtonSharedProps = {
   label?: string;
@@ -37,6 +39,8 @@ type ButtonSharedProps = {
   rightIcon?: ReactNode;
   /** @default 'filled' */
   variant?: ButtonVariant;
+  /** @default 'md' */
+  size?: ButtonSize;
   fullWidth?: boolean;
   isLoading?: boolean;
   disabled?: boolean;
@@ -50,3 +54,31 @@ type ButtonAsLink = ButtonSharedProps &
   Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'className' | 'children' | 'href'> & { href: string };
 
 export type ButtonProps = ButtonAsButton | ButtonAsLink;
+
+export interface PopoverPanelProps {
+  /** Must be unique on the page; the trigger points at it with `popoverTarget`. */
+  id: string;
+  className?: string;
+  /** Per-instance values only (e.g. the CSS anchor name). */
+  style?: CSSProperties;
+  'aria-label'?: string;
+  children: ReactNode;
+}
+
+/** `link` looks like a nav link; `pill` is a bordered rounded-full control. */
+export type DropdownTrigger = 'link' | 'pill';
+
+/** The panel opens below its trigger, right edges aligned. */
+export interface DropdownProps {
+  id: string;
+  /** Trigger content; a chevron is appended. */
+  label: ReactNode;
+  /** @default 'link' */
+  trigger?: DropdownTrigger;
+  children: ReactNode;
+}
+
+export type DropdownItemProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href' | 'children'> & {
+  href: string;
+  children: ReactNode;
+};

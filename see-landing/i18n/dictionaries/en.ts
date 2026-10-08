@@ -11,11 +11,18 @@ const en = {
     home: 'SEE home',
     languageSwitcher: 'Change language',
     links: {
-      about: 'About',
+      howItWorks: 'How It Works',
+      about: 'About Us',
+      news: 'News',
       team: 'Team',
-      demo: 'Demo',
-      waitlist: 'Early Access',
+      investors: 'For Investors',
+      faq: 'FAQ',
+      contact: 'Contact',
     },
+    more: 'More',
+    cta: 'Get Early Access',
+    openMenu: 'Open menu',
+    closeMenu: 'Close menu',
   },
 
   hero: {
@@ -150,7 +157,7 @@ const en = {
   },
 
   footer: {
-    tagline: 'Find your space. Find your people. Connecting individuals through shared interests and goals.',
+    tagline: 'Turning shared interests, values, goals, and skills into social capital through curated micro-groups.',
     quickLinks: 'Quick Links',
     navLabel: 'Footer',
     contact: 'Contact',
