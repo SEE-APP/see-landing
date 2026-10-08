@@ -1,0 +1,7 @@
+---
+description: Component rules for the SEE landing page — server/client boundary, motion policy, markup, structure, CTA
+globs: components/**/*.tsx,components/**/*.ts
+alwaysApply: false
+---
+
+Follow the component rules in @.claude/rules/components.md (single source; shared with Claude Code).
