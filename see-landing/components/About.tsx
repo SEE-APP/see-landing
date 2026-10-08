@@ -7,12 +7,13 @@ import Typography from '@/components/ui/Typography';
 import { CheckCircle2 } from 'lucide-react';
 import { features, intentions, steps, timeline } from '@/lib/content/about';
 import { easeOutExpo, fadeUpItem, staggerContainer } from '@/lib/motion';
+import type { AboutProps } from '@/types/sections';
 
 /* ---------------------------------------------------------------- */
 /*  Section 1 — Our Story / Timeline                                  */
 /* ---------------------------------------------------------------- */
 
-function StorySection() {
+function StorySection({ t }: { t: AboutProps['story'] }) {
   return (
     <section id="about" style={{ backgroundColor: '#0f172a', padding: '6rem 0', position: 'relative', overflow: 'hidden', userSelect: 'none' }}>
       {/* ambient glow */}
@@ -79,7 +80,7 @@ function StorySection() {
         <motion.div initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }} variants={staggerContainer}>
           <motion.div variants={fadeUpItem}>
 
-            <Eyebrow label="Our Story" />
+            <Eyebrow label={t.eyebrow} />
 
           </motion.div>
         </motion.div>
@@ -100,26 +101,20 @@ function StorySection() {
           <div>
             <motion.div variants={fadeUpItem}>
               <Typography as="h2" size={32} weight="semibold" tone="default" className="mb-6 md:text-40">
-                Connection came before code.
+                {t.title}
               </Typography>
             </motion.div>
             <motion.div variants={fadeUpItem}>
               <Typography as="p" size={16} tone="muted" className="leading-[1.8] md:text-18">
-              SEE is the digital evolution of a proven offline model. It began in 2023 with SEEvrce, where we
-              manually curated small communities and organized offline Spaces for young people. As the community
-              grew, we established the NGO Youth Space of Georgia in 2024 to expand our impact. One of the people
-              we met through those early Spaces later joined the team building SEE. It was a reminder that
-              bringing the right people together can create opportunities far beyond a single event. First, we
-              built spaces for people manually. Now, we’re building the technology to help everyone find their
-              space.
+              {t.body}
               </Typography>
             </motion.div>
           </div>
 
           {/* Right: timeline */}
           <div className="timeline-list">
-            {timeline.map((t, i) => (
-              <motion.div key={t.year} variants={fadeUpItem} className="timeline-row" style={{ display: 'flex', gap: '1.25rem' }}>
+            {timeline.map((event, i) => (
+              <motion.div key={event.id} variants={fadeUpItem} className="timeline-row" style={{ display: 'flex', gap: '1.25rem' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '10px', flexShrink: 0 }}>
                   <div
                     className="timeline-dot"
@@ -162,12 +157,12 @@ function StorySection() {
                   }}
                 >
                   <Typography size={13} tone="accent" className="font-mono tracking-[0.05em]">
-                    {t.year}
+                    {event.year}
                   </Typography>
                   <Typography as="h3" size={18} weight="semibold" tone="default" className="my-1.5">
-                    {t.title}
+                    {t.timeline[event.id].title}
                   </Typography>
-                  <Typography as="p" size={14} tone="muted">{t.desc}</Typography>
+                  <Typography as="p" size={14} tone="muted">{t.timeline[event.id].desc}</Typography>
                 </div>
               </motion.div>
             ))}
@@ -183,7 +178,7 @@ function StorySection() {
 /*  Section 2 — The Intention                                        */
 /* ---------------------------------------------------------------- */
 
-function IntentionSection() {
+function IntentionSection({ t }: { t: AboutProps['intention'] }) {
   const [selected, setSelected] = useState<number | null>(null);
 
   return (
@@ -208,17 +203,17 @@ function IntentionSection() {
         >
           <motion.div variants={fadeUpItem}>
 
-            <Eyebrow label="The Intention" />
+            <Eyebrow label={t.eyebrow} />
 
           </motion.div>
           <motion.div variants={fadeUpItem}>
             <Typography as="h2" size={32} weight="semibold" tone="default" className="mb-4 md:text-40">
-              What are you looking for?
+              {t.title}
             </Typography>
           </motion.div>
           <motion.div variants={fadeUpItem}>
             <Typography as="p" size={18} tone="muted" className="mx-auto max-w-lg">
-              Choose what matters most right now. Every Space is built around a single intention.
+              {t.description}
             </Typography>
           </motion.div>
         </motion.div>
@@ -238,7 +233,7 @@ function IntentionSection() {
             const isSelected = selected === i;
             return (
               <motion.div
-                key={it.title}
+                key={it.id}
                 variants={fadeUpItem}
                 onClick={() => setSelected(i)}
                 whileHover={{ y: -6 }}
@@ -282,9 +277,9 @@ function IntentionSection() {
                   <it.icon size={24} />
                 </div>
                 <Typography as="h3" size={20} weight="semibold" tone="default" className="mb-2">
-                  {it.title}
+                  {t.items[it.id].title}
                 </Typography>
-                <Typography as="p" size={16} tone="muted">{it.desc}</Typography>
+                <Typography as="p" size={16} tone="muted">{t.items[it.id].desc}</Typography>
               </motion.div>
             );
           })}
@@ -299,7 +294,7 @@ function IntentionSection() {
 /*  Section 3 — How SEE Works                                        */
 /* ---------------------------------------------------------------- */
 
-function HowItWorksSection() {
+function HowItWorksSection({ t }: { t: AboutProps['howItWorks'] }) {
   return (
     <section
       id="how-it-works"
@@ -322,17 +317,17 @@ function HowItWorksSection() {
         >
           <motion.div variants={fadeUpItem}>
 
-            <Eyebrow label="How It Works" />
+            <Eyebrow label={t.eyebrow} />
 
           </motion.div>
           <motion.div variants={fadeUpItem}>
             <Typography as="h2" size={32} weight="semibold" tone="default" className="mb-4 md:text-40">
-              Less searching. More belonging.
+              {t.title}
             </Typography>
           </motion.div>
           <motion.div variants={fadeUpItem}>
             <Typography as="p" size={18} tone="muted" className="mx-auto max-w-xl">
-              From a simple introduction to a real connection.
+              {t.description}
             </Typography>
           </motion.div>
         </motion.div>
@@ -350,7 +345,7 @@ function HowItWorksSection() {
         >
           {steps.map((s) => (
             <motion.div
-              key={s.number}
+              key={s.id}
               variants={fadeUpItem}
               whileHover={{ y: -6 }}
               transition={{ duration: 0.3, ease: easeOutExpo }}
@@ -396,9 +391,9 @@ function HowItWorksSection() {
                 <s.icon size={22} />
               </div>
               <Typography as="h3" size={18} weight="semibold" tone="default" className="relative mb-2">
-                {s.title}
+                {t.steps[s.id].title}
               </Typography>
-              <Typography as="p" size={14} tone="muted" className="relative">{s.desc}</Typography>
+              <Typography as="p" size={14} tone="muted" className="relative">{t.steps[s.id].desc}</Typography>
             </motion.div>
           ))}
         </motion.div>
@@ -412,7 +407,7 @@ function HowItWorksSection() {
 /*  Section 4 — Why Us (feature grid)                                  */
 /* ---------------------------------------------------------------- */
 
-function WhyUsSection() {
+function WhyUsSection({ t }: { t: AboutProps['whyUs'] }) {
   return (
     <section
       id="why-us"
@@ -435,17 +430,17 @@ function WhyUsSection() {
         >
           <motion.div variants={fadeUpItem}>
 
-            <Eyebrow label="Why SEE" />
+            <Eyebrow label={t.eyebrow} />
 
           </motion.div>
           <motion.div variants={fadeUpItem}>
             <Typography as="h2" size={32} weight="semibold" tone="default" className="mb-4 md:text-40">
-              Why SEE?
+              {t.title}
             </Typography>
           </motion.div>
           <motion.div variants={fadeUpItem}>
             <Typography as="p" size={18} tone="muted" className="mx-auto max-w-xl">
-              Four commitments baked into every Space we build.
+              {t.description}
             </Typography>
           </motion.div>
         </motion.div>
@@ -464,7 +459,7 @@ function WhyUsSection() {
         >
           {features.map((f) => (
             <motion.div
-              key={f.title}
+              key={f.id}
               variants={fadeUpItem}
               whileHover={{ y: -6 }}
               transition={{ duration: 0.3, ease: easeOutExpo }}
@@ -494,8 +489,8 @@ function WhyUsSection() {
               >
                 <f.icon size={22} />
               </div>
-              <Typography as="h3" size={18} weight="semibold" tone="default" className="mb-2">{f.title}</Typography>
-              <Typography as="p" size={14} tone="muted">{f.desc}</Typography>
+              <Typography as="h3" size={18} weight="semibold" tone="default" className="mb-2">{t.items[f.id].title}</Typography>
+              <Typography as="p" size={14} tone="muted">{t.items[f.id].desc}</Typography>
             </motion.div>
           ))}
         </motion.div>
@@ -509,13 +504,13 @@ function WhyUsSection() {
 /*  Export                                                          */
 /* ---------------------------------------------------------------- */
 
-export default function About() {
+export default function About({ story, intention, howItWorks, whyUs }: AboutProps) {
   return (
     <>
-      <StorySection />
-      <IntentionSection />
-      <HowItWorksSection />
-      <WhyUsSection />
+      <StorySection t={story} />
+      <IntentionSection t={intention} />
+      <HowItWorksSection t={howItWorks} />
+      <WhyUsSection t={whyUs} />
     </>
   );
 }

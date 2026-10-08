@@ -8,9 +8,9 @@ import Eyebrow from '@/components/ui/Eyebrow';
 import Typography from '@/components/ui/Typography';
 
 import { isValidEmail } from '@/lib/validation';
-import type { WaitlistStatus } from '@/types/sections';
+import type { WaitlistProps, WaitlistStatus } from '@/types/sections';
 
-export default function Waitlist() {
+export default function Waitlist({ t }: WaitlistProps) {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<WaitlistStatus>('idle');
   const [focused, setFocused] = useState(false);
@@ -78,13 +78,13 @@ export default function Waitlist() {
           textAlign: 'center'
         }}
       >
-        <Eyebrow label="Early Access" />
+        <Eyebrow label={t.eyebrow} />
 
         <Typography as="h2" size={28} weight="semibold" tone="default" className="mb-3 md:text-36">
-          Ready to find your space?
+          {t.title}
         </Typography>
         <Typography as="p" tone="muted" className="mx-auto mb-9 max-w-md">
-          Get early access and be the first to experience SEE when it opens up near you.
+          {t.description}
         </Typography>
 
         <AnimatePresence mode="wait">
@@ -109,8 +109,8 @@ export default function Waitlist() {
               }}>
                 <CheckCircle2 size={26} color="#47bdb2" />
               </div>
-              <Typography as="p" weight="medium" tone="default" className="mb-1">You&apos;re on the list!</Typography>
-              <Typography as="p" size={14} tone="muted">We&apos;ll email you the moment spots open up.</Typography>
+              <Typography as="p" weight="medium" tone="default" className="mb-1">{t.successTitle}</Typography>
+              <Typography as="p" size={14} tone="muted">{t.successBody}</Typography>
             </motion.div>
           ) : (
             <motion.form
@@ -149,15 +149,15 @@ export default function Waitlist() {
                   }}
                   onFocus={() => setFocused(true)}
                   onBlur={() => setFocused(false)}
-                  placeholder="you@email.com"
+                  placeholder={t.emailPlaceholder}
                   style={{ flex: 1, background: 'transparent', outline: 'none', border: 'none', fontSize: '0.875rem', color: '#ffffff', width: '100%' }}
-                  aria-label="Email address"
+                  aria-label={t.emailLabel}
                 />
               </div>
 
               <Button
                 type="submit"
-                label="Get Early Access"
+                label={t.submit}
                 rightIcon={<ArrowRight size={15} />}
                 isLoading={status === 'loading'}
               />
@@ -171,12 +171,12 @@ export default function Waitlist() {
             animate={{ opacity: 1, y: 0 }}
             style={{ color: '#fb7185', fontSize: '0.75rem', marginTop: '0.75rem' }}
           >
-            Please enter a valid email address or try again.
+            {t.error}
           </motion.p>
         )}
 
         {status !== 'success' && (
-          <Typography as="p" size={12} tone="muted" className="mt-5">No spam. Unsubscribe anytime.</Typography>
+          <Typography as="p" size={12} tone="muted" className="mt-5">{t.noSpam}</Typography>
         )}
       </motion.div>
       </div>

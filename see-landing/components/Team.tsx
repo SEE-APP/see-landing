@@ -6,18 +6,20 @@ import { easeOutExpo, fadeUpItem, staggerContainer } from '@/lib/motion';
 import LinkedInIcon from '@/assets/icons/LinkedInIcon';
 import Eyebrow from '@/components/ui/Eyebrow';
 import Typography from '@/components/ui/Typography';
+import { format } from '@/i18n/format';
+import type { TeamProps } from '@/types/sections';
 
 /* ---------------------------------------------------------------- */
 /*  LinkedIn badge — small circular icon docked on the avatar's edge */
 /* ---------------------------------------------------------------- */
 
-function LinkedInBadge({ href, name }: { href: string; name: string }) {
+function LinkedInBadge({ href, label }: { href: string; label: string }) {
   return (
     <motion.a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label={`${name} on LinkedIn`}
+      aria-label={label}
       onClick={(e) => e.stopPropagation()}
       initial={{ opacity: 0, scale: 0.6 }}
       animate={{ opacity: 1, scale: 1 }}
@@ -50,7 +52,7 @@ function LinkedInBadge({ href, name }: { href: string; name: string }) {
 /*  Team Section                                                    */
 /* ---------------------------------------------------------------- */
 
-export default function Team() {
+export default function Team({ t }: TeamProps) {
   return (
     <section
       id="team"
@@ -73,18 +75,16 @@ export default function Team() {
           style={{ textAlign: 'center', marginBottom: '3.5rem' }}
         >
           <motion.div variants={fadeUpItem}>
-            <Eyebrow label="The Team" />
+            <Eyebrow label={t.eyebrow} />
           </motion.div>
           <motion.div variants={fadeUpItem}>
             <Typography as="h2" size={32} weight="semibold" tone="default" className="mb-4 md:text-40">
-              Powered by a real community.
+              {t.title}
             </Typography>
           </motion.div>
           <motion.div variants={fadeUpItem}>
             <Typography as="p" size={18} tone="muted" className="mx-auto max-w-2xl leading-relaxed">
-              SEE is brought to life by a dedicated execution team of project managers, designers, and community
-              builders. We aren&apos;t just building an app; we already have the
-              community and the operational team to launch, test, and scale.
+              {t.description}
             </Typography>
           </motion.div>
         </motion.div>
@@ -101,67 +101,70 @@ export default function Team() {
             gap: '1.5rem',
           }}
         >
-          {team.map((member) => (
-            <motion.div
-              key={member.name + member.role}
-              variants={fadeUpItem}
-              whileHover={{ y: -6 }}
-              transition={{ duration: 0.3, ease: easeOutExpo }}
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                textAlign: 'center',
-                background: 'rgba(255, 255, 255, 0.03)',
-                backdropFilter: 'blur(20px)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
-                borderRadius: '1.5rem',
-                padding: '2rem 1.5rem',
-                cursor: 'default',
-              }}
-            >
-              <div
+          {team.map((member) => {
+            const { name, role } = t.members[member.id];
+            return (
+              <motion.div
+                key={member.id}
+                variants={fadeUpItem}
+                whileHover={{ y: -6 }}
+                transition={{ duration: 0.3, ease: easeOutExpo }}
                 style={{
-                  position: 'relative',
-                  width: '116px',
-                  height: '116px',
-                  marginBottom: '1.25rem',
-                  flexShrink: 0,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  textAlign: 'center',
+                  background: 'rgba(255, 255, 255, 0.03)',
+                  backdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  borderRadius: '1.5rem',
+                  padding: '2rem 1.5rem',
+                  cursor: 'default',
                 }}
               >
                 <div
                   style={{
+                    position: 'relative',
                     width: '116px',
                     height: '116px',
-                    borderRadius: '50%',
-                    overflow: 'hidden',
-                    border: '2px solid rgba(71, 189, 178, 0.4)',
-                    boxShadow: '0 0 0 4px rgba(71, 189, 178, 0.08)',
+                    marginBottom: '1.25rem',
+                    flexShrink: 0,
                   }}
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={member.avatar}
-                    alt={member.name}
-                    width={116}
-                    height={116}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                    draggable={false}
-                  />
+                  <div
+                    style={{
+                      width: '116px',
+                      height: '116px',
+                      borderRadius: '50%',
+                      overflow: 'hidden',
+                      border: '2px solid rgba(71, 189, 178, 0.4)',
+                      boxShadow: '0 0 0 4px rgba(71, 189, 178, 0.08)',
+                    }}
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={member.avatar}
+                      alt={name}
+                      width={116}
+                      height={116}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                      draggable={false}
+                    />
+                  </div>
+
+                  {member.linkedin && <LinkedInBadge href={member.linkedin} label={format(t.linkedinLabel, { name })} />}
                 </div>
 
-                {member.linkedin && <LinkedInBadge href={member.linkedin} name={member.name} />}
-              </div>
+                <Typography as="h3" size={18} weight="semibold" tone="default" className="mb-1.5">
+                  {name}
+                </Typography>
 
-              <Typography as="h3" size={18} weight="semibold" tone="default" className="mb-1.5">
-                {member.name}
-              </Typography>
-
-              <Typography size={12} tone="accent" className="font-mono uppercase tracking-[0.06em]">
-                {member.role}
-              </Typography>
-            </motion.div>
-          ))}
+                <Typography size={12} tone="accent" className="font-mono uppercase tracking-[0.06em]">
+                  {role}
+                </Typography>
+              </motion.div>
+            );
+          })}
         </motion.div>
       </div>
       </div>

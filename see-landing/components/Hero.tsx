@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import { Fragment, useEffect, useRef } from 'react';
 import Typography from '@/components/ui/Typography';
+import type { HeroProps } from '@/types/sections';
 
-export default function Hero() {
+export default function Hero({ t }: HeroProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -272,14 +273,16 @@ export default function Hero() {
       <div className="content-wrapper">
         
         <Typography as="h1" size={36} weight="extrabold" tone="default" className="mb-4 md:text-48 lg:text-64">
-          Find Your Space<br />
-          Find Your People
+          {t.titleLines.map((line, i) => (
+            <Fragment key={line}>
+              {i > 0 && <br />}
+              {line}
+            </Fragment>
+          ))}
         </Typography>
 
         <Typography as="p" size={16} tone="muted" className="mx-auto mb-10 max-w-[680px] md:text-18">
-          SEE matches you into curated micro-groups based on shared interests,
-          values, goals, and skills. Choose your intention whether you&apos;re building a
-          team or finding new friends.
+          {t.description}
         </Typography>
 
         <div className="see-connect-box">
@@ -301,7 +304,7 @@ export default function Hero() {
           <div className="box-inner">
             <div className="svg-wrapper">
               <div className="logo-frame">
-                <img src="/see-logo.png" alt="SEE logo" />
+                <img src="/see-logo.png" alt={t.logoAlt} />
 
                 <svg viewBox="0 0 1508 2328" xmlns="http://www.w3.org/2000/svg">
                   <line className="see-line" x1="1389" y1="95"   x2="1357" y2="482"  stroke="#ffffff" strokeWidth="16" strokeLinecap="round" strokeDasharray="3200" style={{ animation: 'seeLineDraw 6s ease-in-out infinite', animationDelay: '0s' }} />
@@ -332,8 +335,8 @@ export default function Hero() {
             </div>
 
             <div className="text-wrapper" style={{ position: 'relative', zIndex: 1, fontSize: 'clamp(1.1rem, 2vw, 1.3rem)', fontWeight: 600, letterSpacing: '-0.01em', lineHeight: 1.3 }}>
-              <span className="rc-text" style={{ color: '#47bdb2' }}>Real connections </span>
-              <span className="rc-text" style={{ color: '#e2e8f0' }}>start here</span>
+              <span className="rc-text" style={{ color: '#47bdb2' }}>{t.taglineAccent} </span>
+              <span className="rc-text" style={{ color: '#e2e8f0' }}>{t.taglineRest}</span>
             </div>
           </div>
         </div>

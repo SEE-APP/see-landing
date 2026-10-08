@@ -9,7 +9,7 @@ import Button from '@/components/ui/Button';
 import Eyebrow from '@/components/ui/Eyebrow';
 import Typography from '@/components/ui/Typography';
 
-export default function Demo({ videoSrc = 'https://www.youtube.com/embed/n0v4iKcuBoQ' }: DemoProps) {
+export default function Demo({ t, waitlistHref, videoSrc = 'https://www.youtube.com/embed/n0v4iKcuBoQ' }: DemoProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const showVideo = Boolean(videoSrc) && isPlaying;
 
@@ -26,16 +26,16 @@ export default function Demo({ videoSrc = 'https://www.youtube.com/embed/n0v4iKc
           style={{ textAlign: 'center', marginBottom: '3rem' }}
         >
           <motion.div variants={fadeUpItem}>
-            <Eyebrow label="The Product" />
+            <Eyebrow label={t.eyebrow} />
           </motion.div>
           <motion.div variants={fadeUpItem}>
             <Typography as="h2" size={32} weight="semibold" tone="default" className="mb-4 md:text-40">
-              See it in action.
+              {t.title}
             </Typography>
           </motion.div>
           <motion.div variants={fadeUpItem}>
             <Typography as="p" size={18} tone="muted" className="mx-auto max-w-xl">
-              See how an online introduction becomes a real-world connection.
+              {t.description}
             </Typography>
           </motion.div>
         </motion.div>
@@ -61,7 +61,7 @@ export default function Demo({ videoSrc = 'https://www.youtube.com/embed/n0v4iKc
           {showVideo ? (
             <iframe
               src={`${videoSrc}?autoplay=1&rel=0`}
-              title="SEE demo video"
+              title={t.videoTitle}
               allow="autoplay; encrypted-media; picture-in-picture"
               allowFullScreen
               style={{ width: '100%', height: '100%', border: 'none' }}
@@ -98,7 +98,7 @@ export default function Demo({ videoSrc = 'https://www.youtube.com/embed/n0v4iKc
                 <span style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#475569' }} />
                 <span style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#475569' }} />
                 <span style={{ margin: '0 auto', fontSize: '11px', fontFamily: 'monospace', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#64748b' }}>
-                  Prototype Walkthrough
+                  {t.playerLabel}
                 </span>
               </div>
 
@@ -121,7 +121,7 @@ export default function Demo({ videoSrc = 'https://www.youtube.com/embed/n0v4iKc
                     border: '1px solid rgba(255, 255, 255, 0.2)',
                     cursor: 'pointer'
                   }}
-                  aria-label="Play demo video"
+                  aria-label={t.playLabel}
                 >
                   <motion.span
                     style={{ position: 'absolute', inset: 0, borderRadius: '50%', border: '2px solid #47bdb2' }}
@@ -149,7 +149,7 @@ export default function Demo({ videoSrc = 'https://www.youtube.com/embed/n0v4iKc
                 color: '#cbd5e1',
                 zIndex: 2
               }}>
-                Preview
+                {t.previewBadge}
               </div>
             </>
           )}
@@ -158,12 +158,12 @@ export default function Demo({ videoSrc = 'https://www.youtube.com/embed/n0v4iKc
         {/* Call to Action / Caption */}
         <div className="mt-8 flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
           <Typography as="p" size={16} weight="medium" tone="default">
-            Ready to find your space?
+            {t.ctaPrompt}
           </Typography>
           <Button
             variant="text"
-            href="/#waitlist"
-            label="Get early access"
+            href={waitlistHref}
+            label={t.ctaLabel}
             rightIcon={<ArrowRight size={16} />}
           />
         </div>

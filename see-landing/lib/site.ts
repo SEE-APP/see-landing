@@ -1,10 +1,11 @@
+import type { Locale } from '@/i18n/config';
 import type { ContactDetail, NavLink, SocialLink } from '@/types/site';
 
 export const navLinks: NavLink[] = [
-  { label: 'About', href: '/#about' },
-  { label: 'Team', href: '/#team' },
-  { label: 'Demo', href: '/#demo' },
-  { label: 'Early Access', href: '/#waitlist' },
+  { id: 'about', hash: '#about' },
+  { id: 'team', hash: '#team' },
+  { id: 'demo', hash: '#demo' },
+  { id: 'waitlist', hash: '#waitlist' },
 ];
 
 export const contactDetails: ContactDetail[] = [
@@ -13,7 +14,11 @@ export const contactDetails: ContactDetail[] = [
 ];
 
 export const socialLinks: SocialLink[] = [
-  { id: 'instagram', label: 'Instagram', href: 'https://instagram.com/seevrce' },
-  { id: 'linkedin', label: 'LinkedIn', href: 'https://linkedin.com/company/seevrce' },
-  { id: 'tiktok', label: 'TikTok', href: 'https://tiktok.com/@seevrce' },
+  { id: 'instagram', href: 'https://instagram.com/seevrce' },
+  { id: 'linkedin', href: 'https://linkedin.com/company/seevrce' },
+  { id: 'tiktok', href: 'https://tiktok.com/@seevrce' },
 ];
+
+export function homeHref(locale: Locale, hash = ''): string {
+  return `/${locale}${hash}`;
+}
