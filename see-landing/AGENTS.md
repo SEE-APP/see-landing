@@ -19,8 +19,7 @@ This file is the single source of project rules for every AI tool (Cursor reads 
 
 ## Stack
 
-Next.js 16.2 App Router · React 19.2 · TypeScript 5 strict · Tailwind (v3 installed, v4 is the
-target — see Known debt) · lucide-react · Formspree (waitlist) · Framer Motion 12 (by exception
+Next.js 16.2 App Router · React 19.2 · TypeScript 5 strict · Tailwind v4 (`@tailwindcss/postcss`) · lucide-react · Formspree (waitlist) · Framer Motion 12 (by exception
 only) · `geist` font package · ESLint 9 (`eslint-config-next`). No test runner.
 
 ## Commands
@@ -77,9 +76,19 @@ before editing those files.
 ## Structure
 
 ```
-app/            layout.tsx (fonts, root metadata), page.tsx (composes sections), globals.css
-components/     section components — today flat: Navbar, Hero, About, Team, Demo, Waitlist, Footer
-public/         logo, favicon, team photos
+app/                layout.tsx (Navbar + main + Footer, root metadata), page.tsx (composes sections), globals.css (Tailwind import, utilities, base styles)
+assets/icons/       custom SVG icon components, one per file (lucide-react for the rest)
+components/common/  Navbar, Footer (rendered in the root layout)
+components/ui/      Typography, Button, Eyebrow (server-safe primitives; use them for all text and buttons)
+components/         section components, still flat: Hero, About, Team, Demo, Waitlist
+lib/site.ts         site data: nav links, contact details, social links
+lib/content/        page copy and lists: team.ts, about.ts (timeline, intentions, steps, features)
+lib/motion.ts       shared Framer Motion variants (staggerContainer, fadeUpItem, easeOutExpo)
+lib/validation.ts   isValidEmail
+lib/cn.ts           className joiner (no clsx/tailwind-merge: don't pass a class that conflicts with a variant's)
+types/              all shared types: content.ts, site.ts, sections.ts, ui.ts (component props)
+styles/variables.css  design tokens (@theme) and layout variables (gutters, header height)
+public/             logo, favicon, team photos
 ```
 Target layout (move a file when you touch it; ask before bulk moves):
 `components/landing/` (Hero, About, Team, Demo), `components/common/` (Navbar, Footer, MobileNav),
@@ -92,6 +101,9 @@ Target layout (move a file when you touch it; ask before bulk moves):
 - Reuse before writing: `reuse-first` skill, `.claude/skills/reuse-first/catalog.md` and
   `known-duplicates.md`. The second copy is the trigger to promote to `components/ui/`; don't
   pre-abstract for a single use.
+- Component files hold rendering only: data and copy go in `lib/content/` or `lib/site.ts`, types
+  and prop interfaces in `types/`, helpers in `lib/`. Icons in data are component references
+  (`icon: Users`), not JSX.
 - KISS. Three similar lines beat a premature helper. Split components past ~200 lines.
 - Hooks discipline (`react-discipline` skill): no memoization without a measured reason; derive
   instead of syncing state in effects; clean up every listener/observer.
@@ -106,26 +118,31 @@ Target layout (move a file when you touch it; ask before bulk moves):
 
 Dark surface `dark-500` `#0f172a`; accent is the teal `primary` scale — `primary-200` `#7DD6CD`,
 `300` `#47BDB2`, `400` `#2FA399`, `500` `#22988E` (main), `600` `#177B72`. Secondary text
-`slate-400`. Defined in `tailwind.config.ts` (→ `@theme` in `globals.css` after the v4 migration).
-One accent family; add missing tokens to the theme, not to JSX. Design references for structure
+`slate-400`, footer surface `dark-700`. Defined in `@theme` in `styles/variables.css`.
+One accent family; add missing tokens to the theme, not to JSX.
+
+Safe grid: wrap content in `page-container` (max 1440px content, side gutter `--gutter-x`: 20px
+mobile, 40px from 768px, never less than the device safe area) and use `page-section` /
+`--gutter-y` (20px / 40px) for vertical rhythm.
+
+Type scale: `--text-10` … `--text-64` in `@theme` (classes `text-14`, `text-40`, …, each with its
+line height). Use `Typography` (`size`, `weight`, `tone`, `as`); responsive steps go in
+`className` (`size={32} className="md:text-40"`). Buttons: `Button` (`filled` = teal pill with
+dark text for contrast, `outline`, `text`, `icon`; `href` renders a `next/link`). Design references for structure
 only: `.claude/design-references/`.
 
 ## Known debt (fix opportunistically, don't let it spread)
 
-- Tailwind v3 and `@tailwindcss/postcss` v4 are both installed and `postcss.config.mjs` has no
-  plugins — verify what actually compiles; migrate to v4 as its own task.
-- All 7 components are `'use client'` (70–630 lines); Framer Motion in `About`, `Team`, `Demo`,
-  `Waitlist`.
-- Inline styles: `<body style>` in `app/layout.tsx`; inline styles + `onMouseOver`/`onMouseOut`
-  hover handlers in `components/Navbar.tsx`; many static `style={{}}` in sections.
-- `!important` and tag selectors (`nav { … }`) in `app/globals.css`; hex colours throughout.
+- All 5 section components are `'use client'` (70–630 lines); Framer Motion in `About`, `Team`,
+  `Demo`, `Waitlist`.
+- Many static `style={{}}` and hex colours in the sections.
 - Raw `<img>` in `components/Hero.tsx` and `components/Team.tsx`; team photos are JPG.
 - `geist` installed but unused; body uses a system font stack.
 - Waitlist `fetch`es Formspree from the client with the form id hardcoded
   (`components/Waitlist.tsx`) → Server Action + env var.
 - Metadata is title/description/icons only: no `metadataBase`, OG, Twitter, canonical, sitemap,
   robots or OG image.
-- Duplicates: `Eyebrow` in About + Team, LinkedIn icon in Footer + Team (`known-duplicates.md`).
+- Duplicates: see `known-duplicates.md`.
 - No tests.
 
 ## Agents, skills and workflow

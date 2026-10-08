@@ -5,7 +5,5 @@ when it's fixed.
 
 | What | Copies | Canonical (target) |
 |---|---|---|
-| `Eyebrow` section label pill | `components/About.tsx`, `components/Team.tsx` | `components/ui/Eyebrow.tsx` (Server Component, CSS animation) |
-| LinkedIn icon | `LinkedInIcon` in `components/Footer.tsx`, `LinkedInBadge` in `components/Team.tsx` | one icon in `components/ui/`, the badge composes it |
-| Framer Motion `container`/`item` variants | each section file | CSS keyframes in `globals.css` (motion policy) |
-| Section heading styles (h2 size, tracking, subtitle colour) | inline `style` in About, Team, Demo, Waitlist | `components/ui/SectionHeading.tsx` or Tailwind classes |
+| Framer Motion variants (now shared in `lib/motion.ts`) | About, Team, Demo | CSS keyframes in `globals.css` (motion policy) |
+| Section header block (Eyebrow + h2 `size={32} md:text-40` + muted `size={18}` subtitle) | About (4×), Team, Demo | `components/ui/SectionHeading.tsx` built on `Typography` |

@@ -1,6 +1,6 @@
 ---
-description: Styling rules for the SEE landing page — Tailwind theme tokens, v4 target, keyframes, contrast
-globs: app/**/*.css,tailwind.config.ts,postcss.config.mjs
+description: Styling rules for the SEE landing page — Tailwind v4, tokens in styles/variables.css, keyframes, contrast
+globs: app/**/*.css,styles/**/*.css,postcss.config.mjs
 alwaysApply: false
 ---
 
