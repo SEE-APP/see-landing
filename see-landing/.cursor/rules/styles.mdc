@@ -1,0 +1,7 @@
+---
+description: Styling rules for the SEE landing page — Tailwind theme tokens, v4 target, keyframes, contrast
+globs: app/**/*.css,tailwind.config.ts,postcss.config.mjs
+alwaysApply: false
+---
+
+Follow the styling rules in @.claude/rules/styles.md (single source; shared with Claude Code).

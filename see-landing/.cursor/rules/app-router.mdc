@@ -1,0 +1,7 @@
+---
+description: App Router and next.config rules for the SEE landing page — static rendering on Vercel, Metadata API, layout, Server Actions
+globs: app/**/*.tsx,app/**/*.ts,next.config.ts
+alwaysApply: false
+---
+
+Follow the App Router rules in @.claude/rules/app-router.md (single source; shared with Claude Code).
