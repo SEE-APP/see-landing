@@ -1,12 +1,29 @@
 import type { Locale } from '@/i18n/config';
 import type { ContactDetail, NavLink, SocialLink } from '@/types/site';
 
-export const navLinks: NavLink[] = [
+export const primaryNavLinks: NavLink[] = [
+  { id: 'howItWorks', hash: '#how-it-works' },
   { id: 'about', hash: '#about' },
-  { id: 'team', hash: '#team' },
-  { id: 'demo', hash: '#demo' },
-  { id: 'waitlist', hash: '#waitlist' },
+  { id: 'news', hash: '#news' },
 ];
+
+export const moreNavLinks: NavLink[] = [
+  { id: 'team', hash: '#team' },
+  { id: 'investors', hash: '#investors' },
+  { id: 'faq', hash: '#faq' },
+  { id: 'contact', hash: '#contact' },
+];
+
+export const footerLinks: NavLink[] = [
+  { id: 'howItWorks', hash: '#how-it-works' },
+  { id: 'about', hash: '#about' },
+  { id: 'news', hash: '#news' },
+  { id: 'investors', hash: '#investors' },
+  { id: 'faq', hash: '#faq' },
+  { id: 'contact', hash: '#contact' },
+];
+
+export const ctaHash = '#waitlist';
 
 export const contactDetails: ContactDetail[] = [
   { id: 'email', label: 'contact@seevrce.ge', href: 'mailto:contact@seevrce.ge' },
