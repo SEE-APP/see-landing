@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
+import Typography from '@/components/ui/Typography';
 
 export default function Hero() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -107,7 +108,7 @@ export default function Hero() {
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#0f172a',
-        padding: '0 1.5rem',
+        padding: 0,
         overflow: 'hidden',
         textAlign: 'center',
         userSelect: 'none',
@@ -267,36 +268,19 @@ export default function Hero() {
         }
       `}</style>
 
+      <div className="page-container relative z-1">
       <div className="content-wrapper">
         
-        <h1
-          style={{
-            fontSize: 'clamp(2.2rem, 5vw, 4rem)',
-            fontWeight: 800,
-            color: '#ffffff',
-            lineHeight: 1.1,
-            letterSpacing: '-0.02em',
-            marginBottom: '1rem',
-          }}
-        >
+        <Typography as="h1" size={36} weight="extrabold" tone="default" className="mb-4 md:text-48 lg:text-64">
           Find Your Space<br />
           Find Your People
-        </h1>
+        </Typography>
 
-        <p
-          style={{
-            fontSize: 'clamp(0.95rem, 1.8vw, 1.15rem)',
-            color: '#94a3b8',
-            lineHeight: 1.6,
-            marginBottom: '2.5rem',
-            maxWidth: '680px',
-            margin: '0 auto 2.5rem',
-          }}
-        >
+        <Typography as="p" size={16} tone="muted" className="mx-auto mb-10 max-w-[680px] md:text-18">
           SEE matches you into curated micro-groups based on shared interests,
-          values, goals, and skills. Choose your intention whether you're building a
+          values, goals, and skills. Choose your intention whether you&apos;re building a
           team or finding new friends.
-        </p>
+        </Typography>
 
         <div className="see-connect-box">
           <div
@@ -354,6 +338,7 @@ export default function Hero() {
           </div>
         </div>
 
+      </div>
       </div>
     </section>
   );

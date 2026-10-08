@@ -2,15 +2,17 @@
 
 import { useState, FormEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, ArrowRight, Loader2, CheckCircle2 } from 'lucide-react';
+import { Mail, ArrowRight, CheckCircle2 } from 'lucide-react';
+import Button from '@/components/ui/Button';
+import Eyebrow from '@/components/ui/Eyebrow';
+import Typography from '@/components/ui/Typography';
 
-type Status = 'idle' | 'loading' | 'success' | 'error';
-
-const isValidEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+import { isValidEmail } from '@/lib/validation';
+import type { WaitlistStatus } from '@/types/sections';
 
 export default function Waitlist() {
   const [email, setEmail] = useState('');
-  const [status, setStatus] = useState<Status>('idle');
+  const [status, setStatus] = useState<WaitlistStatus>('idle');
   const [focused, setFocused] = useState(false);
 
   const handleSubmit = async (e: FormEvent) => {
@@ -42,7 +44,7 @@ export default function Waitlist() {
   };
 
   return (
-    <section id="waitlist" style={{ backgroundColor: '#0f172a', padding: '6rem 1.5rem', position: 'relative', overflow: 'hidden', userSelect: 'none' }}>
+    <section id="waitlist" style={{ backgroundColor: '#0f172a', padding: '6rem 0', position: 'relative', overflow: 'hidden', userSelect: 'none' }}>
       {/* Ambient glow behind the card */}
       <div style={{
         position: 'absolute',
@@ -57,6 +59,7 @@ export default function Waitlist() {
         backgroundColor: 'rgba(34, 152, 142, 0.15)'
       }} />
 
+      <div className="page-container">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -75,29 +78,14 @@ export default function Waitlist() {
           textAlign: 'center'
         }}
       >
-        <div style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '0.5rem',
-          padding: '0.375rem 1rem',
-          borderRadius: '9999px',
-          marginBottom: '1.5rem',
-          background: 'rgba(255, 255, 255, 0.03)',
-          backdropFilter: 'blur(20px)',
-          border: '1px solid rgba(255, 255, 255, 0.08)'
-        }}>
-          <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#47bdb2' }} />
-          <span style={{ fontSize: '11px', fontFamily: 'monospace', letterSpacing: '0.15em', color: '#cbd5e1', textTransform: 'uppercase' }}>
-            Early Access
-          </span>
-        </div>
+        <Eyebrow label="Early Access" />
 
-        <h2 style={{ fontSize: '2.25rem', fontWeight: 600, color: '#ffffff', marginBottom: '0.75rem', letterSpacing: '-0.025em' }}>
+        <Typography as="h2" size={28} weight="semibold" tone="default" className="mb-3 md:text-36">
           Ready to find your space?
-        </h2>
-        <p style={{ color: '#94a3b8', fontSize: '1rem', marginBottom: '2.25rem', maxWidth: '28rem', margin: '0 auto 2.25rem auto', lineHeight: '1.5' }}>
+        </Typography>
+        <Typography as="p" tone="muted" className="mx-auto mb-9 max-w-md">
           Get early access and be the first to experience SEE when it opens up near you.
-        </p>
+        </Typography>
 
         <AnimatePresence mode="wait">
           {status === 'success' ? (
@@ -121,8 +109,8 @@ export default function Waitlist() {
               }}>
                 <CheckCircle2 size={26} color="#47bdb2" />
               </div>
-              <p style={{ color: '#ffffff', fontWeight: 500, marginBottom: '0.25rem' }}>You're on the list!</p>
-              <p style={{ color: '#94a3b8', fontSize: '0.875rem' }}>We'll email you the moment spots open up.</p>
+              <Typography as="p" weight="medium" tone="default" className="mb-1">You&apos;re on the list!</Typography>
+              <Typography as="p" size={14} tone="muted">We&apos;ll email you the moment spots open up.</Typography>
             </motion.div>
           ) : (
             <motion.form
@@ -167,35 +155,12 @@ export default function Waitlist() {
                 />
               </div>
 
-              <button
+              <Button
                 type="submit"
-                disabled={status === 'loading'}
-                style={{
-                  backgroundColor: '#22988e',
-                  color: '#ffffff',
-                  padding: '0.875rem 1.5rem',
-                  borderRadius: '9999px',
-                  border: 'none',
-                  fontSize: '0.875rem',
-                  fontWeight: 500,
-                  cursor: 'pointer',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '0.5rem',
-                  boxShadow: '0 0 25px rgba(34, 152, 142, 0.4)',
-                  transition: 'all 0.3s ease',
-                  opacity: status === 'loading' ? 0.7 : 1
-                }}
-              >
-                {status === 'loading' ? (
-                  <Loader2 size={16} className="animate-spin" />
-                ) : (
-                  <>
-                    Get Early Access <ArrowRight size={15} />
-                  </>
-                )}
-              </button>
+                label="Get Early Access"
+                rightIcon={<ArrowRight size={15} />}
+                isLoading={status === 'loading'}
+              />
             </motion.form>
           )}
         </AnimatePresence>
@@ -211,9 +176,10 @@ export default function Waitlist() {
         )}
 
         {status !== 'success' && (
-          <p style={{ color: '#64748b', fontSize: '0.75rem', marginTop: '1.25rem' }}>No spam. Unsubscribe anytime.</p>
+          <Typography as="p" size={12} tone="muted" className="mt-5">No spam. Unsubscribe anytime.</Typography>
         )}
       </motion.div>
+      </div>
     </section>
   );
 }
