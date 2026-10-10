@@ -48,7 +48,19 @@ paths:
 - Target folders: `components/landing/` (sections), `components/common/` (Navbar, Footer,
   MobileNav), `components/ui/` (Button, Input, Eyebrow, SectionHeading), `components/waitlist/`.
   Move a file there when you touch it; ask before a bulk move.
-- Split a component past ~200 lines into subcomponents in the same folder.
+- **One component, one job.** A component does one thing you can name in a few words ("the story
+  section", "the year rail", "the selectable intention cards"). Split it when any of these is true:
+  - It renders more than one page section. One section per file, in `components/landing/`; never a
+    wrapper that bundles several sections together.
+  - One part needs client state and the rest doesn't. Extract that part into its own `'use client'`
+    leaf (e.g. `IntentionCards`) and keep the section a Server Component.
+  - It holds a self-contained block (a list, a timeline, a card grid) that needs its own markup and
+    logic. Give the block its own file next to the section (`Story` + `StoryTimeline`).
+  - The same block is copied into a second component. Promote it to `components/ui/`
+    (e.g. `SectionHeading`).
+  - It grows past ~150 lines.
+- One default-exported component per file, named after the file. Don't define several components
+  in one file behind comment banners.
 - Before adding a pill, heading, icon or button, run the `reuse-first` skill (see
   `.claude/skills/reuse-first/known-duplicates.md`).
 - Stable keys from data (`id`, `href`, `name`), never the index for dynamic lists.

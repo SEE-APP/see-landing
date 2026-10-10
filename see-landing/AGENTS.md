@@ -84,8 +84,9 @@ i18n/config.ts      locales, defaultLocale, localeNames, siteUrl (NEXT_PUBLIC_SI
 i18n/get-dictionary.ts  loads a dictionary on the server; i18n/format.ts fills {placeholders}
 assets/icons/       custom SVG icon components, one per file (lucide-react for the rest)
 components/common/  Navbar, MobileNav, Footer, LanguageSwitcher (rendered in the root layout)
-components/ui/      Typography, Button, Eyebrow, Dropdown (server-safe primitives; use them for all text and buttons), PopoverPanel (client leaf)
-components/         section components, still flat: Hero, About, Team, Demo, Waitlist
+components/ui/      Typography, Button, Eyebrow, SectionHeading, Dropdown (server-safe primitives; use them for all text and buttons), PopoverPanel (client leaf)
+components/landing/ one file per section: Story (+ StoryTimeline), Intention (+ IntentionCards client leaf), HowItWorks, WhyUs
+components/         sections not moved yet: Hero, Team, Demo, Waitlist
 lib/site.ts         site data: nav links, contact details, social links
 lib/content/        list structure (ids, icons, years, avatars, URLs) for team.ts, about.ts; text lives in the dictionary
 lib/validation.ts   isValidEmail
@@ -95,7 +96,7 @@ styles/variables.css  design tokens (@theme) and layout variables (gutters, head
 public/             logo, favicon, team photos
 ```
 Target layout (move a file when you touch it; ask before bulk moves):
-`components/landing/` (Hero, About, Team, Demo), `components/common/` (Navbar, Footer, MobileNav),
+`components/landing/` (Hero, Team, Demo), `components/common/` (Navbar, Footer, MobileNav),
 `components/ui/` (Button, Input, Eyebrow, SectionHeading), `components/waitlist/` (form),
 `lib/` (pure helpers, site constants), `app/actions.ts` (Server Actions).
 `@/*` points at the project root (`@/components/Hero`). No barrel files.
@@ -113,7 +114,10 @@ Target layout (move a file when you touch it; ask before bulk moves):
 - Component files hold rendering only: data goes in `lib/content/` or `lib/site.ts`, types
   and prop interfaces in `types/`, helpers in `lib/`. Icons in data are component references
   (`icon: Users`), not JSX.
-- KISS. Three similar lines beat a premature helper. Split components past ~200 lines.
+- KISS. Three similar lines beat a premature helper.
+- One component, one job: one section per file, client state in its own small leaf, self-contained
+  blocks (lists, timelines, card grids) in their own file, no multi-component files. Full checklist
+  in `.claude/rules/components.md`.
 - Hooks discipline (`react-discipline` skill): no memoization without a measured reason; derive
   instead of syncing state in effects; clean up every listener/observer.
 - Stable keys from data, never the index for dynamic lists.
@@ -142,7 +146,7 @@ only: `.claude/design-references/`.
 
 ## Known debt (fix opportunistically, don't let it spread)
 
-- `About`, `Demo` and `Waitlist` are `'use client'` sections (state lives in the whole section
+- `Demo` and `Waitlist` are `'use client'` sections (state lives in the whole section
   instead of a small leaf). `framer-motion` is installed but no longer imported.
 - Many static `style={{}}` and hex colours in the sections.
 - Raw `<img>` in `components/Team.tsx`; team photos are JPG.

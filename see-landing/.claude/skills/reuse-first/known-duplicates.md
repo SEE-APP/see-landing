@@ -5,5 +5,5 @@ when it's fixed.
 
 | What | Copies | Canonical (target) |
 |---|---|---|
-| Framer Motion variants (now shared in `lib/motion.ts`) | About, Team, Demo | CSS keyframes in `globals.css` (motion policy) |
-| Section header block (Eyebrow + h2 `size={32} md:text-40` + muted `size={18}` subtitle) | About (4×), Team, Demo | `components/ui/SectionHeading.tsx` built on `Typography` |
+| Framer Motion variants (now shared in `lib/motion.ts`) | Team, Demo | CSS keyframes in `globals.css` (motion policy) |
+| Section header block (Eyebrow + h2 `size={32} md:text-40` + muted `size={18}` subtitle) | Team, Demo (Intention, HowItWorks, WhyUs already switched) | `components/ui/SectionHeading.tsx` |
