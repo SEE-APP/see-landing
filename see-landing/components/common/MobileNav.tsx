@@ -10,12 +10,12 @@ import type { MobileNavProps } from '@/types/layout';
 
 const PANEL_ID = 'nav-mobile';
 
-const focusRing = 'focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-300';
+const focusRing = 'focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent';
 
 const iconButtonClasses =
-  'inline-flex size-10 cursor-pointer items-center justify-center rounded-full border border-white/10 text-slate-200 ' +
-  'transition-colors duration-200 hover:border-primary-300/40 hover:text-primary-300 ' +
-  'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-300';
+  'inline-flex size-10 cursor-pointer items-center justify-center rounded-full border border-line-strong text-ink-subtle ' +
+  'transition-colors duration-200 hover:border-accent/40 hover:text-accent ' +
+  'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent';
 
 const links = [...primaryNavLinks, ...moreNavLinks];
 
@@ -26,9 +26,9 @@ export default function MobileNav({ lang, brand, t }: MobileNavProps) {
         <Menu size={18} aria-hidden="true" />
       </button>
 
-      <PopoverPanel id={PANEL_ID} className="mobile-nav-panel bg-dark-500 text-slate-50">
+      <PopoverPanel id={PANEL_ID} className="mobile-nav-panel bg-canvas text-ink">
         <div className="flex min-h-full flex-col">
-          <div className="flex h-16 shrink-0 items-center justify-between gap-x-6 border-b border-white/8 px-4 md:px-6">
+          <div className="flex h-16 shrink-0 items-center justify-between gap-x-6 border-b border-line px-4 md:px-6">
             <Link href={homeHref(lang)} aria-label={t.home} className={`flex w-fit items-center gap-2.5 rounded-md ${focusRing}`}>
               <Image src="/logo.png" alt="" width={40} height={40} className="size-10 shrink-0 object-contain" />
               <Typography size={20} weight="bold" tone="default" className="tracking-tight">{brand}</Typography>
@@ -45,12 +45,12 @@ export default function MobileNav({ lang, brand, t }: MobileNavProps) {
           </div>
 
           <div className="flex flex-col gap-6 px-4 pt-4 md:px-6">
-            <ul className="flex flex-col divide-y divide-white/8">
+            <ul className="flex flex-col divide-y divide-line">
               {links.map((link) => (
                 <li key={link.id}>
                   <Link
                     href={homeHref(lang, link.hash)}
-                    className="flex min-h-11 items-center py-2 text-16 text-slate-200 transition-colors duration-150 hover:text-primary-300 focus-visible:text-primary-300 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary-300"
+                    className="flex min-h-11 items-center py-2 text-16 text-ink-subtle transition-colors duration-150 hover:text-accent focus-visible:text-accent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent"
                   >
                     {t.links[link.id]}
                   </Link>
@@ -58,7 +58,7 @@ export default function MobileNav({ lang, brand, t }: MobileNavProps) {
               ))}
             </ul>
 
-            <hr className="border-white/8" />
+            <hr className="border-line" />
 
             <LanguageList current={lang} label={t.languageSwitcher} />
           </div>

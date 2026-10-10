@@ -15,7 +15,7 @@ import type { AboutProps } from '@/types/sections';
 
 function StorySection({ t }: { t: AboutProps['story'] }) {
   return (
-    <section id="about" style={{ backgroundColor: '#0f172a', padding: '6rem 0', position: 'relative', overflow: 'hidden', userSelect: 'none' }}>
+    <section id="about" style={{ backgroundColor: "transparent", padding: '6rem 0', position: 'relative', overflow: 'hidden', userSelect: 'none' }}>
       {/* ambient glow */}
       <div
         style={{
@@ -25,7 +25,7 @@ function StorySection({ t }: { t: AboutProps['story'] }) {
           transform: 'translateX(-50%)',
           width: '640px',
           height: '640px',
-          background: 'radial-gradient(circle, rgba(71,189,178,0.10) 0%, rgba(71,189,178,0) 70%)',
+          background: 'radial-gradient(circle, color-mix(in srgb, var(--accent) 10%, transparent) 0%, transparent 70%)',
           filter: 'blur(20px)',
           pointerEvents: 'none',
         }}
@@ -33,39 +33,39 @@ function StorySection({ t }: { t: AboutProps['story'] }) {
 
       <style>{`
         @keyframes timelineGlow {
-          0%, 8%    { opacity: 0.45; box-shadow: 0 0 0 4px rgba(71,189,178,0.15); transform: scale(1); }
-          16%, 25%  { opacity: 1; box-shadow: 0 0 16px 5px rgba(71,189,178,0.55), 0 0 0 4px rgba(71,189,178,0.3); transform: scale(1.2); }
-          33%, 100% { opacity: 0.45; box-shadow: 0 0 0 4px rgba(71,189,178,0.15); transform: scale(1); }
+          0%, 8%    { opacity: 0.45; box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 15%, transparent); transform: scale(1); }
+          16%, 25%  { opacity: 1; box-shadow: 0 0 16px 5px color-mix(in srgb, var(--accent) 55%, transparent), 0 0 0 4px color-mix(in srgb, var(--accent) 30%, transparent); transform: scale(1.2); }
+          33%, 100% { opacity: 0.45; box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 15%, transparent); transform: scale(1); }
         }
 
         @keyframes timelineBoxGlow {
-          0%, 8%    { border-color: rgba(255,255,255,0.08); box-shadow: none; }
-          16%, 25%  { border-color: rgba(71,189,178,0.5); box-shadow: 0 0 28px rgba(71,189,178,0.16); }
-          33%, 100% { border-color: rgba(255,255,255,0.08); box-shadow: none; }
+          0%, 8%    { border-color: var(--line); box-shadow: var(--card-shadow); }
+          16%, 25%  { border-color: color-mix(in srgb, var(--accent) 50%, transparent); box-shadow: 0 0 28px color-mix(in srgb, var(--accent) 16%, transparent); }
+          33%, 100% { border-color: var(--line); box-shadow: var(--card-shadow); }
         }
 
         .timeline-list:hover .timeline-dot {
           animation-play-state: paused !important;
           opacity: 0.45 !important;
           transform: scale(1) !important;
-          box-shadow: 0 0 0 4px rgba(71,189,178,0.15) !important;
+          box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 15%, transparent) !important;
         }
 
         .timeline-list:hover .timeline-box {
           animation-play-state: paused !important;
-          border-color: rgba(255,255,255,0.08) !important;
-          box-shadow: none !important;
+          border-color: var(--line) !important;
+          box-shadow: var(--card-shadow) !important;
         }
 
         .timeline-row:hover .timeline-dot {
           opacity: 1 !important;
           transform: scale(1.2) !important;
-          box-shadow: 0 0 16px 5px rgba(71,189,178,0.55), 0 0 0 4px rgba(71,189,178,0.3) !important;
+          box-shadow: 0 0 16px 5px color-mix(in srgb, var(--accent) 55%, transparent), 0 0 0 4px color-mix(in srgb, var(--accent) 30%, transparent) !important;
         }
 
         .timeline-row:hover .timeline-box {
-          border-color: rgba(71,189,178,0.5) !important;
-          box-shadow: 0 0 28px rgba(71,189,178,0.16) !important;
+          border-color: color-mix(in srgb, var(--accent) 50%, transparent) !important;
+          box-shadow: 0 0 28px color-mix(in srgb, var(--accent) 16%, transparent) !important;
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -122,8 +122,8 @@ function StorySection({ t }: { t: AboutProps['story'] }) {
                       width: '10px',
                       height: '10px',
                       borderRadius: '50%',
-                      backgroundColor: '#47bdb2',
-                      boxShadow: '0 0 0 4px rgba(71,189,178,0.15)',
+                      backgroundColor: 'var(--accent)',
+                      boxShadow: '0 0 0 4px color-mix(in srgb, var(--accent) 15%, transparent)',
                       marginTop: '1.6rem',
                       flexShrink: 0,
                       animation: 'timelineGlow 6s ease-in-out infinite',
@@ -135,7 +135,7 @@ function StorySection({ t }: { t: AboutProps['story'] }) {
                       style={{
                         width: '1px',
                         flex: 1,
-                        background: 'linear-gradient(to bottom, rgba(71,189,178,0.4), rgba(71,189,178,0.05))',
+                        background: 'linear-gradient(to bottom, color-mix(in srgb, var(--accent) 40%, transparent), color-mix(in srgb, var(--accent) 5%, transparent))',
                         marginTop: '0.5rem',
                       }}
                     />
@@ -145,9 +145,10 @@ function StorySection({ t }: { t: AboutProps['story'] }) {
                 <div
                   className="timeline-box"
                   style={{
-                    background: 'rgba(255, 255, 255, 0.03)',
+                    background: 'var(--surface)',
                     backdropFilter: 'blur(20px)',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    boxShadow: 'var(--card-shadow)',
+                    border: '1px solid var(--line)',
                     borderRadius: '1.5rem',
                     padding: '1.5rem',
                     marginBottom: i < timeline.length - 1 ? '1.5rem' : 0,
@@ -185,10 +186,10 @@ function IntentionSection({ t }: { t: AboutProps['intention'] }) {
     <section
       id="intention"
       style={{
-        backgroundColor: '#0f172a',
+        backgroundColor: "transparent",
         padding: '6rem 0',
         position: 'relative',
-        borderTop: '1px solid rgba(255, 255, 255, 0.06)',
+        borderTop: "1px solid var(--section-rule)",
         userSelect: 'none',
       }}
     >
@@ -242,10 +243,10 @@ function IntentionSection({ t }: { t: AboutProps['intention'] }) {
                 style={{
                   position: 'relative',
                   cursor: 'pointer',
-                  background: isSelected ? 'rgba(71, 189, 178, 0.06)' : 'rgba(255, 255, 255, 0.03)',
+                  background: isSelected ? 'color-mix(in srgb, var(--accent) 6%, transparent)' : 'var(--surface)',
                   backdropFilter: 'blur(20px)',
-                  border: isSelected ? '1px solid rgba(71, 189, 178, 0.5)' : '1px solid rgba(255, 255, 255, 0.08)',
-                  boxShadow: isSelected ? '0 0 32px rgba(71, 189, 178, 0.15)' : 'none',
+                  border: isSelected ? '1px solid color-mix(in srgb, var(--accent) 50%, transparent)' : '1px solid var(--line)',
+                  boxShadow: isSelected ? '0 0 32px color-mix(in srgb, var(--accent) 15%, transparent)' : 'var(--card-shadow)',
                   borderRadius: '1.5rem',
                   padding: '2rem',
                   transition: 'background 0.3s ease, border 0.3s ease, box-shadow 0.3s ease',
@@ -255,7 +256,7 @@ function IntentionSection({ t }: { t: AboutProps['intention'] }) {
                   <motion.div
                     initial={{ opacity: 0, scale: 0.5 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    style={{ position: 'absolute', top: '1.5rem', right: '1.5rem', color: '#47bdb2' }}
+                    style={{ position: 'absolute', top: '1.5rem', right: '1.5rem', color: 'var(--accent)' }}
                   >
                     <CheckCircle2 size={22} />
                   </motion.div>
@@ -269,9 +270,9 @@ function IntentionSection({ t }: { t: AboutProps['intention'] }) {
                     alignItems: 'center',
                     justifyContent: 'center',
                     marginBottom: '1.25rem',
-                    backgroundColor: isSelected ? 'rgba(71, 189, 178, 0.18)' : 'rgba(34, 152, 142, 0.1)',
-                    border: '1px solid rgba(34, 152, 142, 0.2)',
-                    color: '#47bdb2',
+                    backgroundColor: isSelected ? 'color-mix(in srgb, var(--accent) 18%, transparent)' : 'color-mix(in srgb, var(--accent-deep) 10%, transparent)',
+                    border: '1px solid color-mix(in srgb, var(--accent-deep) 20%, transparent)',
+                    color: 'var(--accent)',
                   }}
                 >
                   <it.icon size={24} />
@@ -299,10 +300,10 @@ function HowItWorksSection({ t }: { t: AboutProps['howItWorks'] }) {
     <section
       id="how-it-works"
       style={{
-        backgroundColor: '#0f172a',
+        backgroundColor: "transparent",
         padding: '6rem 0',
         position: 'relative',
-        borderTop: '1px solid rgba(255, 255, 255, 0.06)',
+        borderTop: "1px solid var(--section-rule)",
         userSelect: 'none',
       }}
     >
@@ -352,9 +353,10 @@ function HowItWorksSection({ t }: { t: AboutProps['howItWorks'] }) {
               style={{
                 position: 'relative',
                 overflow: 'hidden',
-                background: 'rgba(255, 255, 255, 0.03)',
+                background: 'var(--surface)',
                 backdropFilter: 'blur(20px)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                boxShadow: 'var(--card-shadow)',
+                border: '1px solid var(--line)',
                 borderRadius: '1.5rem',
                 padding: '2rem',
               }}
@@ -368,7 +370,7 @@ function HowItWorksSection({ t }: { t: AboutProps['howItWorks'] }) {
                   fontWeight: 700,
                   fontSize: '3.25rem',
                   lineHeight: 1,
-                  color: 'rgba(71, 189, 178, 0.12)',
+                  color: 'color-mix(in srgb, var(--accent) 12%, transparent)',
                 }}
               >
                 {s.number}
@@ -382,9 +384,9 @@ function HowItWorksSection({ t }: { t: AboutProps['howItWorks'] }) {
                   alignItems: 'center',
                   justifyContent: 'center',
                   marginBottom: '1.25rem',
-                  backgroundColor: 'rgba(34, 152, 142, 0.1)',
-                  border: '1px solid rgba(34, 152, 142, 0.2)',
-                  color: '#47bdb2',
+                  backgroundColor: 'color-mix(in srgb, var(--accent-deep) 10%, transparent)',
+                  border: '1px solid color-mix(in srgb, var(--accent-deep) 20%, transparent)',
+                  color: 'var(--accent)',
                   position: 'relative',
                 }}
               >
@@ -412,10 +414,10 @@ function WhyUsSection({ t }: { t: AboutProps['whyUs'] }) {
     <section
       id="why-us"
       style={{
-        backgroundColor: '#0f172a',
+        backgroundColor: "transparent",
         padding: '6rem 0',
         position: 'relative',
-        borderTop: '1px solid rgba(255, 255, 255, 0.06)',
+        borderTop: "1px solid var(--section-rule)",
         userSelect: 'none',
       }}
     >
@@ -464,9 +466,10 @@ function WhyUsSection({ t }: { t: AboutProps['whyUs'] }) {
               whileHover={{ y: -6 }}
               transition={{ duration: 0.3, ease: easeOutExpo }}
               style={{
-                background: 'rgba(255, 255, 255, 0.03)',
+                background: 'var(--surface)',
                 backdropFilter: 'blur(20px)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                boxShadow: 'var(--card-shadow)',
+                border: '1px solid var(--line)',
                 borderRadius: '1.5rem',
                 padding: '2rem',
                 cursor: 'default',
@@ -482,9 +485,9 @@ function WhyUsSection({ t }: { t: AboutProps['whyUs'] }) {
                   alignItems: 'center',
                   justifyContent: 'center',
                   marginBottom: '1.25rem',
-                  backgroundColor: 'rgba(34, 152, 142, 0.1)',
-                  border: '1px solid rgba(34, 152, 142, 0.2)',
-                  color: '#47bdb2',
+                  backgroundColor: 'color-mix(in srgb, var(--accent-deep) 10%, transparent)',
+                  border: '1px solid color-mix(in srgb, var(--accent-deep) 20%, transparent)',
+                  color: 'var(--accent)',
                 }}
               >
                 <f.icon size={22} />

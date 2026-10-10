@@ -44,8 +44,15 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
 
 export const viewport: Viewport = {
   viewportFit: "cover",
-  themeColor: "#0f172a",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f5f8f7" },
+    { media: "(prefers-color-scheme: dark)", color: "#0f172a" },
+  ],
 };
+
+// Runs before first paint so a stored dark choice never flashes light. Light is the default.
+const themeBootScript =
+  "try{if(localStorage.getItem('theme')==='dark')document.documentElement.dataset.theme='dark'}catch(e){}";
 
 export default async function RootLayout({ children, params }: LayoutProps<"/[lang]">) {
   const { lang } = await params;
@@ -53,10 +60,13 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
   const dict = await getDictionary(lang);
 
   return (
-    <html lang={lang}>
-      <body className="flex min-h-dvh flex-col bg-dark-500 text-slate-50 antialiased selection:bg-primary-500/30">
+    <html lang={lang} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
+      </head>
+      <body className="flex min-h-dvh flex-col bg-canvas text-ink antialiased selection:bg-accent/25">
         <Navbar lang={lang} brand={dict.brand} t={dict.nav} />
-        <main className="flex-1">{children}</main>
+        <main className="page-guides flex-1">{children}</main>
         <Footer lang={lang} brand={dict.brand} nav={dict.nav.links} t={dict.footer} />
       </body>
     </html>

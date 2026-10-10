@@ -9,11 +9,11 @@ import Typography from '@/components/ui/Typography';
 import { ctaHash, homeHref, moreNavLinks, primaryNavLinks } from '@/lib/site';
 import type { NavbarProps } from '@/types/layout';
 
-const focusRing = 'focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-300';
+const focusRing = 'focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent';
 
 export default function Navbar({ lang, brand, t }: NavbarProps) {
   return (
-    <header className="sticky top-0 z-[100] select-none border-b border-white/8 bg-dark-500/95 backdrop-blur-lg">
+    <header className="sticky top-0 z-[100] select-none border-b border-line bg-canvas/90 backdrop-blur-lg">
       <nav
         aria-label={t.ariaLabel}
         className="mx-auto grid h-16 w-full max-w-(--container-page) grid-cols-[1fr_auto] items-center gap-x-6 px-4 md:px-6 lg:grid-cols-[1fr_auto_1fr]"
@@ -28,7 +28,7 @@ export default function Navbar({ lang, brand, t }: NavbarProps) {
             <li key={link.id}>
               <Link
                 href={homeHref(lang, link.hash)}
-                className={`rounded-sm text-14 text-slate-400 transition-colors duration-200 hover:text-primary-300 focus-visible:text-primary-300 ${focusRing}`}
+                className={`rounded-sm text-14 text-ink-muted transition-colors duration-200 hover:text-accent focus-visible:text-accent ${focusRing}`}
               >
                 {t.links[link.id]}
               </Link>

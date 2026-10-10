@@ -4,20 +4,20 @@ import type { ButtonProps, ButtonSize, ButtonVariant } from '@/types/ui';
 
 const baseClasses =
   'inline-flex shrink-0 cursor-pointer select-none items-center justify-center gap-2 font-medium transition duration-200 ' +
-  'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-300 ' +
+  'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ' +
   'disabled:cursor-not-allowed disabled:opacity-60 aria-disabled:pointer-events-none aria-disabled:opacity-60';
 
 const variantClasses: Record<ButtonVariant, string> = {
   filled:
-    'rounded-full bg-primary-300 text-14 text-dark-500 shadow-lg shadow-primary-500/30 ' +
-    'hover:bg-primary-200 active:bg-primary-400',
+    'rounded-full bg-accent-strong text-14 text-on-accent shadow-lg shadow-accent/25 ' +
+    'hover:bg-accent-hover active:scale-[0.98]',
   outline:
-    'rounded-full border border-primary-300/60 text-14 text-primary-300 ' +
-    'hover:border-primary-300 hover:bg-primary-300/10 active:bg-primary-300/20',
-  text: 'rounded-sm text-primary-300 hover:text-primary-200',
+    'rounded-full border border-accent/60 text-14 text-accent ' +
+    'hover:border-accent hover:bg-accent-soft active:bg-accent/20',
+  text: 'rounded-sm text-accent hover:text-accent-hover',
   icon:
-    'size-11 rounded-full border border-white/10 bg-white/5 text-slate-200 ' +
-    'hover:border-primary-300/40 hover:bg-primary-300/10 hover:text-primary-300',
+    'size-11 rounded-full border border-line-strong bg-surface text-ink-subtle ' +
+    'hover:border-accent/40 hover:bg-accent-soft hover:text-accent',
 };
 
 const pillSizeClasses: Record<ButtonSize, string> = {

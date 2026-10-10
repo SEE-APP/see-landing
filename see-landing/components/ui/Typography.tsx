@@ -41,10 +41,10 @@ const alignClasses: Record<TypographyAlign, string> = {
 
 const toneClasses: Record<TypographyTone, string> = {
   inherit: '',
-  default: 'text-white',
-  muted: 'text-slate-400',
-  subtle: 'text-slate-300',
-  accent: 'text-primary-300',
+  default: 'text-ink',
+  muted: 'text-ink-muted',
+  subtle: 'text-ink-subtle',
+  accent: 'text-accent',
 };
 
 export default function Typography({

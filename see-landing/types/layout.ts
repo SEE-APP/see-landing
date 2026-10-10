@@ -24,6 +24,12 @@ export interface LanguageSwitcherProps {
   label: string;
 }
 
+export interface ThemeSwitcherProps {
+  t: Dictionary['footer']['theme'];
+}
+
+export type Theme = 'light' | 'dark';
+
 export interface LanguageOptionsProps {
   current: Locale;
   itemClassName?: string;

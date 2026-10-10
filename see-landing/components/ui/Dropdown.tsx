@@ -7,13 +7,13 @@ import type { DropdownItemProps, DropdownProps, DropdownTrigger } from '@/types/
 
 /** Surface shared by the header dropdowns. */
 export const popoverSurfaceClasses =
-  'rounded-xl border border-white/10 bg-dark-700/95 text-slate-50 shadow-xl shadow-black/40 backdrop-blur-lg';
+  'rounded-xl border border-line-strong bg-footer/95 text-ink shadow-xl shadow-shade backdrop-blur-lg';
 
-const focusRing = 'focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-300';
+const focusRing = 'focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent';
 
 const triggerClasses: Record<DropdownTrigger, string> = {
   link: 'rounded-sm',
-  pill: 'h-10 rounded-full border border-white/10 px-3 hover:border-primary-300/40',
+  pill: 'h-10 rounded-full border border-line-strong px-3 hover:border-accent/40',
 };
 
 export function DropdownItem({ href, className, children, ...rest }: DropdownItemProps) {
@@ -22,10 +22,10 @@ export function DropdownItem({ href, className, children, ...rest }: DropdownIte
       href={href}
       {...rest}
       className={cn(
-        'flex items-center justify-between gap-6 rounded-lg px-3 py-2 text-14 text-slate-400 transition-colors duration-150',
-        'hover:bg-white/5 hover:text-primary-300 focus-visible:bg-white/5 focus-visible:text-primary-300',
-        'focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary-300',
-        'aria-[current=page]:bg-white/5 aria-[current=page]:text-primary-300',
+        'flex items-center justify-between gap-6 rounded-lg px-3 py-2 text-14 text-ink-muted transition-colors duration-150',
+        'hover:bg-accent-soft hover:text-accent focus-visible:bg-accent-soft focus-visible:text-accent',
+        'focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent',
+        'aria-[current=page]:bg-accent-soft aria-[current=page]:text-accent',
         className,
       )}
     >
@@ -44,8 +44,8 @@ export default function Dropdown({ id, label, trigger = 'link', children }: Drop
         popoverTarget={id}
         style={{ anchorName: anchor } as CSSProperties}
         className={cn(
-          'inline-flex cursor-pointer items-center gap-1.5 text-14 text-slate-400 transition-colors duration-200',
-          'hover:text-primary-300 focus-visible:text-primary-300 group-has-[:popover-open]/dropdown:text-primary-300',
+          'inline-flex cursor-pointer items-center gap-1.5 text-14 text-ink-muted transition-colors duration-200',
+          'hover:text-accent focus-visible:text-accent group-has-[:popover-open]/dropdown:text-accent',
           focusRing,
           triggerClasses[trigger],
         )}

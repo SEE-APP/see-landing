@@ -167,6 +167,11 @@ const en = {
       linkedin: 'LinkedIn',
       tiktok: 'TikTok',
     },
+    theme: {
+      label: 'Colour theme',
+      light: 'Light theme',
+      dark: 'Dark theme',
+    },
   },
 };
 

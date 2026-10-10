@@ -45,7 +45,7 @@ export default function Waitlist({ t }: WaitlistProps) {
   };
 
   return (
-    <section id="waitlist" style={{ backgroundColor: '#0f172a', padding: '6rem 0', position: 'relative', overflow: 'hidden', userSelect: 'none' }}>
+    <section id="waitlist" style={{ backgroundColor: "transparent", padding: '6rem 0', position: 'relative', overflow: 'hidden', userSelect: 'none' }}>
       {/* Ambient glow behind the card */}
       <div style={{
         position: 'absolute',
@@ -57,10 +57,11 @@ export default function Waitlist({ t }: WaitlistProps) {
         borderRadius: '50%',
         filter: 'blur(80px)',
         pointerEvents: 'none',
-        backgroundColor: 'rgba(34, 152, 142, 0.15)'
+        backgroundColor: 'color-mix(in srgb, var(--accent-deep) 15%, transparent)'
       }} />
 
       <div className="page-container">
+      <div className="hatch-frame relative mx-auto max-w-[37rem]">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -72,10 +73,10 @@ export default function Waitlist({ t }: WaitlistProps) {
           margin: '0 auto',
           borderRadius: '2rem',
           padding: '3.5rem 2rem',
-          background: 'rgba(255, 255, 255, 0.03)',
+          background: 'var(--surface)',
           backdropFilter: 'blur(20px)',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
-          boxShadow: '0 20px 40px rgba(0, 0, 0, 0.4)',
+          border: '1px solid var(--line)',
+          boxShadow: '0 20px 40px var(--shadow-tint)',
           textAlign: 'center'
         }}
       >
@@ -105,10 +106,10 @@ export default function Waitlist({ t }: WaitlistProps) {
                 alignItems: 'center',
                 justifyContent: 'center',
                 marginBottom: '1rem',
-                backgroundColor: 'rgba(34, 152, 142, 0.15)',
-                border: '1px solid #22988e'
+                backgroundColor: 'color-mix(in srgb, var(--accent-deep) 15%, transparent)',
+                border: '1px solid var(--accent-deep)'
               }}>
-                <CheckCircle2 size={26} color="#47bdb2" />
+                <CheckCircle2 size={26} color="var(--accent)" />
               </div>
               <Typography as="p" weight="medium" tone="default" className="mb-1">{t.successTitle}</Typography>
               <Typography as="p" size={14} tone="muted">{t.successBody}</Typography>
@@ -132,14 +133,14 @@ export default function Waitlist({ t }: WaitlistProps) {
                   padding: '0.875rem 1.25rem',
                   borderRadius: '9999px',
                   transition: 'all 0.3s ease',
-                  backgroundColor: focused ? 'rgba(255, 255, 255, 0.05)' : 'rgba(255, 255, 255, 0.03)',
-                  border: status === 'error' ? '1px solid #fb7185' : focused ? '1px solid #22988e' : '1px solid rgba(255, 255, 255, 0.1)',
-                  boxShadow: focused ? '0 0 20px rgba(34, 152, 142, 0.3)' : 'none'
+                  backgroundColor: focused ? 'color-mix(in srgb, var(--ink) 5%, transparent)' : 'var(--surface)',
+                  border: status === 'error' ? '1px solid var(--danger)' : focused ? '1px solid var(--accent-deep)' : '1px solid var(--input-border)',
+                  boxShadow: focused ? '0 0 20px color-mix(in srgb, var(--accent-deep) 30%, transparent)' : 'none'
                 }}
               >
                 <Mail
                   size={16}
-                  style={{ color: focused ? '#47bdb2' : '#64748b', transition: 'color 0.3s ease', flexShrink: 0 }}
+                  style={{ color: focused ? 'var(--accent)' : 'var(--ink-muted)', transition: 'color 0.3s ease', flexShrink: 0 }}
                 />
                 <input
                   type="email"
@@ -151,7 +152,7 @@ export default function Waitlist({ t }: WaitlistProps) {
                   onFocus={() => setFocused(true)}
                   onBlur={() => setFocused(false)}
                   placeholder={t.emailPlaceholder}
-                  style={{ flex: 1, background: 'transparent', outline: 'none', border: 'none', fontSize: '0.875rem', color: '#ffffff', width: '100%' }}
+                  style={{ flex: 1, background: 'transparent', outline: 'none', border: 'none', fontSize: '0.875rem', color: 'var(--ink)', width: '100%' }}
                   aria-label={t.emailLabel}
                 />
               </div>
@@ -170,7 +171,7 @@ export default function Waitlist({ t }: WaitlistProps) {
           <motion.p
             initial={{ opacity: 0, y: -4 }}
             animate={{ opacity: 1, y: 0 }}
-            style={{ color: '#fb7185', fontSize: '0.75rem', marginTop: '0.75rem' }}
+            style={{ color: 'var(--danger)', fontSize: '0.75rem', marginTop: '0.75rem' }}
           >
             {t.error}
           </motion.p>
@@ -180,6 +181,7 @@ export default function Waitlist({ t }: WaitlistProps) {
           <Typography as="p" size={12} tone="muted" className="mt-5">{t.noSpam}</Typography>
         )}
       </motion.div>
+      </div>
       </div>
     </section>
   );

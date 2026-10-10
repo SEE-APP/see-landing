@@ -23,7 +23,8 @@ function LinkedInBadge({ href, label }: { href: string; label: string }) {
       onClick={(e) => e.stopPropagation()}
       initial={{ opacity: 0, scale: 0.6 }}
       animate={{ opacity: 1, scale: 1 }}
-      whileHover={{ scale: 1.12, backgroundColor: '#47bdb2', color: '#0f172a' }}
+      whileHover={{ scale: 1.12 }}
+      className="bg-surface-solid text-accent transition-colors duration-200 hover:bg-accent-strong hover:text-on-accent"
       whileTap={{ scale: 0.95 }}
       transition={{ duration: 0.25, ease: easeOutExpo }}
       style={{
@@ -36,10 +37,8 @@ function LinkedInBadge({ href, label }: { href: string; label: string }) {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#0f172a',
-        color: '#47bdb2',
-        border: '1.5px solid rgba(71, 189, 178, 0.6)',
-        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.35)',
+        border: '1.5px solid color-mix(in srgb, var(--accent) 60%, transparent)',
+        boxShadow: '0 2px 8px var(--shadow-tint)',
         cursor: 'pointer',
       }}
     >
@@ -57,10 +56,10 @@ export default function Team({ t }: TeamProps) {
     <section
       id="team"
       style={{
-        backgroundColor: '#0f172a',
+        backgroundColor: "transparent",
         padding: '6rem 0',
         position: 'relative',
-        borderTop: '1px solid rgba(255, 255, 255, 0.06)',
+        borderTop: "1px solid var(--section-rule)",
         userSelect: 'none',
       }}
     >
@@ -114,9 +113,10 @@ export default function Team({ t }: TeamProps) {
                   flexDirection: 'column',
                   alignItems: 'center',
                   textAlign: 'center',
-                  background: 'rgba(255, 255, 255, 0.03)',
+                  background: 'var(--surface)',
                   backdropFilter: 'blur(20px)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  boxShadow: 'var(--card-shadow)',
+                  border: '1px solid var(--line)',
                   borderRadius: '1.5rem',
                   padding: '2rem 1.5rem',
                   cursor: 'default',
@@ -137,8 +137,8 @@ export default function Team({ t }: TeamProps) {
                       height: '116px',
                       borderRadius: '50%',
                       overflow: 'hidden',
-                      border: '2px solid rgba(71, 189, 178, 0.4)',
-                      boxShadow: '0 0 0 4px rgba(71, 189, 178, 0.08)',
+                      border: '2px solid color-mix(in srgb, var(--accent) 40%, transparent)',
+                      boxShadow: '0 0 0 4px color-mix(in srgb, var(--accent) 8%, transparent)',
                     }}
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}

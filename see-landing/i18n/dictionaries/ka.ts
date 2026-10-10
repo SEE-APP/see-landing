@@ -179,6 +179,11 @@ const ka: Dictionary = {
       linkedin: "LinkedIn",
       tiktok: "TikTok",
     },
+    theme: {
+      label: "ფერთა თემა",
+      light: "ღია თემა",
+      dark: "მუქი თემა",
+    },
   },
 };
 

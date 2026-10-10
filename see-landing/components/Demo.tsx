@@ -14,7 +14,7 @@ export default function Demo({ t, waitlistHref, videoSrc }: DemoProps) {
   const showVideo = Boolean(videoSrc) && isPlaying;
 
   return (
-    <section id="demo" style={{ backgroundColor: '#0f172a', padding: '6rem 0', position: 'relative', userSelect: 'none' }}>
+    <section id="demo" style={{ backgroundColor: "transparent", padding: '6rem 0', position: 'relative', userSelect: 'none' }}>
       <div className="page-container">
       <div style={{ maxWidth: '800px', margin: '0 auto' }}>
         {/* Header */}
@@ -52,10 +52,10 @@ export default function Demo({ t, waitlistHref, videoSrc }: DemoProps) {
             aspectRatio: '16/9',
             borderRadius: '1.5rem',
             overflow: 'hidden',
-            background: 'rgba(255, 255, 255, 0.03)',
+            background: 'var(--surface)',
             backdropFilter: 'blur(20px)',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
-            boxShadow: '0 20px 40px rgba(0, 0, 0, 0.4)'
+            border: '1px solid var(--line)',
+            boxShadow: '0 20px 40px var(--shadow-tint)'
           }}
         >
           {showVideo ? (
@@ -70,12 +70,12 @@ export default function Demo({ t, waitlistHref, videoSrc }: DemoProps) {
             <>
               {/* Abstract drifting gradient blobs */}
               <motion.div
-                style={{ position: 'absolute', width: '18rem', height: '18rem', borderRadius: '50%', filter: 'blur(60px)', backgroundColor: 'rgba(34, 152, 142, 0.3)', top: '-15%', left: '-10%' }}
+                style={{ position: 'absolute', width: '18rem', height: '18rem', borderRadius: '50%', filter: 'blur(60px)', backgroundColor: 'color-mix(in srgb, var(--accent-deep) 30%, transparent)', top: '-15%', left: '-10%' }}
                 animate={{ x: [0, 40, 0], y: [0, 30, 0] }}
                 transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
               />
               <motion.div
-                style={{ position: 'absolute', width: '20rem', height: '20rem', borderRadius: '50%', filter: 'blur(60px)', backgroundColor: 'rgba(71, 189, 178, 0.2)', bottom: '-20%', right: '-10%' }}
+                style={{ position: 'absolute', width: '20rem', height: '20rem', borderRadius: '50%', filter: 'blur(60px)', backgroundColor: 'color-mix(in srgb, var(--accent) 20%, transparent)', bottom: '-20%', right: '-10%' }}
                 animate={{ x: [0, -30, 0], y: [0, -20, 0] }}
                 transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
               />
@@ -91,13 +91,13 @@ export default function Demo({ t, waitlistHref, videoSrc }: DemoProps) {
                 alignItems: 'center',
                 padding: '0 1rem',
                 gap: '0.375rem',
-                borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
+                borderBottom: '1px solid color-mix(in srgb, var(--ink) 6%, transparent)',
                 zIndex: 2
               }}>
-                <span style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#475569' }} />
-                <span style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#475569' }} />
-                <span style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#475569' }} />
-                <span style={{ margin: '0 auto', fontSize: '11px', fontFamily: 'monospace', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#64748b' }}>
+                <span style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: 'var(--ink-muted)' }} />
+                <span style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: 'var(--ink-muted)' }} />
+                <span style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: 'var(--ink-muted)' }} />
+                <span style={{ margin: '0 auto', fontSize: '11px', fontFamily: 'monospace', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--ink-muted)' }}>
                   {t.playerLabel}
                 </span>
               </div>
@@ -116,19 +116,19 @@ export default function Demo({ t, waitlistHref, videoSrc }: DemoProps) {
                     width: '5rem',
                     height: '5rem',
                     borderRadius: '50%',
-                    background: 'rgba(255, 255, 255, 0.08)',
+                    background: 'var(--line)',
                     backdropFilter: 'blur(12px)',
-                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                    border: '1px solid color-mix(in srgb, var(--ink) 20%, transparent)',
                     cursor: 'pointer'
                   }}
                   aria-label={t.playLabel}
                 >
                   <motion.span
-                    style={{ position: 'absolute', inset: 0, borderRadius: '50%', border: '2px solid #47bdb2' }}
+                    style={{ position: 'absolute', inset: 0, borderRadius: '50%', border: '2px solid var(--accent)' }}
                     animate={{ scale: [1, 1.4, 1], opacity: [0.6, 0, 0.6] }}
                     transition={{ duration: 2.5, repeat: Infinity, ease: 'easeOut' }}
                   />
-                  <Play size={26} color="#ffffff" fill="#ffffff" style={{ marginLeft: '4px' }} />
+                  <Play size={26} color="var(--ink)" fill="var(--ink)" style={{ marginLeft: '4px' }} />
                 </motion.button>
               </div>
 
@@ -137,16 +137,16 @@ export default function Demo({ t, waitlistHref, videoSrc }: DemoProps) {
                 position: 'absolute',
                 bottom: '1rem',
                 right: '1rem',
-                background: 'rgba(255, 255, 255, 0.03)',
+                background: 'var(--surface)',
                 backdropFilter: 'blur(12px)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                border: '1px solid var(--line)',
                 padding: '0.25rem 0.75rem',
                 borderRadius: '9999px',
                 fontSize: '10px',
                 fontFamily: 'monospace',
                 textTransform: 'uppercase',
                 letterSpacing: '0.1em',
-                color: '#cbd5e1',
+                color: 'var(--ink-subtle)',
                 zIndex: 2
               }}>
                 {t.previewBadge}

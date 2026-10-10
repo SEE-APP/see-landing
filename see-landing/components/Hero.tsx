@@ -15,6 +15,14 @@ export default function Hero({ t }: HeroProps) {
 
     let animationFrameId: number;
     let particles: Particle[] = [];
+    let particleRgb = '';
+
+    const readParticleColor = () => {
+      particleRgb = getComputedStyle(document.documentElement).getPropertyValue('--particle-rgb').trim();
+    };
+    readParticleColor();
+    const themeObserver = new MutationObserver(readParticleColor);
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
     const resize = () => {
       canvas.width = window.innerWidth;
@@ -49,7 +57,7 @@ export default function Hero({ t }: HeroProps) {
         if (!ctx) return;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(71, 189, 178, 0.45)';
+        ctx.fillStyle = `rgb(${particleRgb} / 0.45)`;
         ctx.fill();
       }
     }
@@ -80,7 +88,7 @@ export default function Hero({ t }: HeroProps) {
           if (distance < 130) {
             const opacity = 1 - distance / 130;
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(71, 189, 178, ${opacity * 0.22})`;
+            ctx.strokeStyle = `rgb(${particleRgb} / ${opacity * 0.22})`;
             ctx.lineWidth = 0.6;
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
@@ -95,6 +103,7 @@ export default function Hero({ t }: HeroProps) {
 
     return () => {
       window.removeEventListener('resize', resize);
+      themeObserver.disconnect();
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
@@ -108,7 +117,7 @@ export default function Hero({ t }: HeroProps) {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#0f172a',
+        backgroundColor: "transparent",
         padding: 0,
         overflow: 'hidden',
         textAlign: 'center',
@@ -140,20 +149,20 @@ export default function Hero({ t }: HeroProps) {
 
         .see-connect-box {
           position: relative;
-          background-color: rgba(15, 23, 42, 0.65);
+          background-color: var(--hero-box);
           backdrop-filter: blur(10px);
           -webkit-backdrop-filter: blur(10px);
           border-radius: 24px;
           cursor: default;
-          border: 1px solid rgba(255, 255, 255, 0.1);
+          border: 1px solid var(--line-strong);
           transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
           overflow: hidden; 
         }
         
         .see-connect-box:hover {
           transform: translateY(-3px);
-          border-color: rgba(71, 189, 178, 0.45);
-          box-shadow: 0 0 30px rgba(71, 189, 178, 0.18);
+          border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+          box-shadow: 0 0 30px var(--accent-glow);
         }
 
         .box-inner {
@@ -182,7 +191,7 @@ export default function Hero({ t }: HeroProps) {
           position: relative;
           z-index: 1;
           -webkit-user-drag: none;
-          filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.4));
+          filter: drop-shadow(0 10px 22px var(--shadow-tint));
         }
 
         .logo-frame svg {
@@ -201,6 +210,10 @@ export default function Hero({ t }: HeroProps) {
         .rc-text {
           display: block;
         }
+
+        .see-line { stroke: var(--ink); }
+        .see-line-soft { stroke: color-mix(in srgb, var(--ink) 60%, transparent); }
+        .see-node { fill: var(--logo-node); stroke: var(--accent); }
 
         @media (min-width: 768px) {
           .content-wrapper {
@@ -285,6 +298,7 @@ export default function Hero({ t }: HeroProps) {
           {t.description}
         </Typography>
 
+        <div className="hatch-frame">
         <div className="see-connect-box">
           <div
             className="see-glow"
@@ -295,7 +309,7 @@ export default function Hero({ t }: HeroProps) {
               width: '120%',
               height: '120%',
               transform: 'translate(-50%, -50%)',
-              background: 'radial-gradient(ellipse at center, rgba(71,189,178,0.15) 0%, transparent 60%)',
+              background: 'radial-gradient(ellipse at center, var(--accent-glow) 0%, transparent 60%)',
               pointerEvents: 'none',
               zIndex: 0,
             }}
@@ -307,38 +321,39 @@ export default function Hero({ t }: HeroProps) {
                 <img src="/see-logo.png" alt={t.logoAlt} />
 
                 <svg viewBox="0 0 1508 2328" xmlns="http://www.w3.org/2000/svg">
-                  <line className="see-line" x1="1389" y1="95"   x2="1357" y2="482"  stroke="#ffffff" strokeWidth="16" strokeLinecap="round" strokeDasharray="3200" style={{ animation: 'seeLineDraw 6s ease-in-out infinite', animationDelay: '0s' }} />
-                  <line className="see-line" x1="1357" y1="482"  x2="73"   y2="1207" stroke="#ffffff" strokeWidth="16" strokeLinecap="round" strokeDasharray="3200" style={{ animation: 'seeLineDraw 6s ease-in-out infinite', animationDelay: '0.2s' }} />
-                  <line className="see-line" x1="73"   y1="1207" x2="123"  y2="726"  stroke="#ffffff" strokeWidth="16" strokeLinecap="round" strokeDasharray="3200" style={{ animation: 'seeLineDraw 6s ease-in-out infinite', animationDelay: '0.4s' }} />
-                  <line className="see-line" x1="123"  y1="726"  x2="1389" y2="95"   stroke="#ffffff" strokeWidth="16" strokeLinecap="round" strokeDasharray="3200" style={{ animation: 'seeLineDraw 6s ease-in-out infinite', animationDelay: '0.6s' }} />
+                  <line className="see-line" x1="1389" y1="95"   x2="1357" y2="482"  strokeWidth="16" strokeLinecap="round" strokeDasharray="3200" style={{ animation: 'seeLineDraw 6s ease-in-out infinite', animationDelay: '0s' }} />
+                  <line className="see-line" x1="1357" y1="482"  x2="73"   y2="1207" strokeWidth="16" strokeLinecap="round" strokeDasharray="3200" style={{ animation: 'seeLineDraw 6s ease-in-out infinite', animationDelay: '0.2s' }} />
+                  <line className="see-line" x1="73"   y1="1207" x2="123"  y2="726"  strokeWidth="16" strokeLinecap="round" strokeDasharray="3200" style={{ animation: 'seeLineDraw 6s ease-in-out infinite', animationDelay: '0.4s' }} />
+                  <line className="see-line" x1="123"  y1="726"  x2="1389" y2="95"   strokeWidth="16" strokeLinecap="round" strokeDasharray="3200" style={{ animation: 'seeLineDraw 6s ease-in-out infinite', animationDelay: '0.6s' }} />
 
-                  <line className="see-line" x1="1432" y1="1033" x2="1382" y2="1570" stroke="#ffffff" strokeWidth="16" strokeLinecap="round" strokeDasharray="3200" style={{ animation: 'seeLineDraw 6s ease-in-out infinite', animationDelay: '0.8s' }} />
-                  <line className="see-line" x1="1382" y1="1570" x2="82"   y2="2236" stroke="#ffffff" strokeWidth="16" strokeLinecap="round" strokeDasharray="3200" style={{ animation: 'seeLineDraw 6s ease-in-out infinite', animationDelay: '1.0s' }} />
-                  <line className="see-line" x1="82"   y1="2236" x2="263"  y2="1311" stroke="#ffffff" strokeWidth="16" strokeLinecap="round" strokeDasharray="3200" style={{ animation: 'seeLineDraw 6s ease-in-out infinite', animationDelay: '1.2s' }} />
-                  <line className="see-line" x1="263"  y1="1311" x2="1432" y2="1033" stroke="#ffffff" strokeWidth="16" strokeLinecap="round" strokeDasharray="3200" style={{ animation: 'seeLineDraw 6s ease-in-out infinite', animationDelay: '1.4s' }} />
+                  <line className="see-line" x1="1432" y1="1033" x2="1382" y2="1570" strokeWidth="16" strokeLinecap="round" strokeDasharray="3200" style={{ animation: 'seeLineDraw 6s ease-in-out infinite', animationDelay: '0.8s' }} />
+                  <line className="see-line" x1="1382" y1="1570" x2="82"   y2="2236" strokeWidth="16" strokeLinecap="round" strokeDasharray="3200" style={{ animation: 'seeLineDraw 6s ease-in-out infinite', animationDelay: '1.0s' }} />
+                  <line className="see-line" x1="82"   y1="2236" x2="263"  y2="1311" strokeWidth="16" strokeLinecap="round" strokeDasharray="3200" style={{ animation: 'seeLineDraw 6s ease-in-out infinite', animationDelay: '1.2s' }} />
+                  <line className="see-line" x1="263"  y1="1311" x2="1432" y2="1033" strokeWidth="16" strokeLinecap="round" strokeDasharray="3200" style={{ animation: 'seeLineDraw 6s ease-in-out infinite', animationDelay: '1.4s' }} />
 
-                  <line className="see-line" x1="1389" y1="95"   x2="73"   y2="1207" stroke="rgba(255,255,255,0.6)" strokeWidth="12" strokeLinecap="round" strokeDasharray="3200" style={{ animation: 'seeLineDraw 6s ease-in-out infinite', animationDelay: '1.6s' }} />
-                  <line className="see-line" x1="1432" y1="1033" x2="82"   y2="2236" stroke="rgba(255,255,255,0.6)" strokeWidth="12" strokeLinecap="round" strokeDasharray="3200" style={{ animation: 'seeLineDraw 6s ease-in-out infinite', animationDelay: '1.8s' }} />
+                  <line className="see-line see-line-soft" x1="1389" y1="95"   x2="73"   y2="1207"  strokeWidth="12" strokeLinecap="round" strokeDasharray="3200" style={{ animation: 'seeLineDraw 6s ease-in-out infinite', animationDelay: '1.6s' }} />
+                  <line className="see-line see-line-soft" x1="1432" y1="1033" x2="82"   y2="2236"  strokeWidth="12" strokeLinecap="round" strokeDasharray="3200" style={{ animation: 'seeLineDraw 6s ease-in-out infinite', animationDelay: '1.8s' }} />
 
-                  <circle className="see-node" cx="1389" cy="95"   r="50" fill="#ffffff" stroke="#47bdb2" strokeWidth="18" style={{ animation: 'seeNodePulse 6s ease-in-out infinite', animationDelay: '0s',   transformOrigin: '1389px 95px' }} />
-                  <circle className="see-node" cx="1357" cy="482"  r="50" fill="#ffffff" stroke="#47bdb2" strokeWidth="18" style={{ animation: 'seeNodePulse 6s ease-in-out infinite', animationDelay: '0.2s', transformOrigin: '1357px 482px' }} />
-                  <circle className="see-node" cx="123"  cy="726"  r="50" fill="#ffffff" stroke="#47bdb2" strokeWidth="18" style={{ animation: 'seeNodePulse 6s ease-in-out infinite', animationDelay: '0.4s', transformOrigin: '123px 726px' }} />
+                  <circle className="see-node" cx="1389" cy="95"   r="50" strokeWidth="18" style={{ animation: 'seeNodePulse 6s ease-in-out infinite', animationDelay: '0s',   transformOrigin: '1389px 95px' }} />
+                  <circle className="see-node" cx="1357" cy="482"  r="50" strokeWidth="18" style={{ animation: 'seeNodePulse 6s ease-in-out infinite', animationDelay: '0.2s', transformOrigin: '1357px 482px' }} />
+                  <circle className="see-node" cx="123"  cy="726"  r="50" strokeWidth="18" style={{ animation: 'seeNodePulse 6s ease-in-out infinite', animationDelay: '0.4s', transformOrigin: '123px 726px' }} />
                   
-                  <circle className="see-node" cx="73"   cy="1207" r="50" fill="#ffffff" stroke="#47bdb2" strokeWidth="18" style={{ animation: 'seeNodePulse 6s ease-in-out infinite', animationDelay: '0.5s', transformOrigin: '73px 1207px' }} />
+                  <circle className="see-node" cx="73"   cy="1207" r="50" strokeWidth="18" style={{ animation: 'seeNodePulse 6s ease-in-out infinite', animationDelay: '0.5s', transformOrigin: '73px 1207px' }} />
 
-                  <circle className="see-node" cx="1432" cy="1033" r="50" fill="#ffffff" stroke="#47bdb2" strokeWidth="18" style={{ animation: 'seeNodePulse 6s ease-in-out infinite', animationDelay: '0.6s', transformOrigin: '1432px 1033px' }} />
-                  <circle className="see-node" cx="1382" cy="1570" r="50" fill="#ffffff" stroke="#47bdb2" strokeWidth="18" style={{ animation: 'seeNodePulse 6s ease-in-out infinite', animationDelay: '0.8s', transformOrigin: '1382px 1570px' }} />
-                  <circle className="see-node" cx="82"   cy="2236" r="50" fill="#ffffff" stroke="#47bdb2" strokeWidth="18" style={{ animation: 'seeNodePulse 6s ease-in-out infinite', animationDelay: '1.0s', transformOrigin: '82px 2236px' }} />
-                  <circle className="see-node" cx="263"  cy="1311" r="50" fill="#ffffff" stroke="#47bdb2" strokeWidth="18" style={{ animation: 'seeNodePulse 6s ease-in-out infinite', animationDelay: '1.2s', transformOrigin: '263px 1311px' }} />
+                  <circle className="see-node" cx="1432" cy="1033" r="50" strokeWidth="18" style={{ animation: 'seeNodePulse 6s ease-in-out infinite', animationDelay: '0.6s', transformOrigin: '1432px 1033px' }} />
+                  <circle className="see-node" cx="1382" cy="1570" r="50" strokeWidth="18" style={{ animation: 'seeNodePulse 6s ease-in-out infinite', animationDelay: '0.8s', transformOrigin: '1382px 1570px' }} />
+                  <circle className="see-node" cx="82"   cy="2236" r="50" strokeWidth="18" style={{ animation: 'seeNodePulse 6s ease-in-out infinite', animationDelay: '1.0s', transformOrigin: '82px 2236px' }} />
+                  <circle className="see-node" cx="263"  cy="1311" r="50" strokeWidth="18" style={{ animation: 'seeNodePulse 6s ease-in-out infinite', animationDelay: '1.2s', transformOrigin: '263px 1311px' }} />
                 </svg>
               </div>
             </div>
 
             <div className="text-wrapper" style={{ position: 'relative', zIndex: 1, fontSize: 'clamp(1.1rem, 2vw, 1.3rem)', fontWeight: 600, letterSpacing: '-0.01em', lineHeight: 1.3 }}>
-              <span className="rc-text" style={{ color: '#47bdb2' }}>{t.taglineAccent} </span>
-              <span className="rc-text" style={{ color: '#e2e8f0' }}>{t.taglineRest}</span>
+              <span className="rc-text" style={{ color: "var(--accent)" }}>{t.taglineAccent} </span>
+              <span className="rc-text" style={{ color: "var(--ink-subtle)" }}>{t.taglineRest}</span>
             </div>
           </div>
+        </div>
         </div>
 
       </div>

@@ -97,35 +97,56 @@ html:has(.mobile-nav-panel:popover-open) {
   overflow: hidden;
 }
 
-/* Glass Cards & Elements */
-.glass,
-.glass-card {
-  background: rgb(255 255 255 / 0.03);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgb(255 255 255 / 0.08);
-  border-radius: 1rem;
-  padding: 2rem;
-  margin: 1.5rem auto;
-  max-width: 1200px;
+/* Stripe system. `--stripe` is transparent in dark mode, so both disappear there. */
+@utility bg-hatch {
+  background-image: repeating-linear-gradient(-45deg, var(--stripe) 0 1px, transparent 1px 8px);
 }
 
-.text-gradient {
-  background: linear-gradient(to right, var(--color-primary-200), var(--color-primary-300));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+@utility hatch-band {
+  height: 2rem;
+  border-block: 1px solid var(--stripe);
+  background-image: repeating-linear-gradient(-45deg, var(--stripe) 0 1px, transparent 1px 8px);
+
+  :where([data-theme="dark"]) & {
+    display: none;
+  }
 }
 
-.btn-primary {
-  background-color: var(--color-primary-500);
-  color: #ffffff;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
-  border: none;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 0 20px rgb(34 152 142 / 0.4);
+/* Hatched frame around a feature panel; collapses to nothing in dark mode. */
+@utility hatch-frame {
+  padding: 0.5rem;
+  border: 1px solid var(--stripe);
+  border-radius: 2rem;
+  background-image: repeating-linear-gradient(-45deg, var(--stripe) 0 1px, transparent 1px 8px);
+
+  :where([data-theme="dark"]) & {
+    padding: 0;
+    border: 0;
+  }
 }
 
-.btn-primary:hover {
-  background-color: var(--color-primary-300);
+/* Vertical column rules at the content edges (and the centre from md), painted behind the
+   children: the host is isolated and the rules sit at z-index -1. */
+@utility page-guides {
+  position: relative;
+  isolation: isolate;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    inset-inline: max(var(--gutter-x), calc((100% - var(--container-page)) / 2));
+    z-index: -1;
+    border-inline: 1px solid var(--stripe);
+    pointer-events: none;
+  }
+
+  @media (min-width: 768px) {
+    &::before {
+      background-image: linear-gradient(var(--stripe), var(--stripe));
+      background-size: 1px 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+  }
 }
