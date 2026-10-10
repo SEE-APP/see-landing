@@ -8,71 +8,53 @@ import type { HeroProps } from '@/types/sections';
 
 export default function Hero({ lang, t }: HeroProps) {
   return (
-    <section aria-labelledby="hero-title" className="relative isolate overflow-hidden">
-      <div aria-hidden="true" className="hero-grid pointer-events-none absolute inset-0 -z-10" />
+    <section aria-labelledby="hero-title">
+      <div className="page-container">
+        <div className="mx-auto grid max-w-[1100px] items-center gap-12 pt-12 pb-16 md:pt-20 md:pb-24 lg:grid-cols-12 lg:gap-10">
+          <div className="flex flex-col items-start lg:col-span-7">
+            <Typography
+              as="h1"
+              id="hero-title"
+              size={40}
+              weight="semibold"
+              tone="default"
+              className="text-balance tracking-[-0.02em] md:text-64"
+            >
+              {t.title}
+            </Typography>
 
-      <div className="page-container grid items-center gap-10 pt-10 pb-12 md:pt-14 lg:grid-cols-2 lg:gap-12 lg:py-20">
-        <div className="flex flex-col items-start">
-          <Typography
-            as="p"
-            size={12}
-            weight="medium"
-            tone="subtle"
-            className="mb-5 inline-flex h-7 items-center rounded-lg border border-line-strong px-2.5"
-          >
-            {t.badge}
-          </Typography>
+            <Typography as="p" size={18} tone="muted" className="mt-6 max-w-[46ch] text-pretty leading-[1.7]">
+              {t.description}
+            </Typography>
 
-          <Typography
-            as="h1"
-            id="hero-title"
-            size={36}
-            weight="extrabold"
-            tone="default"
-            className="text-balance md:text-48"
-          >
-            {t.title}
-          </Typography>
-
-          <Typography as="p" size={16} tone="muted" className="mt-4 max-w-[30rem] text-pretty">
-            {t.description}
-          </Typography>
-
-          <div className="mt-7 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
-            <Button
-              variant="filled"
-              size="sm"
-              shape="rounded"
-              href={homeHref(lang, ctaHash)}
-              label={t.primaryCta}
-              className="group/cta"
-              rightIcon={
-                <ArrowRight
-                  size={16}
-                  className="transition-transform duration-200 ease-out-expo motion-safe:group-hover/cta:translate-x-0.5"
-                />
-              }
-            />
-            <Button variant="outline" size="sm" shape="rounded" href={homeHref(lang, howItWorksHash)} label={t.secondaryCta} />
+            <div className="mt-10 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+              <Button
+                variant="filled"
+                size="sm"
+                shape="rounded"
+                href={homeHref(lang, ctaHash)}
+                label={t.primaryCta}
+                className="group/cta"
+                rightIcon={
+                  <ArrowRight
+                    size={16}
+                    className="transition-transform duration-200 ease-out-expo motion-safe:group-hover/cta:translate-x-0.5"
+                  />
+                }
+              />
+              <Button variant="outline" size="sm" shape="rounded" href={homeHref(lang, howItWorksHash)} label={t.secondaryCta} />
+            </div>
           </div>
-        </div>
 
-        <div className="relative mx-auto w-full max-w-[26rem] lg:max-w-[30rem]">
-          <div
-            aria-hidden="true"
-            className="bg-hatch absolute top-1/2 left-1/2 -z-10 aspect-square w-[88%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-stripe [mask-image:radial-gradient(closest-side,black_70%,transparent)]"
-          />
-          <div
-            aria-hidden="true"
-            className="absolute top-1/2 left-1/2 -z-10 aspect-square w-[75%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,var(--accent-glow),transparent)]"
-          />
-          <Image
-            src={phoneImage}
-            alt={t.imageAlt}
-            priority
-            sizes="(min-width: 1024px) 30rem, 26rem"
-            className="h-auto w-full drop-shadow-[0_24px_32px_var(--shadow-tint)]"
-          />
+          <div className="mx-auto w-full max-w-[24rem] lg:col-span-5 lg:max-w-none">
+            <Image
+              src={phoneImage}
+              alt={t.imageAlt}
+              priority
+              sizes="(min-width: 1024px) 26rem, 24rem"
+              className="h-auto w-full drop-shadow-[0_24px_32px_var(--shadow-tint)]"
+            />
+          </div>
         </div>
       </div>
     </section>

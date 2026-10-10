@@ -26,7 +26,6 @@ const en = {
   },
 
   hero: {
-    badge: 'Curated student space',
     title: 'Find Your Space',
     description:
       'SEE turns shared interests, values, goals, and skills into social capital through curated micro-groups. Choose your intention: build a team or find new friends.',

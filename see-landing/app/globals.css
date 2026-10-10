@@ -96,23 +96,3 @@ body {
 html:has(.mobile-nav-panel:popover-open) {
   overflow: hidden;
 }
-
-/* Diagonal hatching. `--stripe` is transparent in dark mode, so it disappears there. */
-@utility bg-hatch {
-  background-image: repeating-linear-gradient(-45deg, var(--stripe) 0 1px, transparent 1px 8px);
-}
-
-/* Square grid that fades out around the hero visual. Drawn in `--line`, so unlike the
-   hatching it stays visible in dark mode. */
-@utility hero-grid {
-  background-image:
-    linear-gradient(var(--line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--line) 1px, transparent 1px);
-  background-size: 56px 56px;
-  background-position: center top;
-  mask-image: radial-gradient(ellipse 80% 55% at 50% 72%, black 15%, transparent 70%);
-
-  @media (min-width: 1024px) {
-    mask-image: radial-gradient(ellipse 50% 70% at 74% 50%, black 15%, transparent 70%);
-  }
-}
