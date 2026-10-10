@@ -32,6 +32,8 @@ export interface EyebrowProps {
 export type ButtonVariant = 'filled' | 'outline' | 'text' | 'icon';
 /** Height and padding of the `filled` and `outline` pills; ignored by `text` and `icon`. */
 export type ButtonSize = 'md' | 'sm';
+/** Corner shape of the `filled` and `outline` buttons; ignored by `text` and `icon`. */
+export type ButtonShape = 'pill' | 'rounded';
 
 type ButtonSharedProps = {
   label?: string;
@@ -41,6 +43,8 @@ type ButtonSharedProps = {
   variant?: ButtonVariant;
   /** @default 'md' */
   size?: ButtonSize;
+  /** @default 'pill' */
+  shape?: ButtonShape;
   fullWidth?: boolean;
   isLoading?: boolean;
   disabled?: boolean;

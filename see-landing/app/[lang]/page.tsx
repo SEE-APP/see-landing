@@ -15,15 +15,13 @@ export default async function Home({ params }: PageProps<'/[lang]'>) {
 
   return (
     <>
-      <Hero t={dict.hero} />
-      <div aria-hidden="true" className="hatch-band" />
+      <Hero lang={lang} t={dict.hero} />
       <About
         story={dict.story}
         intention={dict.intention}
         howItWorks={dict.howItWorks}
         whyUs={dict.whyUs}
       />
-      <div aria-hidden="true" className="hatch-band" />
       <Team t={dict.team} />
       <Demo t={dict.demo} videoSrc={demoVideoUrl} waitlistHref={homeHref(lang, '#waitlist')} />
       <Waitlist t={dict.waitlist} />

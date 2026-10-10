@@ -97,56 +97,22 @@ html:has(.mobile-nav-panel:popover-open) {
   overflow: hidden;
 }
 
-/* Stripe system. `--stripe` is transparent in dark mode, so both disappear there. */
+/* Diagonal hatching. `--stripe` is transparent in dark mode, so it disappears there. */
 @utility bg-hatch {
   background-image: repeating-linear-gradient(-45deg, var(--stripe) 0 1px, transparent 1px 8px);
 }
 
-@utility hatch-band {
-  height: 2rem;
-  border-block: 1px solid var(--stripe);
-  background-image: repeating-linear-gradient(-45deg, var(--stripe) 0 1px, transparent 1px 8px);
+/* Square grid that fades out around the hero visual. Drawn in `--line`, so unlike the
+   hatching it stays visible in dark mode. */
+@utility hero-grid {
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 56px 56px;
+  background-position: center top;
+  mask-image: radial-gradient(ellipse 80% 55% at 50% 72%, black 15%, transparent 70%);
 
-  :where([data-theme="dark"]) & {
-    display: none;
-  }
-}
-
-/* Hatched frame around a feature panel; collapses to nothing in dark mode. */
-@utility hatch-frame {
-  padding: 0.5rem;
-  border: 1px solid var(--stripe);
-  border-radius: 2rem;
-  background-image: repeating-linear-gradient(-45deg, var(--stripe) 0 1px, transparent 1px 8px);
-
-  :where([data-theme="dark"]) & {
-    padding: 0;
-    border: 0;
-  }
-}
-
-/* Vertical column rules at the content edges (and the centre from md), painted behind the
-   children: the host is isolated and the rules sit at z-index -1. */
-@utility page-guides {
-  position: relative;
-  isolation: isolate;
-
-  &::before {
-    content: "";
-    position: absolute;
-    inset-block: 0;
-    inset-inline: max(var(--gutter-x), calc((100% - var(--container-page)) / 2));
-    z-index: -1;
-    border-inline: 1px solid var(--stripe);
-    pointer-events: none;
-  }
-
-  @media (min-width: 768px) {
-    &::before {
-      background-image: linear-gradient(var(--stripe), var(--stripe));
-      background-size: 1px 100%;
-      background-position: center;
-      background-repeat: no-repeat;
-    }
+  @media (min-width: 1024px) {
+    mask-image: radial-gradient(ellipse 50% 70% at 74% 50%, black 15%, transparent 70%);
   }
 }

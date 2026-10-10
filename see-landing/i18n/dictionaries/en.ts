@@ -26,12 +26,14 @@ const en = {
   },
 
   hero: {
-    titleLines: ['Find Your Space', 'Find Your People'],
+    badge: 'Curated student space',
+    title: 'Find Your Space',
     description:
-      "SEE matches you into curated micro-groups based on shared interests, values, goals, and skills. Choose your intention whether you're building a team or finding new friends.",
-    logoAlt: 'SEE logo',
-    taglineAccent: 'Real connections',
-    taglineRest: 'start here',
+      'SEE turns shared interests, values, goals, and skills into social capital through curated micro-groups. Choose your intention: build a team or find new friends.',
+    primaryCta: 'Get Early Access',
+    secondaryCta: 'How It Works',
+    imageAlt:
+      'The SEE app on a phone showing a notification: Your Space is Ready, with Sarah, Alex, James and two more.',
   },
 
   story: {

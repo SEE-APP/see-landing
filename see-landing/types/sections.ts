@@ -1,6 +1,7 @@
-import type { Dictionary } from './i18n';
+import type { Dictionary, Locale } from './i18n';
 
 export interface HeroProps {
+  lang: Locale;
   t: Dictionary['hero'];
 }
 

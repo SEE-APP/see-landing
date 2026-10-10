@@ -42,7 +42,6 @@ export default function Footer({ lang, brand, nav, t }: FooterProps) {
 
   return (
     <footer className="relative z-10 select-none bg-footer">
-      <div aria-hidden="true" className="hatch-band" />
       <div className="mx-auto w-full max-w-(--container-page) border-t border-line px-4 pt-10 pb-6 md:px-6 md:pt-12">
         <div className="grid grid-cols-1 gap-8 border-b border-line pb-8 sm:grid-cols-2 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)_minmax(0,1fr)] lg:gap-12">
           <div className="sm:col-span-2 lg:col-span-1">

@@ -1,8 +1,4 @@
-'use client';
-
-import { motion } from 'framer-motion';
 import { team } from '@/lib/content/team';
-import { easeOutExpo, fadeUpItem, staggerContainer } from '@/lib/motion';
 import LinkedInIcon from '@/assets/icons/LinkedInIcon';
 import Eyebrow from '@/components/ui/Eyebrow';
 import Typography from '@/components/ui/Typography';
@@ -15,18 +11,12 @@ import type { TeamProps } from '@/types/sections';
 
 function LinkedInBadge({ href, label }: { href: string; label: string }) {
   return (
-    <motion.a
+    <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
       aria-label={label}
-      onClick={(e) => e.stopPropagation()}
-      initial={{ opacity: 0, scale: 0.6 }}
-      animate={{ opacity: 1, scale: 1 }}
-      whileHover={{ scale: 1.12 }}
       className="bg-surface-solid text-accent transition-colors duration-200 hover:bg-accent-strong hover:text-on-accent"
-      whileTap={{ scale: 0.95 }}
-      transition={{ duration: 0.25, ease: easeOutExpo }}
       style={{
         position: 'absolute',
         bottom: '-2px',
@@ -43,7 +33,7 @@ function LinkedInBadge({ href, label }: { href: string; label: string }) {
       }}
     >
       <LinkedInIcon size={16} className="pointer-events-none" />
-    </motion.a>
+    </a>
   );
 }
 
@@ -66,34 +56,26 @@ export default function Team({ t }: TeamProps) {
       <div className="page-container">
       <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
         {/* Header */}
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: '-80px' }}
-          variants={staggerContainer}
+        <div
           style={{ textAlign: 'center', marginBottom: '3.5rem' }}
         >
-          <motion.div variants={fadeUpItem}>
+          <div>
             <Eyebrow label={t.eyebrow} />
-          </motion.div>
-          <motion.div variants={fadeUpItem}>
+          </div>
+          <div>
             <Typography as="h2" size={32} weight="semibold" tone="default" className="mb-4 md:text-40">
               {t.title}
             </Typography>
-          </motion.div>
-          <motion.div variants={fadeUpItem}>
+          </div>
+          <div>
             <Typography as="p" size={18} tone="muted" className="mx-auto max-w-2xl leading-relaxed">
               {t.description}
             </Typography>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
 
         {/* Grid */}
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: '-80px' }}
-          variants={staggerContainer}
+        <div
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(min(260px, 100%), 1fr))',
@@ -103,18 +85,15 @@ export default function Team({ t }: TeamProps) {
           {team.map((member) => {
             const { name, role } = t.members[member.id];
             return (
-              <motion.div
+              <div
                 key={member.id}
-                variants={fadeUpItem}
-                whileHover={{ y: -6 }}
-                transition={{ duration: 0.3, ease: easeOutExpo }}
+                className="transition-transform duration-300 ease-out-expo motion-safe:hover:-translate-y-1.5"
                 style={{
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
                   textAlign: 'center',
                   background: 'var(--surface)',
-                  backdropFilter: 'blur(20px)',
                   boxShadow: 'var(--card-shadow)',
                   border: '1px solid var(--line)',
                   borderRadius: '1.5rem',
@@ -162,10 +141,10 @@ export default function Team({ t }: TeamProps) {
                 <Typography size={12} tone="accent" className="font-mono uppercase tracking-[0.06em]">
                   {role}
                 </Typography>
-              </motion.div>
+              </div>
             );
           })}
-        </motion.div>
+        </div>
       </div>
       </div>
     </section>

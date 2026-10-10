@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, FormEvent } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, ArrowRight, CheckCircle2 } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import Eyebrow from '@/components/ui/Eyebrow';
@@ -46,27 +45,8 @@ export default function Waitlist({ t }: WaitlistProps) {
 
   return (
     <section id="waitlist" style={{ backgroundColor: "transparent", padding: '6rem 0', position: 'relative', overflow: 'hidden', userSelect: 'none' }}>
-      {/* Ambient glow behind the card */}
-      <div style={{
-        position: 'absolute',
-        left: '50%',
-        top: '50%',
-        width: '600px',
-        height: '600px',
-        transform: 'translate(-50%, -50%)',
-        borderRadius: '50%',
-        filter: 'blur(80px)',
-        pointerEvents: 'none',
-        backgroundColor: 'color-mix(in srgb, var(--accent-deep) 15%, transparent)'
-      }} />
-
       <div className="page-container">
-      <div className="hatch-frame relative mx-auto max-w-[37rem]">
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-80px' }}
-        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      <div
         style={{
           position: 'relative',
           maxWidth: '36rem',
@@ -74,9 +54,8 @@ export default function Waitlist({ t }: WaitlistProps) {
           borderRadius: '2rem',
           padding: '3.5rem 2rem',
           background: 'var(--surface)',
-          backdropFilter: 'blur(20px)',
           border: '1px solid var(--line)',
-          boxShadow: '0 20px 40px var(--shadow-tint)',
+          boxShadow: 'var(--card-shadow)',
           textAlign: 'center'
         }}
       >
@@ -89,13 +68,9 @@ export default function Waitlist({ t }: WaitlistProps) {
           {t.description}
         </Typography>
 
-        <AnimatePresence mode="wait">
           {status === 'success' ? (
-            <motion.div
+            <div
               key="success"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '1rem 0' }}
             >
               <div style={{
@@ -113,13 +88,11 @@ export default function Waitlist({ t }: WaitlistProps) {
               </div>
               <Typography as="p" weight="medium" tone="default" className="mb-1">{t.successTitle}</Typography>
               <Typography as="p" size={14} tone="muted">{t.successBody}</Typography>
-            </motion.div>
+            </div>
           ) : (
-            <motion.form
+            <form
               key="form"
               onSubmit={handleSubmit}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
               style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.75rem', maxWidth: '28rem', margin: '0 auto', flexWrap: 'wrap', justifyContent: 'center' }}
               noValidate
             >
@@ -163,24 +136,20 @@ export default function Waitlist({ t }: WaitlistProps) {
                 rightIcon={<ArrowRight size={15} />}
                 isLoading={status === 'loading'}
               />
-            </motion.form>
+            </form>
           )}
-        </AnimatePresence>
 
         {status === 'error' && (
-          <motion.p
-            initial={{ opacity: 0, y: -4 }}
-            animate={{ opacity: 1, y: 0 }}
+          <p
             style={{ color: 'var(--danger)', fontSize: '0.75rem', marginTop: '0.75rem' }}
           >
             {t.error}
-          </motion.p>
+          </p>
         )}
 
         {status !== 'success' && (
           <Typography as="p" size={12} tone="muted" className="mt-5">{t.noSpam}</Typography>
         )}
-      </motion.div>
       </div>
       </div>
     </section>

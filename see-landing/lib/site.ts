@@ -1,8 +1,10 @@
 import type { Locale } from '@/i18n/config';
 import type { ContactDetail, NavLink, SocialLink } from '@/types/site';
 
+export const howItWorksHash = '#how-it-works';
+
 export const primaryNavLinks: NavLink[] = [
-  { id: 'howItWorks', hash: '#how-it-works' },
+  { id: 'howItWorks', hash: howItWorksHash },
   { id: 'about', hash: '#about' },
   { id: 'news', hash: '#news' },
 ];
@@ -15,7 +17,7 @@ export const moreNavLinks: NavLink[] = [
 ];
 
 export const footerLinks: NavLink[] = [
-  { id: 'howItWorks', hash: '#how-it-works' },
+  { id: 'howItWorks', hash: howItWorksHash },
   { id: 'about', hash: '#about' },
   { id: 'news', hash: '#news' },
   { id: 'investors', hash: '#investors' },

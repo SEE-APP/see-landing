@@ -1,8 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { easeOutExpo, fadeUpItem, staggerContainer } from '@/lib/motion';
 import type { DemoProps } from '@/types/sections';
 import { ArrowRight, Play } from 'lucide-react';
 import Button from '@/components/ui/Button';
@@ -18,44 +16,34 @@ export default function Demo({ t, waitlistHref, videoSrc }: DemoProps) {
       <div className="page-container">
       <div style={{ maxWidth: '800px', margin: '0 auto' }}>
         {/* Header */}
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: '-80px' }}
-          variants={staggerContainer}
+        <div
           style={{ textAlign: 'center', marginBottom: '3rem' }}
         >
-          <motion.div variants={fadeUpItem}>
+          <div>
             <Eyebrow label={t.eyebrow} />
-          </motion.div>
-          <motion.div variants={fadeUpItem}>
+          </div>
+          <div>
             <Typography as="h2" size={32} weight="semibold" tone="default" className="mb-4 md:text-40">
               {t.title}
             </Typography>
-          </motion.div>
-          <motion.div variants={fadeUpItem}>
+          </div>
+          <div>
             <Typography as="p" size={18} tone="muted" className="mx-auto max-w-xl">
               {t.description}
             </Typography>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
 
         {/* Video frame */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.7, ease: easeOutExpo }}
-          whileHover={{ scale: 1.01 }}
+        <div
           style={{
             position: 'relative',
             aspectRatio: '16/9',
             borderRadius: '1.5rem',
             overflow: 'hidden',
             background: 'var(--surface)',
-            backdropFilter: 'blur(20px)',
             border: '1px solid var(--line)',
-            boxShadow: '0 20px 40px var(--shadow-tint)'
+            boxShadow: 'var(--card-shadow)'
           }}
         >
           {showVideo ? (
@@ -68,18 +56,6 @@ export default function Demo({ t, waitlistHref, videoSrc }: DemoProps) {
             />
           ) : (
             <>
-              {/* Abstract drifting gradient blobs */}
-              <motion.div
-                style={{ position: 'absolute', width: '18rem', height: '18rem', borderRadius: '50%', filter: 'blur(60px)', backgroundColor: 'color-mix(in srgb, var(--accent-deep) 30%, transparent)', top: '-15%', left: '-10%' }}
-                animate={{ x: [0, 40, 0], y: [0, 30, 0] }}
-                transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
-              />
-              <motion.div
-                style={{ position: 'absolute', width: '20rem', height: '20rem', borderRadius: '50%', filter: 'blur(60px)', backgroundColor: 'color-mix(in srgb, var(--accent) 20%, transparent)', bottom: '-20%', right: '-10%' }}
-                animate={{ x: [0, -30, 0], y: [0, -20, 0] }}
-                transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
-              />
-
               {/* Player chrome bar */}
               <div style={{
                 position: 'absolute',
@@ -104,10 +80,9 @@ export default function Demo({ t, waitlistHref, videoSrc }: DemoProps) {
 
               {/* Play button */}
               <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 2 }}>
-                <motion.button
+                <button
                   onClick={() => setIsPlaying(true)}
-                  whileHover={{ scale: 1.08 }}
-                  whileTap={{ scale: 0.96 }}
+                  className="transition-transform duration-200 ease-out-expo hover:scale-105 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
                   style={{
                     position: 'relative',
                     display: 'flex',
@@ -117,19 +92,16 @@ export default function Demo({ t, waitlistHref, videoSrc }: DemoProps) {
                     height: '5rem',
                     borderRadius: '50%',
                     background: 'var(--line)',
-                    backdropFilter: 'blur(12px)',
                     border: '1px solid color-mix(in srgb, var(--ink) 20%, transparent)',
                     cursor: 'pointer'
                   }}
                   aria-label={t.playLabel}
                 >
-                  <motion.span
+                  <span
                     style={{ position: 'absolute', inset: 0, borderRadius: '50%', border: '2px solid var(--accent)' }}
-                    animate={{ scale: [1, 1.4, 1], opacity: [0.6, 0, 0.6] }}
-                    transition={{ duration: 2.5, repeat: Infinity, ease: 'easeOut' }}
                   />
                   <Play size={26} color="var(--ink)" fill="var(--ink)" style={{ marginLeft: '4px' }} />
-                </motion.button>
+                </button>
               </div>
 
               {/* Preview badge */}
@@ -138,7 +110,6 @@ export default function Demo({ t, waitlistHref, videoSrc }: DemoProps) {
                 bottom: '1rem',
                 right: '1rem',
                 background: 'var(--surface)',
-                backdropFilter: 'blur(12px)',
                 border: '1px solid var(--line)',
                 padding: '0.25rem 0.75rem',
                 borderRadius: '9999px',
@@ -153,7 +124,7 @@ export default function Demo({ t, waitlistHref, videoSrc }: DemoProps) {
               </div>
             </>
           )}
-        </motion.div>
+        </div>
 
         {/* Call to Action / Caption */}
         <div className="mt-8 flex flex-wrap items-center justify-center gap-x-2 gap-y-1">

@@ -88,7 +88,6 @@ components/ui/      Typography, Button, Eyebrow, Dropdown (server-safe primitive
 components/         section components, still flat: Hero, About, Team, Demo, Waitlist
 lib/site.ts         site data: nav links, contact details, social links
 lib/content/        list structure (ids, icons, years, avatars, URLs) for team.ts, about.ts; text lives in the dictionary
-lib/motion.ts       shared Framer Motion variants (staggerContainer, fadeUpItem, easeOutExpo)
 lib/validation.ts   isValidEmail
 lib/cn.ts           className joiner (no clsx/tailwind-merge: don't pass a class that conflicts with a variant's)
 types/              all shared types: content.ts, site.ts, sections.ts, layout.ts, ui.ts (component props), i18n.ts (Dictionary, Locale)
@@ -143,10 +142,10 @@ only: `.claude/design-references/`.
 
 ## Known debt (fix opportunistically, don't let it spread)
 
-- All 5 section components are `'use client'` (70–630 lines); Framer Motion in `About`, `Team`,
-  `Demo`, `Waitlist`.
+- `About`, `Demo` and `Waitlist` are `'use client'` sections (state lives in the whole section
+  instead of a small leaf). `framer-motion` is installed but no longer imported.
 - Many static `style={{}}` and hex colours in the sections.
-- Raw `<img>` in `components/Hero.tsx` and `components/Team.tsx`; team photos are JPG.
+- Raw `<img>` in `components/Team.tsx`; team photos are JPG.
 - `geist` installed but unused; body uses a system font stack.
 - Waitlist `fetch`es Formspree from the client with the form id hardcoded
   (`components/Waitlist.tsx`) → Server Action + env var.

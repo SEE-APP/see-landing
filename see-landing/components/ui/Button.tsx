@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { cn } from '@/lib/cn';
-import type { ButtonProps, ButtonSize, ButtonVariant } from '@/types/ui';
+import type { ButtonProps, ButtonShape, ButtonSize, ButtonVariant } from '@/types/ui';
 
 const baseClasses =
   'inline-flex shrink-0 cursor-pointer select-none items-center justify-center gap-2 font-medium transition duration-200 ' +
@@ -9,10 +9,10 @@ const baseClasses =
 
 const variantClasses: Record<ButtonVariant, string> = {
   filled:
-    'rounded-full bg-accent-strong text-14 text-on-accent shadow-lg shadow-accent/25 ' +
+    'bg-accent-strong text-14 text-on-accent shadow-lg shadow-accent/25 ' +
     'hover:bg-accent-hover active:scale-[0.98]',
   outline:
-    'rounded-full border border-accent/60 text-14 text-accent ' +
+    'border border-accent/60 text-14 text-accent ' +
     'hover:border-accent hover:bg-accent-soft active:bg-accent/20',
   text: 'rounded-sm text-accent hover:text-accent-hover',
   icon:
@@ -23,6 +23,11 @@ const variantClasses: Record<ButtonVariant, string> = {
 const pillSizeClasses: Record<ButtonSize, string> = {
   md: 'h-12 px-6',
   sm: 'h-10 px-5',
+};
+
+const shapeClasses: Record<ButtonShape, string> = {
+  pill: 'rounded-full',
+  rounded: 'rounded-lg',
 };
 
 function Spinner() {
@@ -40,6 +45,7 @@ export default function Button({
   rightIcon,
   variant = 'filled',
   size = 'md',
+  shape = 'pill',
   fullWidth = false,
   isLoading = false,
   disabled = false,
@@ -51,6 +57,7 @@ export default function Button({
     baseClasses,
     variantClasses[variant],
     isPill && pillSizeClasses[size],
+    isPill && shapeClasses[shape],
     fullWidth && 'w-full',
     className,
   );
