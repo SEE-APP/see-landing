@@ -29,6 +29,14 @@ export interface EyebrowProps {
   label: string;
 }
 
+export interface SectionHeadingProps {
+  /** Referenced by the section's `aria-labelledby`. */
+  id: string;
+  eyebrow: string;
+  title: string;
+  description: string;
+}
+
 export type ButtonVariant = 'filled' | 'outline' | 'text' | 'icon';
 /** Height and padding of the `filled` and `outline` pills; ignored by `text` and `icon`. */
 export type ButtonSize = 'md' | 'sm';
