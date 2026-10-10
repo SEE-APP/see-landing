@@ -19,7 +19,6 @@ const en = {
       faq: 'FAQ',
       contact: 'Contact',
     },
-    more: 'More',
     cta: 'Get Early Access',
     openMenu: 'Open menu',
     closeMenu: 'Close menu',

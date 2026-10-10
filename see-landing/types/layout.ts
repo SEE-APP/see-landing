@@ -13,6 +13,13 @@ export interface FooterProps {
   t: Dictionary['footer'];
 }
 
+export interface BrandLinkProps {
+  lang: Locale;
+  brand: Dictionary['brand'];
+  /** Accessible name of the link (`nav.home`). */
+  label: string;
+}
+
 export interface MobileNavProps {
   lang: Locale;
   brand: Dictionary['brand'];

@@ -1,38 +1,30 @@
-import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, Menu, X } from 'lucide-react';
-import { LanguageList } from '@/components/common/LanguageSwitcher';
+import { Menu, X } from 'lucide-react';
+import BrandLink from '@/components/common/BrandLink';
+import LanguageList from '@/components/common/LanguageList';
 import Button from '@/components/ui/Button';
 import PopoverPanel from '@/components/ui/PopoverPanel';
-import Typography from '@/components/ui/Typography';
-import { ctaHash, homeHref, moreNavLinks, primaryNavLinks } from '@/lib/site';
+import { ctaHash, homeHref, navLinks } from '@/lib/site';
 import type { MobileNavProps } from '@/types/layout';
 
 const PANEL_ID = 'nav-mobile';
 
-const focusRing = 'focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent';
-
 const iconButtonClasses =
-  'inline-flex size-10 cursor-pointer items-center justify-center rounded-full border border-line-strong text-ink-subtle ' +
-  'transition-colors duration-200 hover:border-accent/40 hover:text-accent ' +
+  '-mr-2 inline-flex size-10 cursor-pointer items-center justify-center rounded-md text-ink ' +
+  'transition-colors duration-200 hover:text-accent ' +
   'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent';
-
-const links = [...primaryNavLinks, ...moreNavLinks];
 
 export default function MobileNav({ lang, brand, t }: MobileNavProps) {
   return (
-    <div className="flex justify-self-end lg:hidden">
+    <div className="ml-auto flex lg:hidden">
       <button type="button" popoverTarget={PANEL_ID} aria-label={t.openMenu} className={iconButtonClasses}>
-        <Menu size={18} aria-hidden="true" />
+        <Menu size={22} aria-hidden="true" />
       </button>
 
       <PopoverPanel id={PANEL_ID} className="mobile-nav-panel bg-canvas text-ink">
-        <div className="flex min-h-full flex-col">
-          <div className="flex h-16 shrink-0 items-center justify-between gap-x-6 border-b border-line px-4 md:px-6">
-            <Link href={homeHref(lang)} aria-label={t.home} className={`flex w-fit items-center gap-2.5 rounded-md ${focusRing}`}>
-              <Image src="/logo.png" alt="" width={40} height={40} className="size-10 shrink-0 object-contain" />
-              <Typography size={20} weight="bold" tone="default" className="tracking-tight">{brand}</Typography>
-            </Link>
+        <div className="page-container flex min-h-full flex-col">
+          <div className="flex h-16 shrink-0 items-center justify-between">
+            <BrandLink lang={lang} brand={brand} label={t.home} />
             <button
               type="button"
               popoverTarget={PANEL_ID}
@@ -40,37 +32,26 @@ export default function MobileNav({ lang, brand, t }: MobileNavProps) {
               aria-label={t.closeMenu}
               className={iconButtonClasses}
             >
-              <X size={18} aria-hidden="true" />
+              <X size={22} aria-hidden="true" />
             </button>
           </div>
 
-          <div className="flex flex-col gap-6 px-4 pt-4 md:px-6">
-            <ul className="flex flex-col divide-y divide-line">
-              {links.map((link) => (
-                <li key={link.id}>
-                  <Link
-                    href={homeHref(lang, link.hash)}
-                    className="flex min-h-11 items-center py-2 text-16 text-ink-subtle transition-colors duration-150 hover:text-accent focus-visible:text-accent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent"
-                  >
-                    {t.links[link.id]}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+          <ul className="mt-8 flex flex-col gap-1">
+            {navLinks.map((link) => (
+              <li key={link.id}>
+                <Link
+                  href={homeHref(lang, link.hash)}
+                  className="flex min-h-12 items-center rounded-sm text-32 font-semibold tracking-[-0.02em] text-ink transition-colors duration-150 hover:text-accent focus-visible:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                >
+                  {t.links[link.id]}
+                </Link>
+              </li>
+            ))}
+          </ul>
 
-            <hr className="border-line" />
-
+          <div className="mt-auto flex flex-col gap-6 pt-10 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
             <LanguageList current={lang} label={t.languageSwitcher} />
-          </div>
-
-          <div className="mt-auto px-4 pt-6 pb-[max(1rem,env(safe-area-inset-bottom))] md:px-6">
-            <Button
-              variant="filled"
-              href={homeHref(lang, ctaHash)}
-              label={t.cta}
-              rightIcon={<ArrowRight size={16} />}
-              fullWidth
-            />
+            <Button variant="filled" shape="rounded" href={homeHref(lang, ctaHash)} label={t.cta} fullWidth />
           </div>
         </div>
       </PopoverPanel>

@@ -3,17 +3,10 @@ import type { ContactDetail, NavLink, SocialLink } from '@/types/site';
 
 export const howItWorksHash = '#how-it-works';
 
-export const primaryNavLinks: NavLink[] = [
-  { id: 'howItWorks', hash: howItWorksHash },
+export const navLinks: NavLink[] = [
   { id: 'about', hash: '#about' },
-  { id: 'news', hash: '#news' },
-];
-
-export const moreNavLinks: NavLink[] = [
+  { id: 'howItWorks', hash: howItWorksHash },
   { id: 'team', hash: '#team' },
-  { id: 'investors', hash: '#investors' },
-  { id: 'faq', hash: '#faq' },
-  { id: 'contact', hash: '#contact' },
 ];
 
 export const footerLinks: NavLink[] = [

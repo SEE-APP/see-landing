@@ -77,16 +77,11 @@ export interface PopoverPanelProps {
   children: ReactNode;
 }
 
-/** `link` looks like a nav link; `pill` is a bordered rounded-full control. */
-export type DropdownTrigger = 'link' | 'pill';
-
 /** The panel opens below its trigger, right edges aligned. */
 export interface DropdownProps {
   id: string;
   /** Trigger content; a chevron is appended. */
   label: ReactNode;
-  /** @default 'link' */
-  trigger?: DropdownTrigger;
   children: ReactNode;
 }
 
