@@ -26,6 +26,7 @@ for another reason; don't do a bulk move without asking.
 | Thing | Where | Kind |
 |---|---|---|
 | `Navbar` | `components/common/Navbar.tsx` | server |
+| `BrandLink` (logo + wordmark home link) | `components/common/BrandLink.tsx` | server; used by Navbar and MobileNav |
 | `Hero` | `components/Hero.tsx` | client (canvas/effect in `useEffect`) |
 | `Story`, `StoryTimeline` | `components/landing/` | server |
 | `Intention` (section), `IntentionCards` (selectable cards) | `components/landing/` | server section, client leaf |
@@ -35,13 +36,13 @@ for another reason; don't do a bulk move without asking.
 | `Waitlist` (email form → Formspree) | `components/Waitlist.tsx` | client, Framer Motion |
 | `Footer` | `components/common/Footer.tsx` | server |
 | `TikTokIcon`, `InstagramIcon`, `LinkedInIcon`, `PhoneIcon` | `assets/icons/` | server-safe SVG components |
-| `primaryNavLinks`, `moreNavLinks`, `footerLinks`, `ctaHash`, `contactDetails`, `socialLinks`, `homeHref` | `lib/site.ts` | static data |
-| `LanguageSwitcher` (header dropdown), `LanguageList` (inline, mobile menu) | `components/common/LanguageSwitcher.tsx` | server; hidden while only one locale exists |
+| `navLinks`, `footerLinks`, `ctaHash`, `contactDetails`, `socialLinks`, `homeHref` | `lib/site.ts` | static data |
+| `LanguageSwitcher` (header dropdown), `LanguageList` (inline, mobile menu), `LanguageOptions` (shared items) | `components/common/` (one file each) | server; hidden while only one locale exists |
 | `MobileNav` (hamburger + full-width popover menu, below `lg`) | `components/common/MobileNav.tsx` | server |
 | `page-container`, `page-section` | `app/globals.css` (`@utility`) | safe-grid layout classes |
 | `Typography` (size/weight/tone/align/as) | `components/ui/Typography.tsx` | server-safe |
 | `Button` (filled/outline/text/icon, `size` md/sm, `href` → `next/link`, `isLoading`) | `components/ui/Button.tsx` | server-safe |
-| `Dropdown` (native popover menu, `align` start/end, `trigger` link/pill), `DropdownItem`, `popoverSurfaceClasses` | `components/ui/Dropdown.tsx` | server; panel CSS (`.dropdown-panel*`) in `app/globals.css` |
+| `Dropdown` (native popover menu, plain-text trigger, flat hairline panel), `DropdownItem` (menu link) | `components/ui/Dropdown.tsx`, `components/ui/DropdownItem.tsx` | server; panel CSS (`.dropdown-panel*`) in `app/globals.css` |
 | `PopoverPanel` (`popover="auto"` div, closes after a link click) | `components/ui/PopoverPanel.tsx` | client leaf; use via `Dropdown` or with a `popoverTarget` button |
 | `Eyebrow` pill | `components/ui/Eyebrow.tsx` | server-safe; wrap in `motion.div` for reveal |
 | `SectionHeading` (eyebrow + h2 with `id` + subtitle, centered) | `components/ui/SectionHeading.tsx` | server-safe |
