@@ -5,11 +5,28 @@ export interface HeroProps {
   t: Dictionary['hero'];
 }
 
-export interface AboutProps {
-  story: Dictionary['story'];
-  intention: Dictionary['intention'];
-  howItWorks: Dictionary['howItWorks'];
-  whyUs: Dictionary['whyUs'];
+export interface StoryProps {
+  t: Dictionary['story'];
+}
+
+export interface StoryTimelineProps {
+  items: Dictionary['story']['timeline'];
+}
+
+export interface IntentionProps {
+  t: Dictionary['intention'];
+}
+
+export interface IntentionCardsProps {
+  items: Dictionary['intention']['items'];
+}
+
+export interface HowItWorksProps {
+  t: Dictionary['howItWorks'];
+}
+
+export interface WhyUsProps {
+  t: Dictionary['whyUs'];
 }
 
 export interface TeamProps {

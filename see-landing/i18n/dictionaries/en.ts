@@ -37,10 +37,11 @@ const en = {
   },
 
   story: {
-    eyebrow: 'Our Story',
     title: 'Connection came before code.',
-    body:
-      'SEE is the digital evolution of a proven offline model. It began in 2023 with SEEvrce, where we manually curated small communities and organized offline Spaces for young people. As the community grew, we established the NGO Youth Space of Georgia in 2024 to expand our impact. One of the people we met through those early Spaces later joined the team building SEE. It was a reminder that bringing the right people together can create opportunities far beyond a single event. First, we built spaces for people manually. Now, we’re building the technology to help everyone find their space.',
+    paragraphs: [
+      'SEE didn’t start with a pitch deck, it began in 2023 at TSU with SEEvrce. We saw firsthand how hard it was for students and young builders to find their circle, so we started manually curating small offline spaces to bring the right people together.',
+      'As the movement grew into Youth Space of Georgia, we proved that high-intent matching actually works in the real world. In fact, our core team met through those very first meetups. Now, we’re building the technology to scale that proven model for everyone.',
+    ],
     timeline: {
       seevrce: {
         title: 'SEEvrce launches',
