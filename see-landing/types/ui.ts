@@ -29,14 +29,6 @@ export interface EyebrowProps {
   label: string;
 }
 
-export interface SectionHeadingProps {
-  /** Referenced by the section's `aria-labelledby`. */
-  id: string;
-  eyebrow: string;
-  title: string;
-  description: string;
-}
-
 /** Title in the left column, body paragraphs in the right column from `md` up. */
 export interface EditorialHeadingProps {
   /** Referenced by the section's `aria-labelledby`. */

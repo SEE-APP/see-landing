@@ -7,7 +7,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 # SEE landing page
 
 Marketing landing page for **SEE**, a mobile app for meaningful small-group experiences that hasn't
-launched yet. The page is a low-touch marketing driver: explain the product, show the team and demo,
+launched yet. The page is a low-touch marketing driver: explain the product, show the team,
 and collect **waitlist emails** (the one conversion today; store downloads after launch).
 
 Goals, in order: very fast load, Lighthouse/SEO near 100, near-zero client JavaScript, minimal
@@ -49,7 +49,7 @@ npm run lint && npm run build
   `images.unoptimized` (static export would only lose image optimization and Server Actions here).
   Nothing on `/` reads per-request data.
 - **Server Components first (95%+ of the code).** Never `'use client'` on a page or layout.
-  Client leaves only: the waitlist form, the mobile nav toggle, the demo play button, small motion
+  Client leaves only: the waitlist form, the mobile nav toggle, the intention picker, small motion
   islands. Each client file says why on its second line (`// client: …`).
 - **Motion: CSS first.** Tailwind transitions/keyframes for fade, slide, hover, stagger; scroll
   reveal via `animation-timeline: view()` with a tiny IntersectionObserver fallback. Framer Motion
@@ -84,9 +84,9 @@ i18n/config.ts      locales, defaultLocale, localeNames, siteUrl (NEXT_PUBLIC_SI
 i18n/get-dictionary.ts  loads a dictionary on the server; i18n/format.ts fills {placeholders}
 assets/icons/       custom SVG icon components, one per file (lucide-react for the rest)
 components/common/  Navbar, MobileNav, BrandLink, Footer, LanguageSwitcher, LanguageList, LanguageOptions (rendered in the root layout)
-components/ui/      Typography, Button, Eyebrow, SectionHeading, Dropdown, DropdownItem (server-safe primitives; use them for all text and buttons), PopoverPanel (client leaf)
-components/landing/ one file per section: Story (+ StoryTimeline), Intention (+ IntentionCards client leaf), HowItWorks, WhyUs
-components/         sections not moved yet: Hero, Team, Demo, Waitlist
+components/ui/      Typography, Button, Eyebrow, EditorialHeading, Dropdown, DropdownItem (server-safe primitives; use them for all text and buttons), PopoverPanel (client leaf)
+components/landing/ one file per section: Story (+ StoryTimeline), FindYourCircle (+ CircleSteps), Intention (+ IntentionCards client leaf, IntentionOption)
+components/         sections not moved yet: Hero, Team, Waitlist
 lib/site.ts         site data: nav links, contact details, social links
 lib/content/        list structure (ids, icons, years, avatars, URLs) for team.ts, about.ts; text lives in the dictionary
 lib/validation.ts   isValidEmail
@@ -96,8 +96,8 @@ styles/variables.css  design tokens (@theme) and layout variables (gutters, head
 public/             logo, favicon, team photos
 ```
 Target layout (move a file when you touch it; ask before bulk moves):
-`components/landing/` (Hero, Team, Demo), `components/common/` (Navbar, Footer, MobileNav),
-`components/ui/` (Button, Input, Eyebrow, SectionHeading), `components/waitlist/` (form),
+`components/landing/` (Hero, Team), `components/common/` (Navbar, Footer, MobileNav),
+`components/ui/` (Button, Input, EditorialHeading), `components/waitlist/` (form),
 `lib/` (pure helpers, site constants), `app/actions.ts` (Server Actions).
 `@/*` points at the project root (`@/components/Hero`). No barrel files.
 
@@ -146,7 +146,7 @@ only: `.claude/design-references/`.
 
 ## Known debt (fix opportunistically, don't let it spread)
 
-- `Demo` and `Waitlist` are `'use client'` sections (state lives in the whole section
+- `Waitlist` is a `'use client'` section (state lives in the whole section
   instead of a small leaf). `framer-motion` is installed but no longer imported.
 - Many static `style={{}}` and hex colours in the sections.
 - Raw `<img>` in `components/Team.tsx`; team photos are JPG.

@@ -8,9 +8,9 @@
 | Copy and translations | `i18n/dictionaries/en.ts` | every user-facing string; `Dictionary` type is inferred from it |
 | Locale config, dictionary loader, `format` | `i18n/` | `locales`, `hasLocale`, `getDictionary`, `{placeholder}` filling |
 | Server Actions | `app/actions.ts` (or `app/<feature>/actions.ts`) | `'use server'`; secrets from `process.env` only |
-| Page sections | `components/landing/` (target) | Story, Intention, HowItWorks, WhyUs (moved); Hero, Team, Demo (not yet); Server Components with small client leaves |
+| Page sections | `components/landing/` (target) | Story, FindYourCircle, Intention (moved); Hero, Team, Waitlist (not yet); Server Components with small client leaves |
 | Site chrome | `components/common/` | Navbar, MobileNav, Footer, LanguageSwitcher (in the root layout) |
-| Primitives | `components/ui/` | Typography, Button, Eyebrow, SectionHeading, Dropdown, PopoverPanel; Input (target) |
+| Primitives | `components/ui/` | Typography, Button, Eyebrow, EditorialHeading, Dropdown, PopoverPanel; Input (target) |
 | Custom SVG icons | `assets/icons/` | one component per file, `IconProps` from `types/ui.ts`; use `lucide-react` when it has the icon |
 | Waitlist | `components/waitlist/` (target) | the form is the main client leaf |
 | Pure helpers and static data | `lib/` | no JSX; `lib/site.ts` (nav, contacts, socials), `lib/content/*.ts` (page lists), `lib/motion.ts`, `lib/validation.ts`, `lib/cn.ts` |
@@ -29,10 +29,9 @@ for another reason; don't do a bulk move without asking.
 | `BrandLink` (logo + wordmark home link) | `components/common/BrandLink.tsx` | server; used by Navbar and MobileNav |
 | `Hero` | `components/Hero.tsx` | client (canvas/effect in `useEffect`) |
 | `Story`, `StoryTimeline` | `components/landing/` | server |
-| `Intention` (section), `IntentionCards` (selectable cards) | `components/landing/` | server section, client leaf |
-| `HowItWorks`, `WhyUs` | `components/landing/` | server |
+| `Intention` (section), `IntentionCards` (multi-select list), `IntentionOption` (visual content of one row; the button lives in `IntentionCards`) | `components/landing/` | server section, client leaf |
+| `FindYourCircle`, `CircleSteps` | `components/landing/` | server |
 | `Team` (`LinkedInBadge`) | `components/Team.tsx` | client, Framer Motion |
-| `Demo` (YouTube embed, lazy play) | `components/Demo.tsx` | client, Framer Motion |
 | `Waitlist` (email form → Formspree) | `components/Waitlist.tsx` | client, Framer Motion |
 | `Footer` | `components/common/Footer.tsx` | server |
 | `TikTokIcon`, `InstagramIcon`, `LinkedInIcon`, `PhoneIcon` | `assets/icons/` | server-safe SVG components |
@@ -45,5 +44,5 @@ for another reason; don't do a bulk move without asking.
 | `Dropdown` (native popover menu, plain-text trigger, flat hairline panel), `DropdownItem` (menu link) | `components/ui/Dropdown.tsx`, `components/ui/DropdownItem.tsx` | server; panel CSS (`.dropdown-panel*`) in `app/globals.css` |
 | `PopoverPanel` (`popover="auto"` div, closes after a link click) | `components/ui/PopoverPanel.tsx` | client leaf; use via `Dropdown` or with a `popoverTarget` button |
 | `Eyebrow` pill | `components/ui/Eyebrow.tsx` | server-safe; wrap in `motion.div` for reveal |
-| `SectionHeading` (eyebrow + h2 with `id` + subtitle, centered) | `components/ui/SectionHeading.tsx` | server-safe |
+| `EditorialHeading` (h2 with `id` left, muted paragraphs right, no badge) | `components/ui/EditorialHeading.tsx` | server-safe; the new section heading (Story, FindYourCircle, Intention) |
 | `cn` | `lib/cn.ts` | className joiner |

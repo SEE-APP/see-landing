@@ -35,18 +35,8 @@ export interface CircleStepsProps {
   items: Dictionary['findYourCircle']['steps'];
 }
 
-export interface WhyUsProps {
-  t: Dictionary['whyUs'];
-}
-
 export interface TeamProps {
   t: Dictionary['team'];
-}
-
-export interface DemoProps {
-  t: Dictionary['demo'];
-  waitlistHref: string;
-  videoSrc: string;
 }
 
 export interface WaitlistProps {

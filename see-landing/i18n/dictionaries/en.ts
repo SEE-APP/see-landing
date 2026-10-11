@@ -90,30 +90,6 @@ const en = {
     },
   },
 
-  whyUs: {
-    eyebrow: 'Why SEE',
-    title: 'Why SEE?',
-    description: 'Four commitments baked into every Space we build.',
-    items: {
-      noSwiping: {
-        title: 'No Swiping',
-        desc: 'We automatically curate your Space.',
-      },
-      beyondHobbies: {
-        title: 'Beyond Hobbies',
-        desc: 'Matched by goals, skills, and values.',
-      },
-      guided: {
-        title: 'Guided Connection',
-        desc: 'Digital facilitator to break the ice.',
-      },
-      intentions: {
-        title: 'Clear Intentions',
-        desc: 'Separate spaces for friends and collaborators.',
-      },
-    },
-  },
-
   team: {
     eyebrow: 'The Team',
     title: 'Powered by a real community.',
@@ -128,18 +104,6 @@ const en = {
       fullstack: { name: '[Placeholder Name]', role: 'Full-Stack Developer' },
       designer: { name: '[Placeholder Name]', role: 'Graphic & UI/UX Designer' },
     },
-  },
-
-  demo: {
-    eyebrow: 'The Product',
-    title: 'See it in action.',
-    description: 'See how an online introduction becomes a real-world connection.',
-    videoTitle: 'SEE demo video',
-    playLabel: 'Play demo video',
-    playerLabel: 'Prototype Walkthrough',
-    previewBadge: 'Preview',
-    ctaPrompt: 'Ready to find your space?',
-    ctaLabel: 'Get early access',
   },
 
   waitlist: {

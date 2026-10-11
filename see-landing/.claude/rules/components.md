@@ -10,7 +10,7 @@ paths:
 
 - Server Component by default. `'use client'` only on a leaf that needs state, effects, event
   handlers, DOM refs or browser APIs. Expected client leaves: the waitlist form, the mobile nav
-  toggle, the demo video's play button, and small motion islands. Everything else is server.
+  toggle, the intention picker, and small motion islands. Everything else is server.
 - A client file's first line after `'use client'` is `// client: <why>`.
 - Never make a whole section client to animate or wire one element: extract that element.
 - Static copy, lists, links and icons live in Server Components or `lib/*.ts`, not in a client
@@ -46,7 +46,7 @@ paths:
 ## Structure
 
 - Target folders: `components/landing/` (sections), `components/common/` (Navbar, Footer,
-  MobileNav), `components/ui/` (Button, Input, Eyebrow, SectionHeading), `components/waitlist/`.
+  MobileNav), `components/ui/` (Button, Input, Eyebrow, EditorialHeading), `components/waitlist/`.
   Move a file there when you touch it; ask before a bulk move.
 - **One component, one job.** A component does one thing you can name in a few words ("the story
   section", "the year rail", "the selectable intention cards"). Split it when any of these is true:
@@ -57,7 +57,7 @@ paths:
   - It holds a self-contained block (a list, a timeline, a card grid) that needs its own markup and
     logic. Give the block its own file next to the section (`Story` + `StoryTimeline`).
   - The same block is copied into a second component. Promote it to `components/ui/`
-    (e.g. `SectionHeading`).
+    (e.g. `EditorialHeading`).
   - It grows past ~150 lines.
 - One default-exported component per file, named after the file. Don't define several components
   in one file behind comment banners.
