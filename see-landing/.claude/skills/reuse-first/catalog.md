@@ -8,11 +8,11 @@
 | Copy and translations | `i18n/dictionaries/en.ts` | every user-facing string; `Dictionary` type is inferred from it |
 | Locale config, dictionary loader, `format` | `i18n/` | `locales`, `hasLocale`, `getDictionary`, `{placeholder}` filling |
 | Server Actions | `app/actions.ts` (or `app/<feature>/actions.ts`) | `'use server'`; secrets from `process.env` only |
-| Page sections | `components/landing/` (target) | Story, FindYourCircle, Intention, Team (moved); Hero, Waitlist (not yet); Server Components with small client leaves |
+| Page sections | `components/landing/` (target) | Story, FindYourCircle, Intention, Team, Waitlist (moved); Hero (not yet); Server Components with small client leaves |
 | Site chrome | `components/common/` | Navbar, MobileNav, Footer, LanguageSwitcher (in the root layout) |
 | Primitives | `components/ui/` | Typography, Button, Eyebrow, EditorialHeading, Dropdown, PopoverPanel; Input (target) |
 | Custom SVG icons | `assets/icons/` | one component per file, `IconProps` from `types/ui.ts`; use `lucide-react` when it has the icon |
-| Waitlist | `components/waitlist/` (target) | the form is the main client leaf |
+| Waitlist form | `components/waitlist/` | WaitlistForm is the client leaf; the request is `joinWaitlist` in `lib/waitlist.ts` |
 | Pure helpers and static data | `lib/` | no JSX; `lib/site.ts` (nav, contacts, socials), `lib/content/*.ts` (page lists), `lib/motion.ts`, `lib/validation.ts`, `lib/cn.ts` |
 | Types and prop interfaces | `types/` | `content.ts`, `site.ts`, `sections.ts`, `layout.ts`, `ui.ts`, `i18n.ts` |
 | Design tokens and CSS variables | `styles/variables.css` | `@theme` tokens + gutters; imported by `app/globals.css`; never hex in components |
@@ -32,7 +32,8 @@ for another reason; don't do a bulk move without asking.
 | `Intention` (section), `IntentionCards` (multi-select list), `IntentionOption` (visual content of one row; the button lives in `IntentionCards`) | `components/landing/` | server section, client leaf |
 | `FindYourCircle`, `CircleSteps` | `components/landing/` | server |
 | `Team` (section), `TeamMembers` (photo grid), `TeamMemberCard` (photo, name, role, LinkedIn link) | `components/landing/` | server |
-| `Waitlist` (email form → Formspree) | `components/Waitlist.tsx` | client, Framer Motion |
+| `Waitlist` (centered closing CTA), `WaitlistRings` (faint concentric rings SVG behind it) | `components/landing/` | server |
+| `WaitlistForm` (email field + filled button in one bordered pill, idle/loading/error), `WaitlistSuccess` | `components/waitlist/` | client leaf, server-safe |
 | `Footer` | `components/common/Footer.tsx` | server |
 | `TikTokIcon`, `InstagramIcon`, `LinkedInIcon`, `PhoneIcon` | `assets/icons/` | server-safe SVG components |
 | `navLinks`, `footerLinks`, `ctaHash`, `contactDetails`, `socialLinks`, `homeHref` | `lib/site.ts` | static data |

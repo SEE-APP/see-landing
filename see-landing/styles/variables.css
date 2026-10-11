@@ -42,8 +42,7 @@
   --text-48: 3rem;
   --text-48--line-height: 1.1;
   --text-64: 4rem;
-  --text-64--line-height: 1.1;
-}
+  --text-64--line-height: 1.1;}
 
 /* Semantic colour tokens. Light is the default; `data-theme="dark"` on <html> restores the
    original dark design. Components use the generated utilities (`bg-canvas`, `text-ink`, …). */
@@ -61,6 +60,7 @@
   --color-accent-hover: var(--accent-hover);
   --color-accent-soft: var(--accent-soft);
   --color-on-accent: var(--on-accent);
+  --color-danger: var(--danger);
   --color-footer: var(--footer);
   --color-shade: var(--shadow-tint);
 }

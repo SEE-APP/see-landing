@@ -101,9 +101,9 @@ const en = {
   },
 
   waitlist: {
-    eyebrow: 'Early Access',
     title: 'Ready to find your space?',
-    description: 'Get early access and be the first to experience SEE when it opens up near you.',
+    description: 'Join the waitlist to get priority access to the first micro-groups in Tbilisi.',
+    cohortNote: 'Limited spots for the first cohort',
     emailPlaceholder: 'you@email.com',
     emailLabel: 'Email address',
     submit: 'Get Early Access',

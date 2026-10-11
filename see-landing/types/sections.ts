@@ -56,4 +56,12 @@ export interface WaitlistProps {
   t: Dictionary['waitlist'];
 }
 
+export interface WaitlistFormProps {
+  t: Dictionary['waitlist'];
+}
+
+export interface WaitlistSuccessProps {
+  title: string;
+  body: string;
+}
 export type WaitlistStatus = 'idle' | 'loading' | 'success' | 'error';

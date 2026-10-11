@@ -5,4 +5,4 @@ when it's fixed.
 
 | What | Copies | Canonical (target) |
 |---|---|---|
-| Section header block (Eyebrow pill + h2 + muted subtitle, centered) | Waitlist | `components/ui/EditorialHeading.tsx` (Story, FindYourCircle, Intention, Team already use it) |
+| _none open_ | | |
