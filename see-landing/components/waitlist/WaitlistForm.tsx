@@ -40,7 +40,7 @@ export default function WaitlistForm({ t }: WaitlistFormProps) {
       </label>
       <div
         className={cn(
-          'flex flex-col gap-2 rounded-[1.75rem] border bg-surface-solid p-2 transition-colors duration-200 sm:flex-row sm:items-center sm:rounded-full',
+          'flex items-center gap-2 rounded-full border bg-surface-solid p-1.5 transition-colors duration-200',
           isError ? 'border-danger' : 'border-line-strong focus-within:border-accent',
         )}
       >
@@ -58,14 +58,14 @@ export default function WaitlistForm({ t }: WaitlistFormProps) {
           placeholder={t.emailPlaceholder}
           aria-invalid={isError}
           aria-describedby={isError ? ERROR_ID : undefined}
-          className="h-12 min-w-0 flex-1 bg-transparent px-5 text-16 text-ink outline-none placeholder:text-ink-muted sm:text-18"
+          className="h-10 min-w-0 flex-1 bg-transparent pl-5 text-16 md:pl-6 text-ink outline-none placeholder:text-ink-muted"
         />
         <Button
           type="submit"
+          size="sm"
           label={t.submit}
           rightIcon={<ArrowRight size={16} />}
           isLoading={status === 'loading'}
-          className="w-full sm:w-auto"
         />
       </div>
       <div id={ERROR_ID} role="alert">
