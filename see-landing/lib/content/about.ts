@@ -1,12 +1,5 @@
-import {
-  Bot,
-  Rocket,
-  SplitSquareHorizontal,
-  Target,
-  Users,
-  Wand2,
-} from 'lucide-react';
-import type { IconItem, IntentionId, Step, TimelineEvent, WhyUsId } from '@/types/content';
+import { Bot, SplitSquareHorizontal, Target, Wand2 } from 'lucide-react';
+import type { IconItem, Intention, Step, TimelineEvent, WhyUsId } from '@/types/content';
 
 export const timeline: TimelineEvent[] = [
   { id: 'seevrce', year: '2023' },
@@ -14,10 +7,7 @@ export const timeline: TimelineEvent[] = [
   { id: 'see', year: '2026' },
 ];
 
-export const intentions: IconItem<IntentionId>[] = [
-  { id: 'friends', icon: Users },
-  { id: 'team', icon: Rocket },
-];
+export const intentions: Intention[] = [{ id: 'friends' }, { id: 'team' }];
 
 export const steps: Step[] = [
   { id: 'profile', number: '01' },

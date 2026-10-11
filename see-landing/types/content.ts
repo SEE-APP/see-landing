@@ -26,6 +26,10 @@ export interface IconItem<Id extends string> {
   icon: LucideIcon;
 }
 
+export interface Intention {
+  id: IntentionId;
+}
+
 export interface Step {
   id: StepId;
   number: string;

@@ -21,6 +21,12 @@ export interface IntentionCardsProps {
   items: Dictionary['intention']['items'];
 }
 
+export interface IntentionOptionProps {
+  title: string;
+  desc: string;
+  isSelected: boolean;
+}
+
 export interface FindYourCircleProps {
   t: Dictionary['findYourCircle'];
 }

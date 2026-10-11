@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation';
 import Hero from '@/components/Hero';
 import Story from '@/components/landing/Story';
-import Intention from '@/components/landing/Intention';
 import FindYourCircle from '@/components/landing/FindYourCircle';
+import Intention from '@/components/landing/Intention';
 import WhyUs from '@/components/landing/WhyUs';
 import Team from '@/components/Team';
 import Demo from '@/components/Demo';
@@ -20,8 +20,8 @@ export default async function Home({ params }: PageProps<'/[lang]'>) {
     <>
       <Hero lang={lang} t={dict.hero} />
       <Story t={dict.story} />
-      <Intention t={dict.intention} />
       <FindYourCircle t={dict.findYourCircle} />
+      <Intention t={dict.intention} />
       <WhyUs t={dict.whyUs} />
       <Team t={dict.team} />
       <Demo t={dict.demo} videoSrc={demoVideoUrl} waitlistHref={homeHref(lang, '#waitlist')} />

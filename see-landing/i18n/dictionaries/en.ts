@@ -57,9 +57,8 @@ const en = {
   },
 
   intention: {
-    eyebrow: 'The Intention',
     title: 'What are you looking for?',
-    description: 'Choose what matters most right now. Every Space is built around a single intention.',
+    description: 'Choose one or select both. Every Space is tailored to your intention.',
     items: {
       friends: {
         title: 'Find Friends',
