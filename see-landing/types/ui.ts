@@ -37,6 +37,14 @@ export interface SectionHeadingProps {
   description: string;
 }
 
+/** Title in the left column, body paragraphs in the right column from `md` up. */
+export interface EditorialHeadingProps {
+  /** Referenced by the section's `aria-labelledby`. */
+  id: string;
+  title: string;
+  paragraphs: readonly string[];
+}
+
 export type ButtonVariant = 'filled' | 'outline' | 'text' | 'icon';
 /** Height and padding of the `filled` and `outline` pills; ignored by `text` and `icon`. */
 export type ButtonSize = 'md' | 'sm';
