@@ -4,7 +4,7 @@ import type { CircleStepsProps } from '@/types/sections';
 
 export default function CircleSteps({ items }: CircleStepsProps) {
   return (
-    <ol className="mt-16 grid border-l border-line md:mt-24 md:grid-cols-3 md:border-t md:border-l-0">
+    <ol className="grid border-l border-line md:grid-cols-3 md:border-t md:border-l-0">
       {steps.map((step) => (
         <li key={step.id} className="pb-10 pl-6 last:pb-0 md:pt-8 md:pr-8 md:pb-0 md:pl-0">
           <Typography as="p" size={32} weight="semibold" tone="accent" className="tabular-nums md:text-40">

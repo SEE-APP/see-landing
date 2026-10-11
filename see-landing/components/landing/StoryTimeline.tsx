@@ -6,7 +6,7 @@ export default function StoryTimeline({ items }: StoryTimelineProps) {
   const currentIndex = timeline.length - 1;
 
   return (
-    <ol className="mt-16 grid border-l border-line md:mt-24 md:grid-cols-3 md:border-t md:border-l-0">
+    <ol className="grid border-l border-line md:grid-cols-3 md:border-t md:border-l-0">
       {timeline.map((event, i) => {
         const isCurrent = i === currentIndex;
         return (

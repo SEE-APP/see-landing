@@ -26,9 +26,6 @@ const socialIcons: Record<SocialId, ComponentType<IconProps>> = {
   tiktok: TikTokIcon,
 };
 
-const focusRing =
-  'focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent';
-
 function ColumnTitle({ label }: { label: string }) {
   return (
     <Typography as="h2" size={12} weight="semibold" tone="default" className="mb-3 font-mono uppercase tracking-[0.12em]">
@@ -45,7 +42,7 @@ export default function Footer({ lang, brand, nav, t }: FooterProps) {
       <div className="mx-auto w-full max-w-(--container-page) border-t border-line px-4 pt-10 pb-6 md:px-6 md:pt-12">
         <div className="grid grid-cols-1 gap-8 border-b border-line pb-8 sm:grid-cols-2 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)_minmax(0,1fr)] lg:gap-12">
           <div className="sm:col-span-2 lg:col-span-1">
-            <Link href={homeHref(lang)} className={`mb-3 flex w-fit items-center gap-2.5 rounded-md ${focusRing}`}>
+            <Link href={homeHref(lang)} className="mb-3 flex w-fit items-center gap-2.5 rounded-md focus-ring">
               <Image src="/logo.png" alt="" width={40} height={40} className="size-10 shrink-0 object-contain" />
               <Typography size={18} weight="semibold" tone="default" className="tracking-tight">{brand}</Typography>
             </Link>
@@ -62,7 +59,7 @@ export default function Footer({ lang, brand, nav, t }: FooterProps) {
                   <li key={link.id}>
                     <Link
                       href={homeHref(lang, link.hash)}
-                      className={`inline-block rounded-sm text-14 text-ink-muted transition duration-200 hover:translate-x-1 hover:text-accent motion-reduce:hover:translate-x-0 ${focusRing}`}
+                      className="inline-block rounded-sm text-14 text-ink-muted transition duration-200 hover:translate-x-1 hover:text-accent motion-reduce:hover:translate-x-0 focus-ring"
                     >
                       {nav[link.id]}
                     </Link>
@@ -81,7 +78,7 @@ export default function Footer({ lang, brand, nav, t }: FooterProps) {
                   <li key={href}>
                     <a
                       href={href}
-                      className={`flex w-fit items-center gap-2.5 rounded-sm text-14 text-ink-muted transition-colors duration-200 hover:text-accent ${focusRing}`}
+                      className="flex w-fit items-center gap-2.5 rounded-sm text-14 text-ink-muted transition-colors duration-200 hover:text-accent focus-ring"
                     >
                       <Icon size={16} />
                       <span>{label}</span>

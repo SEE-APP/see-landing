@@ -34,7 +34,19 @@ export interface EditorialHeadingProps {
   /** Referenced by the section's `aria-labelledby`. */
   id: string;
   title: string;
-  paragraphs: readonly string[];
+  /** Omit for a title-only heading. */
+  paragraphs?: readonly string[];
+}
+
+/** A landing page section: content column, editorial heading, then the section's content. */
+export interface LandingSectionProps {
+  /** Anchor for in-page links. */
+  id: string;
+  /** Id of the heading; the section's `aria-labelledby` points at it. */
+  titleId: string;
+  title: string;
+  paragraphs?: readonly string[];
+  children: ReactNode;
 }
 
 export type ButtonVariant = 'filled' | 'outline' | 'text' | 'icon';

@@ -10,7 +10,7 @@ export default function Hero({ lang, t }: HeroProps) {
   return (
     <section aria-labelledby="hero-title">
       <div className="page-container">
-        <div className="mx-auto grid max-w-[1100px] items-center gap-12 pt-12 pb-16 md:pt-20 md:pb-24 lg:grid-cols-12 lg:gap-10">
+        <div className="mx-auto grid max-w-content items-center gap-12 pt-12 pb-16 md:pt-20 md:pb-24 lg:grid-cols-12 lg:gap-10">
           <div className="flex flex-col items-start lg:col-span-7">
             <Typography
               as="h1"

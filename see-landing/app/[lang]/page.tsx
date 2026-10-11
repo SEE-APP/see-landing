@@ -3,7 +3,7 @@ import Hero from '@/components/Hero';
 import Story from '@/components/landing/Story';
 import FindYourCircle from '@/components/landing/FindYourCircle';
 import Intention from '@/components/landing/Intention';
-import Team from '@/components/Team';
+import Team from '@/components/landing/Team';
 import Waitlist from '@/components/Waitlist';
 import { hasLocale } from '@/i18n/config';
 import { getDictionary } from '@/i18n/get-dictionary';

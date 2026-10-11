@@ -10,7 +10,7 @@ export default function Navbar({ lang, brand, t }: NavbarProps) {
   return (
     <header className="sticky top-0 z-[100] select-none border-b border-line bg-canvas">
       <nav aria-label={t.ariaLabel} className="page-container">
-        <div className="mx-auto flex h-16 max-w-[1100px] items-center gap-10">
+        <div className="mx-auto flex h-16 max-w-content items-center gap-10">
           <BrandLink lang={lang} brand={brand} label={t.home} />
 
           <ul className="hidden items-center gap-7 lg:flex">
@@ -18,7 +18,7 @@ export default function Navbar({ lang, brand, t }: NavbarProps) {
               <li key={link.id}>
                 <Link
                   href={homeHref(lang, link.hash)}
-                  className="rounded-sm text-14 text-ink-muted transition-colors duration-200 hover:text-ink focus-visible:text-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+                  className="rounded-sm text-14 text-ink-muted transition-colors duration-200 hover:text-ink focus-visible:text-ink focus-ring"
                 >
                   {t.links[link.id]}
                 </Link>

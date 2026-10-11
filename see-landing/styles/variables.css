@@ -12,6 +12,7 @@
   --color-primary-700: #0f5f58;
 
   --container-page: 1440px;
+  --container-content: 1100px;
 
   --ease-out-expo: cubic-bezier(0.23, 1, 0.32, 1);
   --text-10: 0.625rem;

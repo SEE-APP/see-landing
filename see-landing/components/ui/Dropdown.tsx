@@ -12,7 +12,7 @@ export default function Dropdown({ id, label, children }: DropdownProps) {
         type="button"
         popoverTarget={id}
         style={{ anchorName: anchor } as CSSProperties}
-        className="inline-flex cursor-pointer items-center gap-1 rounded-sm text-14 text-ink-muted transition-colors duration-200 hover:text-ink focus-visible:text-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent group-has-[:popover-open]/dropdown:text-ink"
+        className="inline-flex cursor-pointer items-center gap-1 rounded-sm text-14 text-ink-muted transition-colors duration-200 hover:text-ink focus-visible:text-ink focus-ring group-has-[:popover-open]/dropdown:text-ink"
       >
         {label}
         <ChevronDown

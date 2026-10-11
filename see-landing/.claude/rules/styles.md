@@ -9,11 +9,12 @@ paths:
 
 - Tailwind v4 through `@tailwindcss/postcss`; there is no `tailwind.config.ts`.
 - `styles/variables.css` holds every variable: `@theme` tokens (`dark-500` `#0f172a`, `dark-700`,
-  `primary-200` … `primary-600`, `primary-500` = `#22988E`, `--container-page` 1440px) and the
+  `primary-200` … `primary-600`, `primary-500` = `#22988E`, `--container-page` 1440px,
+  `--container-content` 1100px → `max-w-content`) and the
   layout variables in `:root` (`--gutter-x`, `--gutter-y`, `--header-height`). Components use theme
   classes, never hex/rgb.
 - `app/globals.css` holds only: the Tailwind import, the `styles/variables.css` import, `@utility`
-  classes (`page-container`, `page-section`), base element styles, and shared keyframes. No
+  classes (`page-container`, `page-section`, `focus-ring`), base element styles, and shared keyframes. No
   component styles by tag (`nav { … }`) and no `!important`.
 - Keyframes animate `transform`/`opacity` only and sit behind
   `@media (prefers-reduced-motion: no-preference)` (or are disabled under `reduce`).

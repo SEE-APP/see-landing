@@ -9,7 +9,7 @@ export default function BrandLink({ lang, brand, label }: BrandLinkProps) {
     <Link
       href={homeHref(lang)}
       aria-label={label}
-      className="flex items-center gap-2 rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+      className="flex items-center gap-2 rounded-md focus-ring"
     >
       <Image src="/logo.png" alt="" width={32} height={32} priority className="size-8 shrink-0 object-contain" />
       <Typography size={18} weight="semibold" tone="default" className="tracking-tight">

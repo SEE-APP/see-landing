@@ -12,6 +12,13 @@
   padding-block: var(--gutter-y);
 }
 
+@utility focus-ring {
+  &:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+  }
+}
+
 html {
   scroll-padding-top: var(--header-height);
 }
