@@ -19,8 +19,7 @@ This file is the single source of project rules for every AI tool (Cursor reads 
 
 ## Stack
 
-Next.js 16.2 App Router · React 19.2 · TypeScript 5 strict · Tailwind v4 (`@tailwindcss/postcss`) · lucide-react · Formspree (waitlist) · Framer Motion 12 (by exception
-only) · `geist` font package · ESLint 9 (`eslint-config-next`). No test runner.
+Next.js 16.2 App Router · React 19.2 · TypeScript 5 strict · Tailwind v4 (`@tailwindcss/postcss`) · lucide-react · Formspree (waitlist) · ESLint 9 (`eslint-config-next`). No test runner.
 
 ## Commands
 
@@ -52,8 +51,8 @@ npm run lint && npm run build
   Client leaves only: the waitlist form, the mobile nav toggle, the intention picker, small motion
   islands. Each client file says why on its second line (`// client: …`).
 - **Motion: CSS first.** Tailwind transitions/keyframes for fade, slide, hover, stagger; scroll
-  reveal via `animation-timeline: view()` with a tiny IntersectionObserver fallback. Framer Motion
-  only in a client leaf via `LazyMotion` + `m`, for what CSS can't do. Always honour
+  reveal via `animation-timeline: view()` with a tiny IntersectionObserver fallback. An animation library
+  (none installed; ask first) only in a client leaf, for what CSS can't do. Always honour
   `prefers-reduced-motion`. Content is visible without JS.
 - **Forms: Server Action.** The waitlist posts through a `'use server'` action (endpoint in a server
   env var, server-side validation, honeypot, generic errors, no email in logs) with
@@ -83,11 +82,10 @@ i18n/dictionaries/  en.ts holds EVERY user-facing string; other languages are co
 i18n/config.ts      locales, defaultLocale, localeNames, siteUrl (NEXT_PUBLIC_SITE_URL), hasLocale
 i18n/get-dictionary.ts  loads a dictionary on the server; i18n/format.ts fills {placeholders}
 assets/icons/       custom SVG icon components, one per file (lucide-react for the rest)
-components/common/  Navbar (+ AutoHideHeader client leaf), MobileNav, BrandLink, Footer (+ FooterColumn, FooterNav, FooterContacts, SocialLinks, FooterLanguageSwitcher), ThemeSwitcher, LanguageSwitcher, LanguageList, LanguageOptions (rendered in the root layout)
-components/ui/      Typography, Button, Eyebrow, LandingSection, EditorialHeading, Dropdown, DropdownItem (server-safe primitives; use them for all text and buttons), PopoverPanel (client leaf)
-components/landing/ one file per section: Story (+ StoryTimeline), FindYourCircle (+ CircleSteps), Intention (+ IntentionCards client leaf, IntentionOption), Team (+ TeamMembers, TeamMemberCard), Waitlist (+ WaitlistRings)
+components/common/  Navbar (+ AutoHideHeader client leaf), MobileNav, BrandLink, Footer (+ FooterColumn, FooterNav, FooterContacts, SocialLinks), ThemeSwitcher, LanguageSwitcher (`variant` header/footer/menu) + LanguageOptions (rendered in the root layout)
+components/ui/      Typography (`variant` display/body-lg/body), Button, NumberedList, LandingSection, EditorialHeading, Dropdown, DropdownItem (server-safe primitives; use them for all text and buttons), PopoverPanel (client leaf; `modal` for the mobile menu)
+components/landing/ one file per section: Hero, Story (+ StoryTimeline), FindYourCircle (+ CircleSteps), Intention (+ IntentionCards client leaf, IntentionOption), Team (+ TeamMembers, TeamMemberCard), Waitlist (+ WaitlistRings)
 components/waitlist/ WaitlistForm (client leaf), WaitlistSuccess
-components/         sections not moved yet: Hero
 lib/site.ts         site data: nav links, contact details, social links
 lib/waitlist.ts     joinWaitlist (Formspree request)
 lib/content/        list structure (ids, icons, years, avatars, URLs) for team.ts, about.ts; text lives in the dictionary
@@ -95,13 +93,14 @@ lib/validation.ts   isValidEmail
 lib/cn.ts           className joiner (no clsx/tailwind-merge: don't pass a class that conflicts with a variant's)
 types/              all shared types: content.ts, site.ts, sections.ts, layout.ts, ui.ts (component props), i18n.ts (Dictionary, Locale)
 styles/variables.css  design tokens (@theme) and layout variables (gutters, header height)
+styles/popover.css  panel styles for the native-popover dropdown and mobile menu
 public/             logo, favicon, team photos
 ```
 Target layout (move a file when you touch it; ask before bulk moves):
 `components/landing/` (Hero), `components/common/` (Navbar, Footer, MobileNav),
 `components/ui/` (Button, Input, EditorialHeading),
 `lib/` (pure helpers, site constants), `app/actions.ts` (Server Actions).
-`@/*` points at the project root (`@/components/Hero`). No barrel files.
+`@/*` points at the project root (`@/components/landing/Hero`). No barrel files.
 
 ## Code standards
 
@@ -150,10 +149,9 @@ only: `.claude/design-references/`.
 
 ## Known debt (fix opportunistically, don't let it spread)
 
-- `framer-motion` is installed but no longer imported. `Eyebrow` is no longer used.
 - Many static `style={{}}` and hex colours in the sections.
-- Team photos are JPG sources (`next/image` serves them as WebP/AVIF); `public/team/Sophie.jpg` is a 1.4 MB 2500px original.
-- `geist` installed but unused; body uses a system font stack.
+- Team photos are JPG sources (`next/image` serves them as WebP/AVIF); `public/team/sophie.jpg` is a 1.4 MB 2500px original.
+- Body uses a system font stack (no `next/font` yet).
 - Waitlist `fetch`es Formspree from the client with the form id hardcoded
   (`lib/waitlist.ts`, `lib/site.ts`) → Server Action + env var.
 - Metadata is title/description/icons only: no `metadataBase`, OG, Twitter, canonical, sitemap,

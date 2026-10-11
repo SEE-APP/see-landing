@@ -17,23 +17,25 @@ export default function Waitlist({ t }: WaitlistProps) {
             {t.cohortNote}
           </Typography>
 
-          <Typography
-            as="h2"
-            id="waitlist-title"
-            size={40}
-            weight="semibold"
-            tone="default"
-            className="mt-6 text-balance tracking-[-0.02em] md:text-64"
-          >
+          <Typography as="h2" id="waitlist-title" variant="display" className="mt-6">
             {t.title}
           </Typography>
 
-          <Typography as="p" size={18} tone="muted" className="mt-6 max-w-[46ch] text-pretty leading-[1.7]">
+          <Typography as="p" variant="body-lg" className="mt-6 max-w-[46ch]">
             {t.description}
           </Typography>
 
           <div className="mt-12 w-full max-w-xl">
-            <WaitlistForm t={t} />
+            <WaitlistForm
+              t={{
+                emailLabel: t.emailLabel,
+                emailPlaceholder: t.emailPlaceholder,
+                submit: t.submit,
+                error: t.error,
+                successTitle: t.successTitle,
+                successBody: t.successBody,
+              }}
+            />
           </div>
 
           <Typography as="p" size={14} tone="muted" className="mt-5">

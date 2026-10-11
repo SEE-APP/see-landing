@@ -9,13 +9,13 @@ export default function TeamMemberCard({ member, name, role, linkedinLabel }: Te
     <figure>
       <Image
         src={member.photo}
-        alt={name}
+        alt=""
         sizes="(min-width: 1100px) 340px, (min-width: 640px) 30vw, 100vw"
         className="aspect-square w-full rounded-2xl bg-surface object-cover"
       />
       <figcaption className="mt-5 flex items-start justify-between gap-4">
         <span className="flex flex-col">
-          <Typography as="h3" size={20} weight="semibold" tone="default">
+          <Typography as="h3" size={20} weight="semibold">
             {name}
           </Typography>
           <Typography size={16} tone="muted" className="mt-1">

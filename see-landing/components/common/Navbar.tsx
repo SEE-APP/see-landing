@@ -11,7 +11,7 @@ export default function Navbar({ lang, brand, t }: NavbarProps) {
   return (
     <AutoHideHeader>
       <nav aria-label={t.ariaLabel} className="page-container">
-        <div className="mx-auto flex h-16 max-w-content items-center gap-10">
+        <div className="mx-auto flex h-(--header-height) max-w-content items-center gap-10">
           <BrandLink lang={lang} brand={brand} label={t.home} />
 
           <ul className="hidden items-center gap-7 lg:flex">
@@ -28,7 +28,7 @@ export default function Navbar({ lang, brand, t }: NavbarProps) {
           </ul>
 
           <div className="ml-auto hidden items-center gap-4 lg:flex">
-            <LanguageSwitcher current={lang} label={t.languageSwitcher} />
+            <LanguageSwitcher variant="header" current={lang} label={t.languageSwitcher} />
             <Button variant="filled" size="sm" shape="rounded" href={homeHref(lang, ctaHash)} label={t.cta} />
           </div>
 

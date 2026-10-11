@@ -12,18 +12,11 @@ export default function Hero({ lang, t }: HeroProps) {
       <div className="page-container">
         <div className="mx-auto grid max-w-content items-center gap-12 pt-12 pb-16 md:pt-20 md:pb-24 lg:grid-cols-12 lg:gap-10">
           <div className="flex flex-col items-start lg:col-span-7">
-            <Typography
-              as="h1"
-              id="hero-title"
-              size={40}
-              weight="semibold"
-              tone="default"
-              className="text-balance tracking-[-0.02em] md:text-64"
-            >
+            <Typography as="h1" id="hero-title" variant="display">
               {t.title}
             </Typography>
 
-            <Typography as="p" size={18} tone="muted" className="mt-6 max-w-[46ch] text-pretty leading-[1.7]">
+            <Typography as="p" variant="body-lg" className="mt-6 max-w-[46ch]">
               {t.description}
             </Typography>
 

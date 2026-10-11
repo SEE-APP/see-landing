@@ -17,12 +17,12 @@ export default function IntentionOption({ title, desc, isSelected }: IntentionOp
         <Typography
           size={20}
           weight="semibold"
-          tone={isSelected ? 'accent' : 'default'}
+          tone={isSelected ? 'accent' : 'inherit'}
           className="transition-colors duration-200 group-hover:text-accent"
         >
           {title}
         </Typography>
-        <Typography size={16} tone="muted" className="mt-2 max-w-[42ch] text-pretty leading-[1.7]">
+        <Typography variant="body" className="mt-2 max-w-[42ch]">
           {desc}
         </Typography>
       </span>

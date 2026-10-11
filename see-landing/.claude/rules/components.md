@@ -23,7 +23,7 @@ paths:
 2. **Scroll reveal**: CSS `animation-timeline: view()` inside `@supports`; fallback is one small
    client leaf using IntersectionObserver that toggles a class. Content must be visible without JS
    (no SSR'd `opacity: 0` above the fold — it delays LCP and hides content from crawlers).
-3. **Framer Motion by exception**: only in a client leaf, through `LazyMotion` + `m` (`domAnimation`
+3. **An animation library by exception** (none is installed; ask before adding one, e.g. Framer Motion): only in a client leaf, through `LazyMotion` + `m` (`domAnimation`
    features), for what CSS can't do (layout animation, `AnimatePresence` exit). Variants defined at
    module scope, not in render.
 4. **Reduced motion always**: `motion-safe:` / `motion-reduce:` variants, a
@@ -46,7 +46,7 @@ paths:
 ## Structure
 
 - Target folders: `components/landing/` (sections), `components/common/` (Navbar, Footer,
-  MobileNav), `components/ui/` (Button, Input, Eyebrow, EditorialHeading), `components/waitlist/`.
+  MobileNav), `components/ui/` (Button, Input, EditorialHeading, NumberedList), `components/waitlist/`.
   Move a file there when you touch it; ask before a bulk move.
 - **One component, one job.** A component does one thing you can name in a few words ("the story
   section", "the year rail", "the selectable intention cards"). Split it when any of these is true:

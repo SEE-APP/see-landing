@@ -13,8 +13,9 @@ paths:
   `--container-content` 1100px → `max-w-content`) and the
   layout variables in `:root` (`--gutter-x`, `--gutter-y`, `--header-height`). Components use theme
   classes, never hex/rgb.
-- `app/globals.css` holds only: the Tailwind import, the `styles/variables.css` import, `@utility`
-  classes (`page-container`, `page-section`, `focus-ring`), base element styles, and shared keyframes. No
+- `app/globals.css` holds only: the Tailwind import, the `styles/variables.css` and `styles/popover.css` imports,
+  `@utility` classes (`page-container`, `page-section`, `focus-ring`, `focus-ring-inset`, `focus-ring-within`), base element styles, and shared keyframes. Panel styles for
+  the dropdown and mobile menu live in `styles/popover.css`. No
   component styles by tag (`nav { … }`) and no `!important`.
 - Keyframes animate `transform`/`opacity` only and sit behind
   `@media (prefers-reduced-motion: no-preference)` (or are disabled under `reduce`).

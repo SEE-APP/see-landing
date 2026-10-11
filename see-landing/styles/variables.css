@@ -62,7 +62,7 @@
   --color-on-accent: var(--on-accent);
   --color-danger: var(--danger);
   --color-footer: var(--footer);
-  --color-shade: var(--shadow-tint);
+  --color-input: var(--input-border);
 }
 
 :root {
@@ -82,13 +82,7 @@
   --on-accent: #f5f8f7;
   --footer: #eef3f2;
   --shadow-tint: rgb(13 31 29 / 0.08);
-  --card-shadow: 0 1px 2px rgb(13 31 29 / 0.04), 0 12px 32px -16px rgb(23 123 114 / 0.18);
-  --section-rule: transparent;
-  --accent-deep: var(--color-primary-600);
   --danger: #be123c;
-  --hero-box: rgb(252 253 253 / 0.85);
-  --logo-node: #fcfdfd;
-  --particle-rgb: 23 123 114;
   --input-border: #7d908d;
 }
 
@@ -109,13 +103,7 @@
   --on-accent: #0b1211;
   --footer: #080d0c;
   --shadow-tint: rgb(0 0 0 / 0.5);
-  --card-shadow: none;
-  --section-rule: rgb(237 243 241 / 0.06);
-  --accent-deep: var(--color-primary-500);
   --danger: #fb7185;
-  --hero-box: rgb(11 18 17 / 0.7);
-  --logo-node: #edf3f1;
-  --particle-rgb: 71 189 178;
   --input-border: rgb(237 243 241 / 0.16);
 }
 

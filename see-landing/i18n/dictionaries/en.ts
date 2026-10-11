@@ -17,6 +17,7 @@ const en = {
       contact: 'Contact',
     },
     cta: 'Get Early Access',
+    menu: 'Menu',
     openMenu: 'Open menu',
     closeMenu: 'Close menu',
   },

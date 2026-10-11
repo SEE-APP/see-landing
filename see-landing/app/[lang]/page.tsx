@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import Hero from '@/components/Hero';
+import Hero from '@/components/landing/Hero';
 import Story from '@/components/landing/Story';
 import FindYourCircle from '@/components/landing/FindYourCircle';
 import Intention from '@/components/landing/Intention';

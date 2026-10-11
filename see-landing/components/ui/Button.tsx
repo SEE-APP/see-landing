@@ -4,7 +4,7 @@ import type { ButtonProps, ButtonShape, ButtonSize, ButtonVariant } from '@/type
 
 const baseClasses =
   'inline-flex shrink-0 cursor-pointer select-none items-center justify-center gap-2 font-medium transition duration-200 ' +
-  'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ' +
+  'focus-ring ' +
   'disabled:cursor-not-allowed disabled:opacity-60 aria-disabled:pointer-events-none aria-disabled:opacity-60';
 
 const variantClasses: Record<ButtonVariant, string> = {
@@ -14,13 +14,9 @@ const variantClasses: Record<ButtonVariant, string> = {
   outline:
     'border border-accent/60 text-14 text-accent ' +
     'hover:border-accent hover:bg-accent-soft active:bg-accent/20',
-  text: 'rounded-sm text-accent hover:text-accent-hover',
-  icon:
-    'size-11 rounded-full border border-line-strong bg-surface text-ink-subtle ' +
-    'hover:border-accent/40 hover:bg-accent-soft hover:text-accent',
 };
 
-const pillSizeClasses: Record<ButtonSize, string> = {
+const sizeClasses: Record<ButtonSize, string> = {
   md: 'h-12 px-6',
   sm: 'h-10 px-5',
 };
@@ -41,7 +37,6 @@ function Spinner() {
 
 export default function Button({
   label,
-  leftIcon,
   rightIcon,
   variant = 'filled',
   size = 'md',
@@ -52,19 +47,18 @@ export default function Button({
   className,
   ...rest
 }: ButtonProps) {
-  const isPill = variant === 'filled' || variant === 'outline';
   const classes = cn(
     baseClasses,
     variantClasses[variant],
-    isPill && pillSizeClasses[size],
-    isPill && shapeClasses[shape],
+    sizeClasses[size],
+    shapeClasses[shape],
     fullWidth && 'w-full',
     className,
   );
 
   const content = (
     <>
-      {isLoading ? <Spinner /> : leftIcon && <span className="flex" aria-hidden="true">{leftIcon}</span>}
+      {isLoading && <Spinner />}
       {label && <span className="leading-none">{label}</span>}
       {!isLoading && rightIcon && <span className="flex" aria-hidden="true">{rightIcon}</span>}
     </>

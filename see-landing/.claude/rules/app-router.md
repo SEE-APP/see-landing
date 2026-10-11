@@ -36,7 +36,7 @@ Use the Metadata API, never hand-written `<meta>` in JSX:
 
 ## Layout
 
-- Fonts via `next/font` (`geist/font` is installed) applied as a class/CSS variable on `<html>`.
+- Fonts via `next/font` applied as a class/CSS variable on `<html>`.
 - No inline `style` on `<html>`/`<body>`: background and text colour come from theme classes or
   `globals.css`.
 - `lang="en"` on `<html>`.

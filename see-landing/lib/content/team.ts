@@ -1,6 +1,6 @@
 import alexanderPhoto from '@/public/team/alexander.jpg';
 import nikaPhoto from '@/public/team/nika.jpg';
-import sophiePhoto from '@/public/team/Sophie.jpg';
+import sophiePhoto from '@/public/team/sophie.jpg';
 import type { TeamMember } from '@/types/content';
 
 export const team: TeamMember[] = [

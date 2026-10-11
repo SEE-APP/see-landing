@@ -48,7 +48,11 @@ export interface MobileNavProps {
   t: Dictionary['nav'];
 }
 
+/** `header`: dropdown in the navbar. `footer`: upward dropdown with a globe. `menu`: collapsible row in the mobile menu. */
+export type LanguageSwitcherVariant = 'header' | 'footer' | 'menu';
+
 export interface LanguageSwitcherProps {
+  variant: LanguageSwitcherVariant;
   current: Locale;
   label: string;
 }

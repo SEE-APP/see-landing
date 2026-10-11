@@ -35,7 +35,7 @@ and `apple-design` skills; for taste the `taste-skill` / `minimalist-skill` / `r
    respects `prefers-reduced-motion` (`motion-safe:` / `motion-reduce:`).
 5. **Images through `next/image`.** Explicit `width`/`height` (or `fill` + `sizes`), `priority` only
    on the hero image, meaningful `alt` (or `alt=""` for decoration), `.webp`/`.avif` sources.
-6. **Fonts through `next/font`** in `app/layout.tsx` (the `geist` package is installed) — no
+6. **Fonts through `next/font`** in `app/layout.tsx` — no
    `<link>` to Google Fonts, no system-font stack as the design font.
 7. **Reuse before writing.** Run the `reuse-first` skill: check `components/` (and the target
    `components/ui/`) and `.claude/skills/reuse-first/known-duplicates.md` before adding a pill,
@@ -45,7 +45,7 @@ and `apple-design` skills; for taste the `taste-skill` / `minimalist-skill` / `r
 
 Target folders (move a file there when you touch it; don't bulk-move without asking):
 `components/landing/` (sections), `components/common/` (Navbar, Footer, MobileNav),
-`components/ui/` (Button, Input, Eyebrow, SectionHeading), `components/waitlist/` (the form).
+`components/ui/` (Button, Input, EditorialHeading, NumberedList), `components/waitlist/` (the form).
 Split a section past ~200 lines into subcomponents in the same folder. Static copy and lists live in
 the Server Component or a `lib/*.ts` module, never in a client file's module scope.
 Use the `@/*` alias (it points at the project root).

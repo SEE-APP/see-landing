@@ -20,6 +20,7 @@ const ka: Dictionary = {
       contact: "კონტაქტი",
     },
     cta: "მიიღე ადრეული წვდომა",
+    menu: "მენიუ",
     openMenu: "მენიუს გახსნა",
     closeMenu: "მენიუს დახურვა",
   },

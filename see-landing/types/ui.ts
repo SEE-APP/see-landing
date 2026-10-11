@@ -2,32 +2,50 @@ import type { AnchorHTMLAttributes, ButtonHTMLAttributes, CSSProperties, ReactNo
 
 export type IconProps = Omit<SVGProps<SVGSVGElement>, 'width' | 'height'> & { size?: number };
 
-export type TypographySize = 10 | 12 | 13 | 14 | 16 | 18 | 20 | 24 | 28 | 32 | 36 | 40 | 48 | 64;
-export type TypographyWeight = 'light' | 'regular' | 'medium' | 'semibold' | 'bold' | 'extrabold';
-export type TypographyAlign = 'left' | 'center' | 'right';
-export type TypographyTone = 'inherit' | 'default' | 'muted' | 'subtle' | 'accent';
-export type TypographyElement = 'span' | 'p' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'div' | 'label';
+export type TypographySize = 14 | 16 | 18 | 20 | 32;
+export type TypographyWeight = 'regular' | 'medium' | 'semibold';
+export type TypographyTone = 'inherit' | 'muted' | 'subtle' | 'accent';
+export type TypographyElement = 'span' | 'p' | 'h1' | 'h2' | 'h3';
 
-export interface TypographyProps {
+export type TypographyVariant = 'display' | 'body-lg' | 'body';
+export type TypographyTracking = 'tight' | 'normal';
+
+interface TypographyBaseProps {
   /** @default 'span' */
   as?: TypographyElement;
-  /** Font size in px, mapped to the `text-{size}` theme token. @default 16 */
-  size?: TypographySize;
-  /** @default 'regular' */
-  weight?: TypographyWeight;
-  /** Inherits from the parent when omitted. */
-  align?: TypographyAlign;
-  /** @default 'inherit' */
-  tone?: TypographyTone;
-  underline?: boolean;
+  /**
+   * Letter spacing. Defaults to `tight` for the `display` variant and for sizes of 28 and up,
+   * and to the font's own spacing otherwise.
+   */
+  tracking?: TypographyTracking;
   id?: string;
   className?: string;
   children: ReactNode;
 }
 
-export interface EyebrowProps {
-  label: string;
-}
+/** Sets size, weight and tone yourself. */
+type TypographyCustomProps = TypographyBaseProps & {
+  variant?: undefined;
+  /** Font size in px, mapped to the `text-{size}` theme token. @default 16 */
+  size?: TypographySize;
+  /** @default 'regular' */
+  weight?: TypographyWeight;
+  /** @default 'inherit' */
+  tone?: TypographyTone;
+};
+
+/**
+ * A preset: `display` for section titles (40px, 64px from `md`), `body-lg` for the 18px lead
+ * paragraph, `body` for the 16px one. A preset fixes size, weight and tone.
+ */
+type TypographyPresetProps = TypographyBaseProps & {
+  variant: TypographyVariant;
+  size?: never;
+  weight?: never;
+  tone?: never;
+};
+
+export type TypographyProps = TypographyCustomProps | TypographyPresetProps;
 
 /** Title in the left column, body paragraphs in the right column from `md` up. */
 export interface EditorialHeadingProps {
@@ -49,15 +67,31 @@ export interface LandingSectionProps {
   children: ReactNode;
 }
 
-export type ButtonVariant = 'filled' | 'outline' | 'text' | 'icon';
-/** Height and padding of the `filled` and `outline` pills; ignored by `text` and `icon`. */
+export interface NumberedListItem {
+  id: string;
+  /** Step number or year shown large above the title. */
+  marker: string;
+  title: string;
+  description: string;
+  /** Draws the accent rail and the accent marker; use for the latest entry of a timeline. */
+  isCurrent?: boolean;
+}
+
+export interface NumberedListProps {
+  items: readonly NumberedListItem[];
+  /** Title and description size. `md` for steps, `sm` for a compact timeline. @default 'md' */
+  size?: 'md' | 'sm';
+  /** Colour every marker with the accent, not only the current item. */
+  accentMarkers?: boolean;
+}
+
+export type ButtonVariant = 'filled' | 'outline';
+/** Height and horizontal padding. */
 export type ButtonSize = 'md' | 'sm';
-/** Corner shape of the `filled` and `outline` buttons; ignored by `text` and `icon`. */
 export type ButtonShape = 'pill' | 'rounded';
 
 type ButtonSharedProps = {
   label?: string;
-  leftIcon?: ReactNode;
   rightIcon?: ReactNode;
   /** @default 'filled' */
   variant?: ButtonVariant;
@@ -85,7 +119,10 @@ export interface PopoverPanelProps {
   className?: string;
   /** Per-instance values only (e.g. the CSS anchor name). */
   style?: CSSProperties;
+  /** Accessible name; required when `modal`. */
   'aria-label'?: string;
+  /** Exposes the panel as a modal dialog: moves focus in on open and keeps Tab inside it. */
+  modal?: boolean;
   children: ReactNode;
 }
 

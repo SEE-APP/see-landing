@@ -11,8 +11,8 @@ export default function BrandLink({ lang, brand, label }: BrandLinkProps) {
       aria-label={label}
       className="flex items-center gap-2 rounded-md focus-ring"
     >
-      <Image src="/logo.png" alt="" width={32} height={32} priority className="size-8 shrink-0 object-contain" />
-      <Typography size={18} weight="semibold" tone="default" className="tracking-tight">
+      <Image src="/logo.png" alt="" width={32} height={32} className="size-8 shrink-0 object-contain" />
+      <Typography size={18} weight="semibold" className="tracking-tight">
         {brand}
       </Typography>
     </Link>
