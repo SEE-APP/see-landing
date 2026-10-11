@@ -9,7 +9,7 @@
 | Locale config, dictionary loader, `format` | `i18n/` | `locales`, `hasLocale`, `getDictionary`, `{placeholder}` filling |
 | Server Actions | `app/actions.ts` (or `app/<feature>/actions.ts`) | `'use server'`; secrets from `process.env` only |
 | Page sections | `components/landing/` (target) | Story, FindYourCircle, Intention, Team, Waitlist (moved); Hero (not yet); Server Components with small client leaves |
-| Site chrome | `components/common/` | Navbar, MobileNav, Footer, LanguageSwitcher (in the root layout) |
+| Site chrome | `components/common/` | Navbar, MobileNav, Footer, ThemeSwitcher, LanguageSwitcher (in the root layout) |
 | Primitives | `components/ui/` | Typography, Button, Eyebrow, EditorialHeading, Dropdown, PopoverPanel; Input (target) |
 | Custom SVG icons | `assets/icons/` | one component per file, `IconProps` from `types/ui.ts`; use `lucide-react` when it has the icon |
 | Waitlist form | `components/waitlist/` | WaitlistForm is the client leaf; the request is `joinWaitlist` in `lib/waitlist.ts` |
@@ -26,7 +26,8 @@ for another reason; don't do a bulk move without asking.
 | Thing | Where | Kind |
 |---|---|---|
 | `Navbar` | `components/common/Navbar.tsx` | server |
-| `BrandLink` (logo + wordmark home link) | `components/common/BrandLink.tsx` | server; used by Navbar and MobileNav |
+| `AutoHideHeader` (sticky `<header>` that slides up on scroll down, back on scroll up or focus) | `components/common/AutoHideHeader.tsx` | client leaf; wraps the Navbar content |
+| `BrandLink` (logo + wordmark home link) | `components/common/BrandLink.tsx` | server; used by Navbar, MobileNav and Footer |
 | `Hero` | `components/Hero.tsx` | client (canvas/effect in `useEffect`) |
 | `Story`, `StoryTimeline` | `components/landing/` | server |
 | `Intention` (section), `IntentionCards` (multi-select list), `IntentionOption` (visual content of one row; the button lives in `IntentionCards`) | `components/landing/` | server section, client leaf |
@@ -34,10 +35,11 @@ for another reason; don't do a bulk move without asking.
 | `Team` (section), `TeamMembers` (photo grid), `TeamMemberCard` (photo, name, role, LinkedIn link) | `components/landing/` | server |
 | `Waitlist` (centered closing CTA), `WaitlistRings` (faint concentric rings SVG behind it) | `components/landing/` | server |
 | `WaitlistForm` (email field + filled button in one bordered pill, idle/loading/error), `WaitlistSuccess` | `components/waitlist/` | client leaf, server-safe |
-| `Footer` | `components/common/Footer.tsx` | server |
+| `Footer` (layout), `FooterColumn` (h2 title + content), `FooterNav` (footer links), `FooterContacts` (email/phone with icons) | `components/common/` | server |
+| `SocialLinks` (Instagram/LinkedIn/TikTok icon links) | `components/common/SocialLinks.tsx` | server; reuse wherever social links appear |
 | `TikTokIcon`, `InstagramIcon`, `LinkedInIcon`, `PhoneIcon` | `assets/icons/` | server-safe SVG components |
 | `navLinks`, `footerLinks`, `ctaHash`, `contactDetails`, `socialLinks`, `homeHref` | `lib/site.ts` | static data |
-| `LanguageSwitcher` (header dropdown), `LanguageList` (inline, mobile menu), `LanguageOptions` (shared items) | `components/common/` (one file each) | server; hidden while only one locale exists |
+| `LanguageSwitcher` (header dropdown), `LanguageList` (inline, mobile menu), `LanguageOptions` (shared items), `LanguageToggle` (inline segmented links, footer) | `components/common/` (one file each) | server; hidden while only one locale exists |
 | `MobileNav` (hamburger + full-width popover menu, below `lg`) | `components/common/MobileNav.tsx` | server |
 | `page-container`, `page-section` | `app/globals.css` (`@utility`) | safe-grid layout classes |
 | `Typography` (size/weight/tone/align/as) | `components/ui/Typography.tsx` | server-safe |

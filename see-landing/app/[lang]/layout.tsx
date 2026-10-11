@@ -64,7 +64,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
       <body className="flex min-h-dvh flex-col bg-canvas text-ink antialiased selection:bg-accent/25">
         <Navbar lang={lang} brand={dict.brand} t={dict.nav} />
         <main className="flex-1">{children}</main>
-        <Footer lang={lang} brand={dict.brand} nav={dict.nav.links} t={dict.footer} />
+        <Footer lang={lang} brand={dict.brand} nav={dict.nav} t={dict.footer} />
       </body>
     </html>
   );

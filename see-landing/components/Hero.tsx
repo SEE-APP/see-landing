@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import Typography from '@/components/ui/Typography';
-import { ctaHash, homeHref, howItWorksHash } from '@/lib/site';
+import { ctaHash, findYourCircleHash, homeHref } from '@/lib/site';
 import phoneImage from '@/public/hero/phone-space-ready.webp';
 import type { HeroProps } from '@/types/sections';
 
@@ -42,7 +42,7 @@ export default function Hero({ lang, t }: HeroProps) {
                   />
                 }
               />
-              <Button variant="outline" size="sm" shape="rounded" href={homeHref(lang, howItWorksHash)} label={t.secondaryCta} />
+              <Button variant="outline" size="sm" shape="rounded" href={homeHref(lang, findYourCircleHash)} label={t.secondaryCta} />
             </div>
           </div>
 

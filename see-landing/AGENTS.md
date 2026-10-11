@@ -83,7 +83,7 @@ i18n/dictionaries/  en.ts holds EVERY user-facing string; other languages are co
 i18n/config.ts      locales, defaultLocale, localeNames, siteUrl (NEXT_PUBLIC_SITE_URL), hasLocale
 i18n/get-dictionary.ts  loads a dictionary on the server; i18n/format.ts fills {placeholders}
 assets/icons/       custom SVG icon components, one per file (lucide-react for the rest)
-components/common/  Navbar, MobileNav, BrandLink, Footer, LanguageSwitcher, LanguageList, LanguageOptions (rendered in the root layout)
+components/common/  Navbar (+ AutoHideHeader client leaf), MobileNav, BrandLink, Footer (+ FooterColumn, FooterNav, FooterContacts, SocialLinks, LanguageToggle), ThemeSwitcher, LanguageSwitcher, LanguageList, LanguageOptions (rendered in the root layout)
 components/ui/      Typography, Button, Eyebrow, LandingSection, EditorialHeading, Dropdown, DropdownItem (server-safe primitives; use them for all text and buttons), PopoverPanel (client leaf)
 components/landing/ one file per section: Story (+ StoryTimeline), FindYourCircle (+ CircleSteps), Intention (+ IntentionCards client leaf, IntentionOption), Team (+ TeamMembers, TeamMemberCard), Waitlist (+ WaitlistRings)
 components/waitlist/ WaitlistForm (client leaf), WaitlistSuccess

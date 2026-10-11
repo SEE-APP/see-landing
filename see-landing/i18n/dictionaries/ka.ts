@@ -14,12 +14,9 @@ const ka: Dictionary = {
     home: "SEE მთავარი",
     languageSwitcher: "ენის შეცვლა",
     links: {
-      howItWorks: "როგორ მუშაობს",
+      findYourCircle: "იპოვე შენი წრე",
       about: "ჩვენ შესახებ",
-      news: "სიახლეები",
       team: "გუნდი",
-      investors: "ინვესტორებს",
-      faq: "ხშირად დასმული კითხვები",
       contact: "კონტაქტი",
     },
     cta: "მიიღე ადრეული წვდომა",
@@ -123,7 +120,7 @@ const ka: Dictionary = {
   footer: {
     tagline:
       "საერთო ინტერესების, ღირებულებების, მიზნებისა და უნარების სოციალურ კაპიტალად ქცევა შერჩეული მიკრო-ჯგუფების მეშვეობით.",
-    quickLinks: "სწრაფი ბმულები",
+    explore: "გაიცანი",
     navLabel: "ფუტერი",
     contact: "კონტაქტი",
     copyright: "© {year} {brand}. ყველა უფლება დაცულია.",

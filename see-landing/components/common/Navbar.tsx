@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import AutoHideHeader from '@/components/common/AutoHideHeader';
 import BrandLink from '@/components/common/BrandLink';
 import LanguageSwitcher from '@/components/common/LanguageSwitcher';
 import MobileNav from '@/components/common/MobileNav';
@@ -8,7 +9,7 @@ import type { NavbarProps } from '@/types/layout';
 
 export default function Navbar({ lang, brand, t }: NavbarProps) {
   return (
-    <header className="sticky top-0 z-[100] select-none border-b border-line bg-canvas">
+    <AutoHideHeader>
       <nav aria-label={t.ariaLabel} className="page-container">
         <div className="mx-auto flex h-16 max-w-content items-center gap-10">
           <BrandLink lang={lang} brand={brand} label={t.home} />
@@ -34,6 +35,6 @@ export default function Navbar({ lang, brand, t }: NavbarProps) {
           <MobileNav lang={lang} brand={brand} t={t} />
         </div>
       </nav>
-    </header>
+    </AutoHideHeader>
   );
 }

@@ -11,12 +11,9 @@ const en = {
     home: 'SEE home',
     languageSwitcher: 'Change language',
     links: {
-      howItWorks: 'How It Works',
+      findYourCircle: 'Find Your Circle',
       about: 'About Us',
-      news: 'News',
       team: 'Team',
-      investors: 'For Investors',
-      faq: 'FAQ',
       contact: 'Contact',
     },
     cta: 'Get Early Access',
@@ -115,7 +112,7 @@ const en = {
 
   footer: {
     tagline: 'Turning shared interests, values, goals, and skills into social capital through curated micro-groups.',
-    quickLinks: 'Quick Links',
+    explore: 'Explore',
     navLabel: 'Footer',
     contact: 'Contact',
     copyright: '© {year} {brand}. All rights reserved.',

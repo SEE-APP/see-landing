@@ -47,7 +47,7 @@ export default function ThemeSwitcher({ t }: ThemeSwitcherProps) {
           aria-label={t[value]}
           aria-pressed={theme === null ? undefined : theme === value}
           onClick={() => applyTheme(value)}
-          className="flex size-9 cursor-pointer items-center justify-center rounded-full text-ink-muted transition-colors duration-200 hover:text-accent aria-pressed:bg-accent-strong aria-pressed:text-on-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          className="flex size-9 cursor-pointer items-center justify-center rounded-full text-ink-muted transition-colors duration-200 hover:text-accent aria-pressed:bg-accent-strong aria-pressed:text-on-accent focus-ring"
         >
           <Icon size={16} aria-hidden="true" />
         </button>
