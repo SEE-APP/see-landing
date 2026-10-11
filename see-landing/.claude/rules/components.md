@@ -32,7 +32,7 @@ paths:
 ## Markup and styling
 
 - Tailwind classes with theme tokens (`bg-dark-500`, `text-primary-300`). No hex/rgb literals,
-  including arbitrary values like `bg-[#0f172a]`; add a missing token to the theme.
+  including arbitrary values like `bg-[#0b1211]`; add a missing token to the theme.
 - No static `style={{}}`; no `onMouseOver`/`onMouseOut`/`onFocus` handlers that write styles — use
   `hover:`, `focus-visible:`, `group-hover:`.
 - Images: `next/image` only, with `width`/`height` (or `fill` + `sizes`), meaningful `alt` (`alt=""`

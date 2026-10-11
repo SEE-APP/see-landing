@@ -131,9 +131,11 @@ Target layout (move a file when you touch it; ask before bulk moves):
 
 ## Design tokens
 
-Dark surface `dark-500` `#0f172a`; accent is the teal `primary` scale — `primary-200` `#7DD6CD`,
-`300` `#47BDB2`, `400` `#2FA399`, `500` `#22988E` (main), `600` `#177B72`. Secondary text
-`slate-400`, footer surface `dark-700`. Defined in `@theme` in `styles/variables.css`.
+Light theme by default; `data-theme="dark"` swaps the semantic tokens (`canvas`, `surface`, `ink`,
+`ink-muted`, `line`, `accent`, …). Both themes use teal-tinted neutrals (dark canvas `dark-500`
+`#0b1211`, footer `dark-700` `#080d0c`), never slate/navy. Accent is the teal `primary` scale —
+`primary-200` `#7DD6CD`, `300` `#47BDB2` (dark accent), `400` `#2FA399`, `500` `#22988E`, `600`
+`#177B72` (light accent). Defined in `styles/variables.css`.
 One accent family; add missing tokens to the theme, not to JSX.
 
 Safe grid: wrap content in `page-container` (max 1440px content, side gutter `--gutter-x`: 20px

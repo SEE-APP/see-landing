@@ -21,9 +21,10 @@ and `apple-design` skills; for taste the `taste-skill` / `minimalist-skill` / `r
 1. **Server Components first.** A section is a Server Component. Only the interactive leaf (a form,
    a menu toggle, a play button) gets `'use client'`, with a one-line `// client: <why>` comment.
    Never `'use client'` on `app/**/page.tsx` or `layout.tsx`.
-2. **One accent family.** The teal `primary` scale (`#22988E` = `primary-500`) on the dark
-   `dark-500` (`#0f172a`) surface. Never hardcode a hex or `rgb()` in a component — use Tailwind theme
-   classes (`bg-primary-500`, `text-dark-500`); add a missing token to the theme, not to the JSX.
+2. **One accent family.** The teal `primary` scale on teal-tinted neutrals: light canvas by default,
+   dark canvas `dark-500` (`#0b1211`) under `data-theme="dark"`. Never hardcode a hex or `rgb()` in a
+   component — use the semantic theme classes (`bg-canvas`, `text-ink-muted`, `text-accent`); add a
+   missing token to the theme, not to the JSX.
 3. **No inline `style={{}}`** for static values and **no `onMouseOver`/`onMouseOut` style handlers**
    — use Tailwind `hover:`, `focus-visible:`, `group-hover:`. Inline style is only for a truly
    dynamic value (a computed CSS variable).
@@ -67,7 +68,7 @@ Use the `@/*` alias (it points at the project root).
 - Waitlist states are part of the design: idle, submitting (disabled, spinner), success, error
   (message linked with `aria-describedby`, input keeps its value).
 - Optical alignment of icons next to text; consistent section rhythm (same vertical padding scale).
-- Contrast: body text on `dark-500` at least 4.5:1 — `slate-400` is the floor for secondary text.
+- Contrast: body text at least 4.5:1 in both themes — `ink-muted` is the floor for secondary text.
 - Store CTAs (`DownloadAppButton`, Smart App Banner) are **inactive until the app launches** — don't
   build them unless asked.
 
