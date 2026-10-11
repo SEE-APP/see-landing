@@ -1,3 +1,4 @@
+import type { TeamMember } from './content';
 import type { Dictionary, Locale } from './i18n';
 
 export interface HeroProps {
@@ -37,6 +38,18 @@ export interface CircleStepsProps {
 
 export interface TeamProps {
   t: Dictionary['team'];
+}
+
+export interface TeamMembersProps {
+  items: Dictionary['team']['members'];
+  linkedinLabel: string;
+}
+
+export interface TeamMemberCardProps {
+  member: TeamMember;
+  name: string;
+  role: string;
+  linkedinLabel: string;
 }
 
 export interface WaitlistProps {

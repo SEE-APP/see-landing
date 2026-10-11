@@ -84,9 +84,9 @@ i18n/config.ts      locales, defaultLocale, localeNames, siteUrl (NEXT_PUBLIC_SI
 i18n/get-dictionary.ts  loads a dictionary on the server; i18n/format.ts fills {placeholders}
 assets/icons/       custom SVG icon components, one per file (lucide-react for the rest)
 components/common/  Navbar, MobileNav, BrandLink, Footer, LanguageSwitcher, LanguageList, LanguageOptions (rendered in the root layout)
-components/ui/      Typography, Button, Eyebrow, EditorialHeading, Dropdown, DropdownItem (server-safe primitives; use them for all text and buttons), PopoverPanel (client leaf)
-components/landing/ one file per section: Story (+ StoryTimeline), FindYourCircle (+ CircleSteps), Intention (+ IntentionCards client leaf, IntentionOption)
-components/         sections not moved yet: Hero, Team, Waitlist
+components/ui/      Typography, Button, Eyebrow, LandingSection, EditorialHeading, Dropdown, DropdownItem (server-safe primitives; use them for all text and buttons), PopoverPanel (client leaf)
+components/landing/ one file per section: Story (+ StoryTimeline), FindYourCircle (+ CircleSteps), Intention (+ IntentionCards client leaf, IntentionOption), Team (+ TeamMembers, TeamMemberCard)
+components/         sections not moved yet: Hero, Waitlist
 lib/site.ts         site data: nav links, contact details, social links
 lib/content/        list structure (ids, icons, years, avatars, URLs) for team.ts, about.ts; text lives in the dictionary
 lib/validation.ts   isValidEmail
@@ -96,7 +96,7 @@ styles/variables.css  design tokens (@theme) and layout variables (gutters, head
 public/             logo, favicon, team photos
 ```
 Target layout (move a file when you touch it; ask before bulk moves):
-`components/landing/` (Hero, Team), `components/common/` (Navbar, Footer, MobileNav),
+`components/landing/` (Hero), `components/common/` (Navbar, Footer, MobileNav),
 `components/ui/` (Button, Input, EditorialHeading), `components/waitlist/` (form),
 `lib/` (pure helpers, site constants), `app/actions.ts` (Server Actions).
 `@/*` points at the project root (`@/components/Hero`). No barrel files.
@@ -149,7 +149,7 @@ only: `.claude/design-references/`.
 - `Waitlist` is a `'use client'` section (state lives in the whole section
   instead of a small leaf). `framer-motion` is installed but no longer imported.
 - Many static `style={{}}` and hex colours in the sections.
-- Raw `<img>` in `components/Team.tsx`; team photos are JPG.
+- Team photos are JPG sources (`next/image` serves them as WebP/AVIF); `public/team/Sophie.jpg` is a 1.4 MB 2500px original.
 - `geist` installed but unused; body uses a system font stack.
 - Waitlist `fetch`es Formspree from the client with the form id hardcoded
   (`components/Waitlist.tsx`) → Server Action + env var.

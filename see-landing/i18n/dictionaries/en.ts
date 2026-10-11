@@ -91,18 +91,12 @@ const en = {
   },
 
   team: {
-    eyebrow: 'The Team',
-    title: 'Powered by a real community.',
-    description:
-      "SEE is brought to life by a dedicated execution team of project managers, designers, and community builders. We aren't just building an app; we already have the community and the operational team to launch, test, and scale.",
+    title: 'Our Team',
     linkedinLabel: '{name} on LinkedIn',
     members: {
       alexander: { name: 'Alexander Pasieshvili', role: 'Founder & CEO' },
       sophie: { name: 'Sophie Darchiashvili', role: 'COO (Chief Operating Officer)' },
       nika: { name: 'Nika Ebralidze', role: 'CTO (Chief Technology Officer)' },
-      marketing: { name: '[Placeholder Name]', role: 'Marketing Lead' },
-      fullstack: { name: '[Placeholder Name]', role: 'Full-Stack Developer' },
-      designer: { name: '[Placeholder Name]', role: 'Graphic & UI/UX Designer' },
     },
   },
 

@@ -1,3 +1,4 @@
+import type { StaticImageData } from 'next/image';
 import type { Dictionary } from './i18n';
 
 export type TeamMemberId = keyof Dictionary['team']['members'];
@@ -7,10 +8,8 @@ export type StepId = keyof Dictionary['findYourCircle']['steps'];
 /** Text for each member lives in the dictionary under `team.members[id]`. */
 export interface TeamMember {
   id: TeamMemberId;
-  /** Path in `public/` or a remote placeholder until the real headshot exists. */
-  avatar: string;
-  /** Leave empty to hide the LinkedIn badge. */
-  linkedin?: string;
+  photo: StaticImageData;
+  linkedin: string;
 }
 
 export interface TimelineEvent {
