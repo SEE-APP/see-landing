@@ -1,9 +1,15 @@
 import type { CSSProperties } from 'react';
 import { ChevronDown } from 'lucide-react';
 import PopoverPanel from '@/components/ui/PopoverPanel';
-import type { DropdownProps } from '@/types/ui';
+import { cn } from '@/lib/cn';
+import type { DropdownPlacement, DropdownProps } from '@/types/ui';
 
-export default function Dropdown({ id, label, children }: DropdownProps) {
+const placementClasses: Record<DropdownPlacement, string> = {
+  bottom: 'dropdown-panel',
+  top: 'dropdown-panel dropdown-panel-top',
+};
+
+export default function Dropdown({ id, label, placement = 'bottom', children }: DropdownProps) {
   const anchor = `--${id}`;
 
   return (
@@ -24,7 +30,10 @@ export default function Dropdown({ id, label, children }: DropdownProps) {
       <PopoverPanel
         id={id}
         style={{ positionAnchor: anchor } as CSSProperties}
-        className="dropdown-panel min-w-44 rounded-lg border border-line bg-canvas p-1 text-ink shadow-[0_12px_24px_-16px_var(--shadow-tint)]"
+        className={cn(
+          placementClasses[placement],
+          'min-w-44 rounded-lg border border-line bg-canvas p-1 text-ink shadow-[0_12px_24px_-16px_var(--shadow-tint)]',
+        )}
       >
         {children}
       </PopoverPanel>

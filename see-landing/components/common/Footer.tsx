@@ -2,7 +2,7 @@ import BrandLink from '@/components/common/BrandLink';
 import FooterColumn from '@/components/common/FooterColumn';
 import FooterContacts from '@/components/common/FooterContacts';
 import FooterNav from '@/components/common/FooterNav';
-import LanguageToggle from '@/components/common/LanguageToggle';
+import FooterLanguageSwitcher from '@/components/common/FooterLanguageSwitcher';
 import SocialLinks from '@/components/common/SocialLinks';
 import ThemeSwitcher from '@/components/common/ThemeSwitcher';
 import Typography from '@/components/ui/Typography';
@@ -42,7 +42,7 @@ export default function Footer({ lang, brand, nav, t }: FooterProps) {
               {format(t.copyright, { year, brand })}
             </Typography>
             <div className="flex flex-wrap items-center gap-4">
-              <LanguageToggle current={lang} label={nav.languageSwitcher} />
+              <FooterLanguageSwitcher current={lang} label={nav.languageSwitcher} />
               <ThemeSwitcher t={t.theme} />
               <SocialLinks labels={t.social} />
             </div>

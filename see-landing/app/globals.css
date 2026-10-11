@@ -46,6 +46,15 @@ body {
     transform-origin: top right;
   }
 
+  /* Opens upward with left edges aligned; flips to the other side if it would leave the screen. */
+  .dropdown-panel-top {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    position-area: top span-right;
+    position-try-fallbacks: flip-inline;
+    transform-origin: bottom left;
+  }
+
   @supports not (position-area: bottom) {
     .dropdown-panel {
       position: fixed;
@@ -55,9 +64,21 @@ body {
       margin: 0;
     }
 
+    .dropdown-panel-top {
+      top: auto;
+      bottom: 1rem;
+      right: auto;
+      left: 1rem;
+    }
+
     @media (min-width: 768px) {
       .dropdown-panel {
         right: 1.5rem;
+      }
+
+      .dropdown-panel-top {
+        right: auto;
+        left: 1.5rem;
       }
     }
   }
@@ -91,6 +112,10 @@ body {
       .dropdown-panel:popover-open {
         opacity: 0;
         transform: translateY(-4px) scale(0.98);
+      }
+
+      .dropdown-panel-top:popover-open {
+        transform: translateY(4px) scale(0.98);
       }
 
       .mobile-nav-panel:popover-open {

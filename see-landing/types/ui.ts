@@ -90,10 +90,14 @@ export interface PopoverPanelProps {
 }
 
 /** The panel opens below its trigger, right edges aligned. */
+export type DropdownPlacement = 'bottom' | 'top';
+
 export interface DropdownProps {
   id: string;
   /** Trigger content; a chevron is appended. */
   label: ReactNode;
+  /** Side of the trigger the panel opens on; use `top` near the bottom of the page. @default 'bottom' */
+  placement?: DropdownPlacement;
   children: ReactNode;
 }
 

@@ -39,12 +39,12 @@ for another reason; don't do a bulk move without asking.
 | `SocialLinks` (Instagram/LinkedIn/TikTok icon links) | `components/common/SocialLinks.tsx` | server; reuse wherever social links appear |
 | `TikTokIcon`, `InstagramIcon`, `LinkedInIcon`, `PhoneIcon` | `assets/icons/` | server-safe SVG components |
 | `navLinks`, `footerLinks`, `ctaHash`, `contactDetails`, `socialLinks`, `homeHref` | `lib/site.ts` | static data |
-| `LanguageSwitcher` (header dropdown), `LanguageList` (inline, mobile menu), `LanguageOptions` (shared items), `LanguageToggle` (inline segmented links, footer) | `components/common/` (one file each) | server; hidden while only one locale exists |
+| `LanguageSwitcher` (header dropdown), `FooterLanguageSwitcher` (globe + upward dropdown), `LanguageList` (collapsible `<details>` row, mobile menu), `LanguageOptions` (shared items) | `components/common/` (one file each); all show only the current language until opened, so they scale to any number of locales | server; hidden while only one locale exists |
 | `MobileNav` (hamburger + full-width popover menu, below `lg`) | `components/common/MobileNav.tsx` | server |
 | `page-container`, `page-section` | `app/globals.css` (`@utility`) | safe-grid layout classes |
 | `Typography` (size/weight/tone/align/as) | `components/ui/Typography.tsx` | server-safe |
 | `Button` (filled/outline/text/icon, `size` md/sm, `href` → `next/link`, `isLoading`) | `components/ui/Button.tsx` | server-safe |
-| `Dropdown` (native popover menu, plain-text trigger, flat hairline panel), `DropdownItem` (menu link) | `components/ui/Dropdown.tsx`, `components/ui/DropdownItem.tsx` | server; panel CSS (`.dropdown-panel*`) in `app/globals.css` |
+| `Dropdown` (native popover menu, plain-text trigger, flat hairline panel; `placement="top"` opens upward), `DropdownItem` (menu link) | `components/ui/Dropdown.tsx`, `components/ui/DropdownItem.tsx` | server; panel CSS (`.dropdown-panel*`) in `app/globals.css` |
 | `PopoverPanel` (`popover="auto"` div, closes after a link click) | `components/ui/PopoverPanel.tsx` | client leaf; use via `Dropdown` or with a `popoverTarget` button |
 | `Eyebrow` pill | `components/ui/Eyebrow.tsx` | server-safe; wrap in `motion.div` for reveal |
 | `LandingSection` (section + `page-container` + `max-w-content` column + heading + content spacing) | `components/ui/LandingSection.tsx` | server-safe; wrap every landing section in it (Story, FindYourCircle, Intention, Team) |
