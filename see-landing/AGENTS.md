@@ -173,6 +173,7 @@ only: `.claude/design-references/`.
 | Deploy questions | `deploy-to-vercel` |
 | Task finished (author) or reviewing a branch | `review-web` skill (`/review-web [base] [full]`) — 4 reviewers, one report, derived verdict |
 | PR description | `/pr-from-branch` or `/pr-from-session` |
+| Full branch audit + phased refactor plan | `/review-branch-full [branch] [base]` (read-only until you approve the phases) |
 | Quick strict review | `/review-critique` (recent changes) or `/review-fe-branch [branch] [base]` |
 
 Agents: `.claude/agents/`. Skills (including the `/` workflows above): `.claude/skills/`.
