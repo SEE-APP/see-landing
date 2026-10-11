@@ -72,22 +72,21 @@ const en = {
     },
   },
 
-  howItWorks: {
-    eyebrow: 'How It Works',
-    title: 'Less searching. More belonging.',
-    description: 'From a simple introduction to a real connection.',
+  findYourCircle: {
+    title: 'Find Your Circle',
+    description: 'SEE the way to build meaningful connections.',
     steps: {
       profile: {
-        title: 'Create your profile',
-        desc: 'Share what shapes you — your interests, goals, skills, and what you can offer to others.',
+        title: 'Create Profile & Set Intentions',
+        desc: 'Share your goals, skills, and interests, whether you are looking for co-founders, project collaborators, study partners, or new friends.',
       },
-      space: {
-        title: 'Enter a curated Space',
-        desc: 'No endless swiping. We automatically match you into a curated micro-group of 4–6 people with meaningful shared ground.',
+      match: {
+        title: 'Get Matched in Micro-Groups',
+        desc: 'Skip endless swiping and public feeds. Get matched into private, high-alignment micro-groups built around shared ground.',
       },
       meet: {
-        title: 'Connect with guidance & meet offline',
-        desc: 'Our digital facilitator (SEE Guide) helps break the ice, so you can easily plan your first real-world meetup — whether it’s coffee, a city walk, or a brainstorming session.',
+        title: 'Break the Ice & Meet Offline',
+        desc: 'Our built-in smart facilitator breaks the ice, coordinates group availability, and effortlessly organizes your first real-world meetup, building lasting social capital.',
       },
     },
   },

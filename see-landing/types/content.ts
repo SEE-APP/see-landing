@@ -4,7 +4,7 @@ import type { Dictionary } from './i18n';
 export type TeamMemberId = keyof Dictionary['team']['members'];
 export type TimelineId = keyof Dictionary['story']['timeline'];
 export type IntentionId = keyof Dictionary['intention']['items'];
-export type StepId = keyof Dictionary['howItWorks']['steps'];
+export type StepId = keyof Dictionary['findYourCircle']['steps'];
 export type WhyUsId = keyof Dictionary['whyUs']['items'];
 
 /** Text for each member lives in the dictionary under `team.members[id]`. */
@@ -26,6 +26,7 @@ export interface IconItem<Id extends string> {
   icon: LucideIcon;
 }
 
-export interface Step extends IconItem<StepId> {
+export interface Step {
+  id: StepId;
   number: string;
 }

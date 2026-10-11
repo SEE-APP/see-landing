@@ -1,11 +1,8 @@
 import {
   Bot,
-  DoorOpen,
-  Handshake,
   Rocket,
   SplitSquareHorizontal,
   Target,
-  UserRound,
   Users,
   Wand2,
 } from 'lucide-react';
@@ -23,9 +20,9 @@ export const intentions: IconItem<IntentionId>[] = [
 ];
 
 export const steps: Step[] = [
-  { id: 'profile', number: '01', icon: UserRound },
-  { id: 'space', number: '02', icon: DoorOpen },
-  { id: 'meet', number: '03', icon: Handshake },
+  { id: 'profile', number: '01' },
+  { id: 'match', number: '02' },
+  { id: 'meet', number: '03' },
 ];
 
 export const features: IconItem<WhyUsId>[] = [

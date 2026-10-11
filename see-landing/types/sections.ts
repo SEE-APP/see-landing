@@ -21,8 +21,12 @@ export interface IntentionCardsProps {
   items: Dictionary['intention']['items'];
 }
 
-export interface HowItWorksProps {
-  t: Dictionary['howItWorks'];
+export interface FindYourCircleProps {
+  t: Dictionary['findYourCircle'];
+}
+
+export interface CircleStepsProps {
+  items: Dictionary['findYourCircle']['steps'];
 }
 
 export interface WhyUsProps {
