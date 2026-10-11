@@ -7,7 +7,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 # SEE landing page
 
 Marketing landing page for **SEE**, a mobile app for meaningful small-group experiences that hasn't
-launched yet. The page is a low-touch marketing driver: explain the product, show the team and demo,
+launched yet. The page is a low-touch marketing driver: explain the product, show the team,
 and collect **waitlist emails** (the one conversion today; store downloads after launch).
 
 Goals, in order: very fast load, Lighthouse/SEO near 100, near-zero client JavaScript, minimal
@@ -19,8 +19,7 @@ This file is the single source of project rules for every AI tool (Cursor reads 
 
 ## Stack
 
-Next.js 16.2 App Router · React 19.2 · TypeScript 5 strict · Tailwind v4 (`@tailwindcss/postcss`) · lucide-react · Formspree (waitlist) · Framer Motion 12 (by exception
-only) · `geist` font package · ESLint 9 (`eslint-config-next`). No test runner.
+Next.js 16.2 App Router · React 19.2 · TypeScript 5 strict · Tailwind v4 (`@tailwindcss/postcss`) · lucide-react · Formspree (waitlist) · ESLint 9 (`eslint-config-next`). No test runner.
 
 ## Commands
 
@@ -49,11 +48,11 @@ npm run lint && npm run build
   `images.unoptimized` (static export would only lose image optimization and Server Actions here).
   Nothing on `/` reads per-request data.
 - **Server Components first (95%+ of the code).** Never `'use client'` on a page or layout.
-  Client leaves only: the waitlist form, the mobile nav toggle, the demo play button, small motion
+  Client leaves only: the waitlist form, the mobile nav toggle, the intention picker, small motion
   islands. Each client file says why on its second line (`// client: …`).
 - **Motion: CSS first.** Tailwind transitions/keyframes for fade, slide, hover, stagger; scroll
-  reveal via `animation-timeline: view()` with a tiny IntersectionObserver fallback. Framer Motion
-  only in a client leaf via `LazyMotion` + `m`, for what CSS can't do. Always honour
+  reveal via `animation-timeline: view()` with a tiny IntersectionObserver fallback. An animation library
+  (none installed; ask first) only in a client leaf, for what CSS can't do. Always honour
   `prefers-reduced-motion`. Content is visible without JS.
 - **Forms: Server Action.** The waitlist posts through a `'use server'` action (endpoint in a server
   env var, server-side validation, honeypot, generic errors, no email in logs) with
@@ -83,23 +82,25 @@ i18n/dictionaries/  en.ts holds EVERY user-facing string; other languages are co
 i18n/config.ts      locales, defaultLocale, localeNames, siteUrl (NEXT_PUBLIC_SITE_URL), hasLocale
 i18n/get-dictionary.ts  loads a dictionary on the server; i18n/format.ts fills {placeholders}
 assets/icons/       custom SVG icon components, one per file (lucide-react for the rest)
-components/common/  Navbar, MobileNav, Footer, LanguageSwitcher (rendered in the root layout)
-components/ui/      Typography, Button, Eyebrow, Dropdown (server-safe primitives; use them for all text and buttons), PopoverPanel (client leaf)
-components/         section components, still flat: Hero, About, Team, Demo, Waitlist
+components/common/  Navbar (+ AutoHideHeader client leaf), MobileNav, BrandLink, Footer (+ FooterColumn, FooterNav, FooterContacts, SocialLinks), ThemeSwitcher, LanguageSwitcher (`variant` header/footer/menu) + LanguageOptions (rendered in the root layout)
+components/ui/      Typography (`variant` display/body-lg/body), Button, NumberedList, LandingSection, EditorialHeading, Dropdown, DropdownItem (server-safe primitives; use them for all text and buttons), PopoverPanel (client leaf; `modal` for the mobile menu)
+components/landing/ one file per section: Hero, Story (+ StoryTimeline), FindYourCircle (+ CircleSteps), Intention (+ IntentionCards client leaf, IntentionOption), Team (+ TeamMembers, TeamMemberCard), Waitlist (+ WaitlistRings)
+components/waitlist/ WaitlistForm (client leaf), WaitlistSuccess
 lib/site.ts         site data: nav links, contact details, social links
+lib/waitlist.ts     joinWaitlist (Formspree request)
 lib/content/        list structure (ids, icons, years, avatars, URLs) for team.ts, about.ts; text lives in the dictionary
-lib/motion.ts       shared Framer Motion variants (staggerContainer, fadeUpItem, easeOutExpo)
 lib/validation.ts   isValidEmail
 lib/cn.ts           className joiner (no clsx/tailwind-merge: don't pass a class that conflicts with a variant's)
 types/              all shared types: content.ts, site.ts, sections.ts, layout.ts, ui.ts (component props), i18n.ts (Dictionary, Locale)
 styles/variables.css  design tokens (@theme) and layout variables (gutters, header height)
+styles/popover.css  panel styles for the native-popover dropdown and mobile menu
 public/             logo, favicon, team photos
 ```
 Target layout (move a file when you touch it; ask before bulk moves):
-`components/landing/` (Hero, About, Team, Demo), `components/common/` (Navbar, Footer, MobileNav),
-`components/ui/` (Button, Input, Eyebrow, SectionHeading), `components/waitlist/` (form),
+`components/landing/` (Hero), `components/common/` (Navbar, Footer, MobileNav),
+`components/ui/` (Button, Input, EditorialHeading),
 `lib/` (pure helpers, site constants), `app/actions.ts` (Server Actions).
-`@/*` points at the project root (`@/components/Hero`). No barrel files.
+`@/*` points at the project root (`@/components/landing/Hero`). No barrel files.
 
 ## Code standards
 
@@ -114,7 +115,10 @@ Target layout (move a file when you touch it; ask before bulk moves):
 - Component files hold rendering only: data goes in `lib/content/` or `lib/site.ts`, types
   and prop interfaces in `types/`, helpers in `lib/`. Icons in data are component references
   (`icon: Users`), not JSX.
-- KISS. Three similar lines beat a premature helper. Split components past ~200 lines.
+- KISS. Three similar lines beat a premature helper.
+- One component, one job: one section per file, client state in its own small leaf, self-contained
+  blocks (lists, timelines, card grids) in their own file, no multi-component files. Full checklist
+  in `.claude/rules/components.md`.
 - Hooks discipline (`react-discipline` skill): no memoization without a measured reason; derive
   instead of syncing state in effects; clean up every listener/observer.
 - Stable keys from data, never the index for dynamic lists.
@@ -126,9 +130,11 @@ Target layout (move a file when you touch it; ask before bulk moves):
 
 ## Design tokens
 
-Dark surface `dark-500` `#0f172a`; accent is the teal `primary` scale — `primary-200` `#7DD6CD`,
-`300` `#47BDB2`, `400` `#2FA399`, `500` `#22988E` (main), `600` `#177B72`. Secondary text
-`slate-400`, footer surface `dark-700`. Defined in `@theme` in `styles/variables.css`.
+Light theme by default; `data-theme="dark"` swaps the semantic tokens (`canvas`, `surface`, `ink`,
+`ink-muted`, `line`, `accent`, …). Both themes use teal-tinted neutrals (dark canvas `dark-500`
+`#0b1211`, footer `dark-700` `#080d0c`), never slate/navy. Accent is the teal `primary` scale —
+`primary-200` `#7DD6CD`, `300` `#47BDB2` (dark accent), `400` `#2FA399`, `500` `#22988E`, `600`
+`#177B72` (light accent). Defined in `styles/variables.css`.
 One accent family; add missing tokens to the theme, not to JSX.
 
 Safe grid: wrap content in `page-container` (max 1440px content, side gutter `--gutter-x`: 20px
@@ -143,13 +149,11 @@ only: `.claude/design-references/`.
 
 ## Known debt (fix opportunistically, don't let it spread)
 
-- All 5 section components are `'use client'` (70–630 lines); Framer Motion in `About`, `Team`,
-  `Demo`, `Waitlist`.
 - Many static `style={{}}` and hex colours in the sections.
-- Raw `<img>` in `components/Hero.tsx` and `components/Team.tsx`; team photos are JPG.
-- `geist` installed but unused; body uses a system font stack.
+- Team photos are JPG sources (`next/image` serves them as WebP/AVIF); `public/team/sophie.jpg` is a 1.4 MB 2500px original.
+- Body uses a system font stack (no `next/font` yet).
 - Waitlist `fetch`es Formspree from the client with the form id hardcoded
-  (`components/Waitlist.tsx`) → Server Action + env var.
+  (`lib/waitlist.ts`, `lib/site.ts`) → Server Action + env var.
 - Metadata is title/description/icons only: no `metadataBase`, OG, Twitter, canonical, sitemap,
   robots or OG image.
 - Duplicates: see `known-duplicates.md`.
@@ -169,6 +173,7 @@ only: `.claude/design-references/`.
 | Deploy questions | `deploy-to-vercel` |
 | Task finished (author) or reviewing a branch | `review-web` skill (`/review-web [base] [full]`) — 4 reviewers, one report, derived verdict |
 | PR description | `/pr-from-branch` or `/pr-from-session` |
+| Full branch audit + phased refactor plan | `/review-branch-full [branch] [base]` (read-only until you approve the phases) |
 | Quick strict review | `/review-critique` (recent changes) or `/review-fe-branch [branch] [base]` |
 
 Agents: `.claude/agents/`. Skills (including the `/` workflows above): `.claude/skills/`.

@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "../styles/variables.css";
+@import "../styles/popover.css";
 
 @utility page-container {
   width: 100%;
@@ -10,6 +11,29 @@
 
 @utility page-section {
   padding-block: var(--gutter-y);
+}
+
+@utility focus-ring {
+  &:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+}
+
+/* For items that sit flush in a list or panel, where an outer ring would be clipped. */
+@utility focus-ring-inset {
+  &:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: -2px;
+  }
+}
+
+/* For a wrapper around a field whose own outline is removed. */
+@utility focus-ring-within {
+  &:focus-within {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
 }
 
 html {
@@ -25,107 +49,4 @@ html {
 body {
   font-family: system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
-}
-
-/* Header popovers (native `popover`). A dropdown anchors to its trigger through the
-   `anchor-name` / `position-anchor` pair set inline per instance, right edges aligned;
-   the mobile menu is a full-screen overlay. */
-@layer components {
-  .dropdown-panel {
-    inset: auto;
-    margin: 0;
-    margin-top: 0.5rem;
-    position-area: bottom span-left;
-    transform-origin: top right;
-  }
-
-  @supports not (position-area: bottom) {
-    .dropdown-panel {
-      position: fixed;
-      top: var(--header-height);
-      right: 1rem;
-      left: auto;
-      margin: 0;
-    }
-
-    @media (min-width: 768px) {
-      .dropdown-panel {
-        right: 1.5rem;
-      }
-    }
-  }
-
-  .mobile-nav-panel {
-    inset: 0;
-    width: 100%;
-    height: 100dvh;
-    max-width: none;
-    max-height: none;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    border-radius: 0;
-    overflow-y: auto;
-    overscroll-behavior: contain;
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .dropdown-panel:popover-open {
-      transition:
-        opacity 150ms var(--ease-out-expo),
-        transform 150ms var(--ease-out-expo);
-    }
-
-    .mobile-nav-panel:popover-open {
-      transition: opacity 150ms var(--ease-out-expo);
-    }
-
-    @starting-style {
-      .dropdown-panel:popover-open {
-        opacity: 0;
-        transform: translateY(-4px) scale(0.98);
-      }
-
-      .mobile-nav-panel:popover-open {
-        opacity: 0;
-      }
-    }
-  }
-}
-
-html:has(.mobile-nav-panel:popover-open) {
-  overflow: hidden;
-}
-
-/* Glass Cards & Elements */
-.glass,
-.glass-card {
-  background: rgb(255 255 255 / 0.03);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgb(255 255 255 / 0.08);
-  border-radius: 1rem;
-  padding: 2rem;
-  margin: 1.5rem auto;
-  max-width: 1200px;
-}
-
-.text-gradient {
-  background: linear-gradient(to right, var(--color-primary-200), var(--color-primary-300));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.btn-primary {
-  background-color: var(--color-primary-500);
-  color: #ffffff;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
-  border: none;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 0 20px rgb(34 152 142 / 0.4);
-}
-
-.btn-primary:hover {
-  background-color: var(--color-primary-300);
 }

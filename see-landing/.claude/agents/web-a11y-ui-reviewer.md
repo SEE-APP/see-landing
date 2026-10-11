@@ -37,11 +37,11 @@ pausable or reduced.
 
 **A11Y-HEAD-01**: more than one `<h1>`, skipped heading levels, sections without an accessible name.
 
-**A11Y-CONTRAST-01**: new text/background pairs on `dark-500` (`#0f172a`): body ≥ 4.5:1, large ≥ 3:1.
+**A11Y-CONTRAST-01**: new text/background pairs in both themes (light `canvas` `#f5f8f7`, dark `canvas` `#0b1211`): body ≥ 4.5:1, large ≥ 3:1.
 Compute from the token values.
 
 **UI-TOKEN-01**: hex/`rgb(`/`rgba(` literals in `*.tsx` (className arbitrary values like
-`bg-[#0f172a]` included) or outside the theme in CSS.
+`bg-[#0b1211]` included) or outside the theme in CSS.
 
 **UI-CSS-01**: `style={{` with static values; `onMouseOver`/`onMouseOut`/`onFocus` writing styles;
 `!important`.

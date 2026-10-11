@@ -1,25 +1,18 @@
 import type { Locale } from '@/i18n/config';
 import type { ContactDetail, NavLink, SocialLink } from '@/types/site';
 
-export const primaryNavLinks: NavLink[] = [
-  { id: 'howItWorks', hash: '#how-it-works' },
-  { id: 'about', hash: '#about' },
-  { id: 'news', hash: '#news' },
-];
+export const findYourCircleHash = '#find-your-circle';
 
-export const moreNavLinks: NavLink[] = [
+export const navLinks: NavLink[] = [
+  { id: 'about', hash: '#about' },
+  { id: 'findYourCircle', hash: findYourCircleHash },
   { id: 'team', hash: '#team' },
-  { id: 'investors', hash: '#investors' },
-  { id: 'faq', hash: '#faq' },
-  { id: 'contact', hash: '#contact' },
 ];
 
 export const footerLinks: NavLink[] = [
-  { id: 'howItWorks', hash: '#how-it-works' },
   { id: 'about', hash: '#about' },
-  { id: 'news', hash: '#news' },
-  { id: 'investors', hash: '#investors' },
-  { id: 'faq', hash: '#faq' },
+  { id: 'findYourCircle', hash: findYourCircleHash },
+  { id: 'team', hash: '#team' },
   { id: 'contact', hash: '#contact' },
 ];
 
@@ -37,8 +30,6 @@ export const socialLinks: SocialLink[] = [
 ];
 
 export const waitlistEndpoint = 'https://formspree.io/f/xnjewqre';
-
-export const demoVideoUrl = 'https://www.youtube.com/embed/n0v4iKcuBoQ';
 
 export function homeHref(locale: Locale, hash = ''): string {
   return `/${locale}${hash}`;

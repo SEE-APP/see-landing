@@ -1,28 +1,29 @@
 import Link from 'next/link';
 import { cn } from '@/lib/cn';
-import type { ButtonProps, ButtonSize, ButtonVariant } from '@/types/ui';
+import type { ButtonProps, ButtonShape, ButtonSize, ButtonVariant } from '@/types/ui';
 
 const baseClasses =
   'inline-flex shrink-0 cursor-pointer select-none items-center justify-center gap-2 font-medium transition duration-200 ' +
-  'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-300 ' +
+  'focus-ring ' +
   'disabled:cursor-not-allowed disabled:opacity-60 aria-disabled:pointer-events-none aria-disabled:opacity-60';
 
 const variantClasses: Record<ButtonVariant, string> = {
   filled:
-    'rounded-full bg-primary-300 text-14 text-dark-500 shadow-lg shadow-primary-500/30 ' +
-    'hover:bg-primary-200 active:bg-primary-400',
+    'bg-accent-strong text-14 text-on-accent shadow-lg shadow-accent/25 ' +
+    'hover:bg-accent-hover active:scale-[0.98]',
   outline:
-    'rounded-full border border-primary-300/60 text-14 text-primary-300 ' +
-    'hover:border-primary-300 hover:bg-primary-300/10 active:bg-primary-300/20',
-  text: 'rounded-sm text-primary-300 hover:text-primary-200',
-  icon:
-    'size-11 rounded-full border border-white/10 bg-white/5 text-slate-200 ' +
-    'hover:border-primary-300/40 hover:bg-primary-300/10 hover:text-primary-300',
+    'border border-accent/60 text-14 text-accent ' +
+    'hover:border-accent hover:bg-accent-soft active:bg-accent/20',
 };
 
-const pillSizeClasses: Record<ButtonSize, string> = {
+const sizeClasses: Record<ButtonSize, string> = {
   md: 'h-12 px-6',
   sm: 'h-10 px-5',
+};
+
+const shapeClasses: Record<ButtonShape, string> = {
+  pill: 'rounded-full',
+  rounded: 'rounded-lg',
 };
 
 function Spinner() {
@@ -36,28 +37,28 @@ function Spinner() {
 
 export default function Button({
   label,
-  leftIcon,
   rightIcon,
   variant = 'filled',
   size = 'md',
+  shape = 'pill',
   fullWidth = false,
   isLoading = false,
   disabled = false,
   className,
   ...rest
 }: ButtonProps) {
-  const isPill = variant === 'filled' || variant === 'outline';
   const classes = cn(
     baseClasses,
     variantClasses[variant],
-    isPill && pillSizeClasses[size],
+    sizeClasses[size],
+    shapeClasses[shape],
     fullWidth && 'w-full',
     className,
   );
 
   const content = (
     <>
-      {isLoading ? <Spinner /> : leftIcon && <span className="flex" aria-hidden="true">{leftIcon}</span>}
+      {isLoading && <Spinner />}
       {label && <span className="leading-none">{label}</span>}
       {!isLoading && rightIcon && <span className="flex" aria-hidden="true">{rightIcon}</span>}
     </>

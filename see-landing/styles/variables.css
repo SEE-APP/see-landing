@@ -1,17 +1,20 @@
 @theme {
-  --color-dark-500: #0f172a;
-  --color-dark-700: #090d16;
+  --color-dark-500: #0b1211;
+  --color-dark-700: #080d0c;
 
+  --color-primary-50: #eef8f6;
+  --color-primary-100: #d3efea;
   --color-primary-200: #7dd6cd;
   --color-primary-300: #47bdb2;
   --color-primary-400: #2fa399;
   --color-primary-500: #22988e;
   --color-primary-600: #177b72;
+  --color-primary-700: #0f5f58;
 
   --container-page: 1440px;
+  --container-content: 1100px;
 
   --ease-out-expo: cubic-bezier(0.23, 1, 0.32, 1);
-
   --text-10: 0.625rem;
   --text-10--line-height: 1.5;
   --text-12: 0.75rem;
@@ -39,7 +42,69 @@
   --text-48: 3rem;
   --text-48--line-height: 1.1;
   --text-64: 4rem;
-  --text-64--line-height: 1.1;
+  --text-64--line-height: 1.1;}
+
+/* Semantic colour tokens. Light is the default; `data-theme="dark"` on <html> restores the
+   original dark design. Components use the generated utilities (`bg-canvas`, `text-ink`, …). */
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-solid: var(--surface-solid);
+  --color-ink: var(--ink);
+  --color-ink-subtle: var(--ink-subtle);
+  --color-ink-muted: var(--ink-muted);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-on-accent: var(--on-accent);
+  --color-danger: var(--danger);
+  --color-footer: var(--footer);
+  --color-input: var(--input-border);
+}
+
+:root {
+  color-scheme: light;
+  --canvas: #f5f8f7;
+  --surface: #fcfdfd;
+  --surface-solid: #fcfdfd;
+  --ink: #0d1f1d;
+  --ink-subtle: #2c403d;
+  --ink-muted: #4b5e5b;
+  --line: #d9e3e1;
+  --line-strong: #c3d2cf;
+  --accent: var(--color-primary-600);
+  --accent-strong: var(--color-primary-600);
+  --accent-hover: var(--color-primary-700);
+  --accent-soft: rgb(23 123 114 / 0.08);
+  --on-accent: #f5f8f7;
+  --footer: #eef3f2;
+  --shadow-tint: rgb(13 31 29 / 0.08);
+  --danger: #be123c;
+  --input-border: #7d908d;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --canvas: #0b1211;
+  --surface: rgb(237 243 241 / 0.04);
+  --surface-solid: #111a19;
+  --ink: #edf3f1;
+  --ink-subtle: #c3d0cd;
+  --ink-muted: #8fa29e;
+  --line: rgb(237 243 241 / 0.08);
+  --line-strong: rgb(237 243 241 / 0.16);
+  --accent: var(--color-primary-300);
+  --accent-strong: var(--color-primary-300);
+  --accent-hover: var(--color-primary-200);
+  --accent-soft: rgb(71 189 178 / 0.1);
+  --on-accent: #0b1211;
+  --footer: #080d0c;
+  --shadow-tint: rgb(0 0 0 / 0.5);
+  --danger: #fb7185;
+  --input-border: rgb(237 243 241 / 0.16);
 }
 
 :root {

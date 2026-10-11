@@ -1,38 +1,48 @@
-import { Globe } from 'lucide-react';
-import Dropdown, { DropdownItem } from '@/components/ui/Dropdown';
+import { ChevronDown, Globe } from 'lucide-react';
+import LanguageOptions from '@/components/common/LanguageOptions';
+import Dropdown from '@/components/ui/Dropdown';
 import { localeNames, locales } from '@/i18n/config';
-import type { LanguageOptionsProps, LanguageSwitcherProps } from '@/types/layout';
+import type { LanguageSwitcherProps } from '@/types/layout';
 
-function LanguageOptions({ current, itemClassName }: LanguageOptionsProps) {
-  return locales.map((locale) => (
-    <li key={locale}>
-      <DropdownItem
-        href={`/${locale}`}
-        hrefLang={locale}
-        lang={locale}
-        aria-current={locale === current ? 'page' : undefined}
-        className={itemClassName}
-      >
-        <span>{localeNames[locale]}</span>
-        <span className="font-mono text-12 uppercase">{locale}</span>
-      </DropdownItem>
-    </li>
-  ));
-}
-
-/** Header dropdown: globe + current locale code. */
-export default function LanguageSwitcher({ current, label }: LanguageSwitcherProps) {
+/**
+ * Language picker in three places: a dropdown in the header, an upward dropdown with a globe
+ * in the footer, and a collapsible row in the mobile menu.
+ */
+export default function LanguageSwitcher({ variant, current, label }: LanguageSwitcherProps) {
   if (locales.length < 2) return null;
+
+  if (variant === 'menu') {
+    return (
+      <details className="group/lang border-t border-line">
+        <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-4 rounded-sm text-16 text-ink focus-ring [&::-webkit-details-marker]:hidden">
+          {label}
+          <span className="flex items-center gap-2 text-ink-muted">
+            <span lang={current}>{localeNames[current]}</span>
+            <ChevronDown
+              size={16}
+              aria-hidden="true"
+              className="transition-transform duration-200 ease-out-expo group-open/lang:rotate-180 motion-reduce:transition-none"
+            />
+          </span>
+        </summary>
+        <ul aria-label={label} className="flex flex-col gap-1 pb-2">
+          <LanguageOptions current={current} itemClassName="min-h-11" />
+        </ul>
+      </details>
+    );
+  }
+
+  const isFooter = variant === 'footer';
 
   return (
     <Dropdown
-      id="nav-lang"
-      trigger="pill"
+      id={isFooter ? 'footer-lang' : 'nav-lang'}
+      placement={isFooter ? 'top' : 'bottom'}
       label={
         <>
-          <Globe size={16} aria-hidden="true" />
+          {isFooter && <Globe size={16} aria-hidden="true" className="mr-1" />}
           <span className="sr-only">{label}: </span>
-          <span className="font-mono text-13 uppercase">{current}</span>
+          <span lang={current}>{localeNames[current]}</span>
         </>
       }
     >
@@ -40,16 +50,5 @@ export default function LanguageSwitcher({ current, label }: LanguageSwitcherPro
         <LanguageOptions current={current} />
       </ul>
     </Dropdown>
-  );
-}
-
-/** Inline list for the mobile menu (no nested popover). */
-export function LanguageList({ current, label }: LanguageSwitcherProps) {
-  if (locales.length < 2) return null;
-
-  return (
-    <ul aria-label={label} className="grid grid-cols-2 gap-1">
-      <LanguageOptions current={current} itemClassName="min-h-11" />
-    </ul>
   );
 }

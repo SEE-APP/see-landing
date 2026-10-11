@@ -1,12 +1,12 @@
 import { notFound } from 'next/navigation';
-import Hero from '@/components/Hero';
-import About from '@/components/About';
-import Team from '@/components/Team';
-import Demo from '@/components/Demo';
-import Waitlist from '@/components/Waitlist';
+import Hero from '@/components/landing/Hero';
+import Story from '@/components/landing/Story';
+import FindYourCircle from '@/components/landing/FindYourCircle';
+import Intention from '@/components/landing/Intention';
+import Team from '@/components/landing/Team';
+import Waitlist from '@/components/landing/Waitlist';
 import { hasLocale } from '@/i18n/config';
 import { getDictionary } from '@/i18n/get-dictionary';
-import { demoVideoUrl, homeHref } from '@/lib/site';
 
 export default async function Home({ params }: PageProps<'/[lang]'>) {
   const { lang } = await params;
@@ -15,15 +15,11 @@ export default async function Home({ params }: PageProps<'/[lang]'>) {
 
   return (
     <>
-      <Hero t={dict.hero} />
-      <About
-        story={dict.story}
-        intention={dict.intention}
-        howItWorks={dict.howItWorks}
-        whyUs={dict.whyUs}
-      />
+      <Hero lang={lang} t={dict.hero} />
+      <Story t={dict.story} />
+      <FindYourCircle t={dict.findYourCircle} />
+      <Intention t={dict.intention} />
       <Team t={dict.team} />
-      <Demo t={dict.demo} videoSrc={demoVideoUrl} waitlistHref={homeHref(lang, '#waitlist')} />
       <Waitlist t={dict.waitlist} />
     </>
   );

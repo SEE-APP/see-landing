@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import Navbar from "@/components/common/Navbar";
 import Footer from "@/components/common/Footer";
+import ThemeScript from "@/components/common/ThemeScript";
 import { hasLocale, locales, siteUrl } from "@/i18n/config";
 import { getDictionary } from "@/i18n/get-dictionary";
 import "../globals.css";
@@ -44,7 +45,10 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
 
 export const viewport: Viewport = {
   viewportFit: "cover",
-  themeColor: "#0f172a",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f5f8f7" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b1211" },
+  ],
 };
 
 export default async function RootLayout({ children, params }: LayoutProps<"/[lang]">) {
@@ -53,11 +57,14 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
   const dict = await getDictionary(lang);
 
   return (
-    <html lang={lang}>
-      <body className="flex min-h-dvh flex-col bg-dark-500 text-slate-50 antialiased selection:bg-primary-500/30">
+    <html lang={lang} suppressHydrationWarning>
+      <head>
+        <ThemeScript />
+      </head>
+      <body className="flex min-h-dvh flex-col bg-canvas text-ink antialiased selection:bg-accent/25">
         <Navbar lang={lang} brand={dict.brand} t={dict.nav} />
         <main className="flex-1">{children}</main>
-        <Footer lang={lang} brand={dict.brand} nav={dict.nav.links} t={dict.footer} />
+        <Footer lang={lang} brand={dict.brand} nav={dict.nav} t={dict.footer} />
       </body>
     </html>
   );
