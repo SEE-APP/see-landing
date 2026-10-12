@@ -1,7 +1,7 @@
 # AI setup (Cursor + Claude Code): SEE landing
 
 Committed so every developer's agent works the same way and reviews apply the same rules.
-Open this folder (`see-landing/see-landing/`, next to `package.json`) as the Cursor workspace, or run
+Open the repo root (next to `package.json`) as the Cursor workspace, or run
 Claude Code from it; the git root is one level up. Both tools load `AGENTS.md`, `.claude/skills`,
 `.claude/agents` and the hooks in `.claude/settings.json`. Cursor doesn't read `.claude/rules`, so
 `.cursor/rules/*.mdc` wraps them with globs (the rule text stays in `.claude/rules`).
@@ -9,29 +9,29 @@ Claude Code from it; the git root is one level up. Both tools load `AGENTS.md`, 
 ```
 AGENTS.md                     the project rules for every tool: Next 16 warning, goals, gates, rendering, structure, debt, workflow, git
 CLAUDE.md                     only `@AGENTS.md` (Claude Code imports it; Cursor reads AGENTS.md directly)
-.cursor/rules/*.mdc           Cursor wrappers: globs → @.claude/rules/<same name>.md
+.cursor/rules/*.mdc           Cursor wrappers: globs â†’ @.claude/rules/<same name>.md
 .claude/
-├── settings.json             shared permissions, hooks, attribution off
-├── settings.local.json       your personal overrides (git-ignored)
-├── rules/                    path-scoped, loaded when Claude touches matching files
-│   ├── components.md         server/client, motion policy, markup, structure, CTA
-│   ├── app-router.md         static rendering, metadata, layout, Server Actions, next.config
-│   └── styles.md             Tailwind tokens, v4 target, keyframes, contrast
-├── agents/
-│   ├── frontend-designer.md  build/polish UI within the rules
-│   ├── frontend-security.md  form, headers/CSP, env, links, deps
-│   ├── seo.md                Metadata API, sitemap/robots/OG, JSON-LD, CWV
-│   └── web-*-reviewer.md     the 4 read-only reviewers /review-web runs (security, perf, a11y-ui, architecture)
-├── skills/
-│   ├── review-web/           /review-web: SKILL.md, review-contract.md (rule IDs, severity, report), calibration-log.md
-│   ├── react-discipline/     RSC boundaries, memoization, effects, forms, imports
-│   ├── reuse-first/          SKILL.md + catalog.md (where code lives) + known-duplicates.md
-│   ├── pr-from-branch/ …     /pr-from-branch, /pr-from-session, /review-critique, /review-fe-branch
-│   │                         (user-invoked only: disable-model-invocation; skills so Cursor and Claude Code both load them)
-│   └── …                     design/taste, animation, Vercel React rules, deploy-to-vercel, prototype, karpathy-guidelines
-├── hooks/                    guard-bash, guard-write, scan-secrets, nudge-console (+ lib.sh)
-├── design-references/        Apple, Linear, Stripe, Vercel, Cursor, Cal, Raycast — structure only
-└── reviews/                  saved /review-web reports (git-ignored)
+â”œâ”€â”€ settings.json             shared permissions, hooks, attribution off
+â”œâ”€â”€ settings.local.json       your personal overrides (git-ignored)
+â”œâ”€â”€ rules/                    path-scoped, loaded when Claude touches matching files
+â”‚   â”œâ”€â”€ components.md         server/client, motion policy, markup, structure, CTA
+â”‚   â”œâ”€â”€ app-router.md         static rendering, metadata, layout, Server Actions, next.config
+â”‚   â””â”€â”€ styles.md             Tailwind tokens, v4 target, keyframes, contrast
+â”œâ”€â”€ agents/
+â”‚   â”œâ”€â”€ frontend-designer.md  build/polish UI within the rules
+â”‚   â”œâ”€â”€ frontend-security.md  form, headers/CSP, env, links, deps
+â”‚   â”œâ”€â”€ seo.md                Metadata API, sitemap/robots/OG, JSON-LD, CWV
+â”‚   â””â”€â”€ web-*-reviewer.md     the 4 read-only reviewers /review-web runs (security, perf, a11y-ui, architecture)
+â”œâ”€â”€ skills/
+â”‚   â”œâ”€â”€ review-web/           /review-web: SKILL.md, review-contract.md (rule IDs, severity, report), calibration-log.md
+â”‚   â”œâ”€â”€ react-discipline/     RSC boundaries, memoization, effects, forms, imports
+â”‚   â”œâ”€â”€ reuse-first/          SKILL.md + catalog.md (where code lives) + known-duplicates.md
+â”‚   â”œâ”€â”€ pr-from-branch/ â€¦     /pr-from-branch, /pr-from-session, /review-critique, /review-fe-branch
+â”‚   â”‚                         (user-invoked only: disable-model-invocation; skills so Cursor and Claude Code both load them)
+â”‚   â””â”€â”€ â€¦                     design/taste, animation, Vercel React rules, deploy-to-vercel, prototype, karpathy-guidelines
+â”œâ”€â”€ hooks/                    guard-bash, guard-write, scan-secrets, nudge-console (+ lib.sh)
+â”œâ”€â”€ design-references/        Apple, Linear, Stripe, Vercel, Cursor, Cal, Raycast â€” structure only
+â””â”€â”€ reviews/                  saved /review-web reports (git-ignored)
 ```
 
 ## Daily use
