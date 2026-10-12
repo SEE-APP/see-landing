@@ -4,12 +4,12 @@
 import { useId, useState, type FormEvent } from 'react';
 import { ArrowRight, CircleAlert } from 'lucide-react';
 import Button from '@/components/ui/Button';
+import FormSuccess from '@/components/ui/FormSuccess';
 import Typography from '@/components/ui/Typography';
 import { cn } from '@/lib/cn';
 import { isValidEmail } from '@/lib/validation';
 import { joinWaitlist } from '@/lib/waitlist';
 import type { WaitlistFormProps, WaitlistStatus } from '@/types/sections';
-import WaitlistSuccess from './WaitlistSuccess';
 
 export default function WaitlistForm({ t }: WaitlistFormProps) {
   const id = useId();
@@ -34,7 +34,7 @@ export default function WaitlistForm({ t }: WaitlistFormProps) {
     <>
       {/* Always mounted, so screen readers announce the confirmation when it is added. */}
       <div role="status">
-        {isSuccess && <WaitlistSuccess title={t.successTitle} body={t.successBody} />}
+        {isSuccess && <FormSuccess title={t.successTitle} body={t.successBody} />}
       </div>
       <form onSubmit={handleSubmit} noValidate hidden={isSuccess}>
         <label htmlFor={emailId} className="sr-only">

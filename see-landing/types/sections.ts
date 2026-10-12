@@ -66,9 +66,4 @@ export interface WaitlistFormProps {
   t: WaitlistFormCopy;
 }
 
-export interface WaitlistSuccessProps {
-  title: string;
-  body: string;
-}
-
 export type WaitlistStatus = 'idle' | 'loading' | 'success' | 'error';
