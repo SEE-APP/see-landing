@@ -10,7 +10,8 @@ const contactIcons: Record<ContactId, ComponentType<IconProps>> = {
   phone: PhoneIcon,
 };
 
-export default function FooterContacts() {
+/** Email and phone links with icons, for the footer. */
+export default function ContactLinks() {
   return (
     <ul className="flex flex-col items-start gap-3">
       {contactDetails.map(({ id, label, href }) => {

@@ -4,7 +4,7 @@ import BrandLink from '@/components/common/BrandLink';
 import LanguageSwitcher from '@/components/common/LanguageSwitcher';
 import Button from '@/components/ui/Button';
 import PopoverPanel from '@/components/ui/PopoverPanel';
-import { ctaHash, homeHref, navLinks } from '@/lib/site';
+import { ctaHash, homeHref, navHref, navLinks } from '@/lib/site';
 import type { MobileNavProps } from '@/types/layout';
 
 const PANEL_ID = 'nav-mobile';
@@ -40,7 +40,7 @@ export default function MobileNav({ lang, brand, t }: MobileNavProps) {
             {navLinks.map((link) => (
               <li key={link.id}>
                 <Link
-                  href={homeHref(lang, link.hash)}
+                  href={navHref(lang, link)}
                   className="flex min-h-12 items-center rounded-sm text-32 font-semibold tracking-[-0.02em] text-ink transition-colors duration-150 hover:text-accent focus-visible:text-accent focus-ring"
                 >
                   {t.links[link.id]}

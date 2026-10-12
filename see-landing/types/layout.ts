@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import type { Dictionary, Locale } from './i18n';
+import type { NavLink } from './site';
 
 export interface NavbarProps {
   lang: Locale;
@@ -19,14 +20,13 @@ export interface AutoHideHeaderProps {
 }
 
 export interface FooterColumnProps {
-  /** Anchor for in-page links (`#contact`). */
-  id?: string;
   title: string;
   children: ReactNode;
 }
 
 export interface FooterNavProps {
   lang: Locale;
+  links: readonly NavLink[];
   labels: Dictionary['nav']['links'];
   ariaLabel: string;
 }
