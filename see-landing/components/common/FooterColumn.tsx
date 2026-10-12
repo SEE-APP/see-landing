@@ -1,9 +1,9 @@
 import Typography from '@/components/ui/Typography';
 import type { FooterColumnProps } from '@/types/layout';
 
-export default function FooterColumn({ id, title, children }: FooterColumnProps) {
+export default function FooterColumn({ title, children }: FooterColumnProps) {
   return (
-    <div id={id}>
+    <div>
       <Typography as="h2" size={14} weight="semibold">
         {title}
       </Typography>

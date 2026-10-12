@@ -1,4 +1,13 @@
-import type { AnchorHTMLAttributes, ButtonHTMLAttributes, CSSProperties, ReactNode, SVGProps } from 'react';
+import type {
+  AnchorHTMLAttributes,
+  ButtonHTMLAttributes,
+  CSSProperties,
+  InputHTMLAttributes,
+  ReactNode,
+  SelectHTMLAttributes,
+  SVGProps,
+  TextareaHTMLAttributes,
+} from 'react';
 
 export type IconProps = Omit<SVGProps<SVGSVGElement>, 'width' | 'height'> & { size?: number };
 
@@ -142,3 +151,36 @@ export type DropdownItemProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'h
   href: string;
   children: ReactNode;
 };
+
+interface ControlSharedProps {
+  /** Marks the control as failing validation (red border, `aria-invalid`). */
+  invalid?: boolean;
+}
+
+export type InputProps = InputHTMLAttributes<HTMLInputElement> & ControlSharedProps;
+export type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & ControlSharedProps;
+export type SelectProps = SelectHTMLAttributes<HTMLSelectElement> & ControlSharedProps;
+
+/** Label, control and messages of one form field. The control gets the same `id` and `describedBy(id, …)`. */
+export interface FieldProps {
+  /** `id` of the control; the label's `htmlFor`. */
+  id: string;
+  label: string;
+  /** Shown beside the label, e.g. "Optional". */
+  optionalLabel?: string;
+  hint?: string;
+  error?: string;
+  children: ReactNode;
+}
+
+export interface FormSuccessProps {
+  title: string;
+  body: string;
+}
+
+export interface AccentRuleProps {
+  /** Slides the accent line in over the hairline. */
+  isActive: boolean;
+  /** Which border of the parent the line sits on. @default 'top' */
+  edge?: 'top' | 'bottom';
+}

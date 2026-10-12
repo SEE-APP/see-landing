@@ -1,12 +1,13 @@
 import BrandLink from '@/components/common/BrandLink';
+import ContactLinks from '@/components/common/ContactLinks';
 import FooterColumn from '@/components/common/FooterColumn';
-import FooterContacts from '@/components/common/FooterContacts';
 import FooterNav from '@/components/common/FooterNav';
 import LanguageSwitcher from '@/components/common/LanguageSwitcher';
 import SocialLinks from '@/components/common/SocialLinks';
 import ThemeSwitcher from '@/components/common/ThemeSwitcher';
 import Typography from '@/components/ui/Typography';
 import { format } from '@/i18n/format';
+import { contactPageLinks, footerLinks } from '@/lib/site';
 import type { FooterProps } from '@/types/layout';
 
 export default function Footer({ lang, brand, nav, t }: FooterProps) {
@@ -26,13 +27,21 @@ export default function Footer({ lang, brand, nav, t }: FooterProps) {
 
             <div className="md:col-span-3 md:col-start-7">
               <FooterColumn title={t.explore}>
-                <FooterNav lang={lang} labels={nav.links} ariaLabel={t.navLabel} />
+                <FooterNav lang={lang} links={footerLinks} labels={nav.links} ariaLabel={t.navLabel} />
               </FooterColumn>
             </div>
 
             <div className="md:col-span-3">
-              <FooterColumn id="contact" title={t.contact}>
-                <FooterContacts />
+              <FooterColumn title={t.contact}>
+                <ContactLinks />
+                <div className="mt-5 border-t border-line pt-5">
+                  <FooterNav
+                    lang={lang}
+                    links={contactPageLinks}
+                    labels={nav.links}
+                    ariaLabel={t.contactNavLabel}
+                  />
+                </div>
               </FooterColumn>
             </div>
           </div>

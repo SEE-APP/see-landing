@@ -2,10 +2,11 @@ import type { Dictionary } from './i18n';
 
 export type NavLinkId = keyof Dictionary['nav']['links'];
 
-/** Label comes from `nav.links[id]`; `hash` is the section anchor on the home page. */
+/** Label comes from `nav.links[id]`. `hash` is a section anchor on the home page; `path` is a page of its own. */
 export interface NavLink {
   id: NavLinkId;
-  hash: string;
+  hash?: string;
+  path?: string;
 }
 
 export type ContactId = 'email' | 'phone';

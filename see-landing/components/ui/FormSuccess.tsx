@@ -1,9 +1,9 @@
 import { Check } from 'lucide-react';
 import Typography from '@/components/ui/Typography';
-import type { WaitlistSuccessProps } from '@/types/sections';
+import type { FormSuccessProps } from '@/types/ui';
 
 /** Takes focus when it appears, because the form (and its focused button) has just left the page. */
-export default function WaitlistSuccess({ title, body }: WaitlistSuccessProps) {
+export default function FormSuccess({ title, body }: FormSuccessProps) {
   return (
     <div
       ref={(node) => node?.focus()}

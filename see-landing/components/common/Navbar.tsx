@@ -4,7 +4,7 @@ import BrandLink from '@/components/common/BrandLink';
 import LanguageSwitcher from '@/components/common/LanguageSwitcher';
 import MobileNav from '@/components/common/MobileNav';
 import Button from '@/components/ui/Button';
-import { ctaHash, homeHref, navLinks } from '@/lib/site';
+import { ctaHash, homeHref, navHref, navLinks } from '@/lib/site';
 import type { NavbarProps } from '@/types/layout';
 
 export default function Navbar({ lang, brand, t }: NavbarProps) {
@@ -18,7 +18,7 @@ export default function Navbar({ lang, brand, t }: NavbarProps) {
             {navLinks.map((link) => (
               <li key={link.id}>
                 <Link
-                  href={homeHref(lang, link.hash)}
+                  href={navHref(lang, link)}
                   className="rounded-sm text-14 text-ink-muted transition-colors duration-200 hover:text-ink focus-visible:text-ink focus-ring"
                 >
                   {t.links[link.id]}

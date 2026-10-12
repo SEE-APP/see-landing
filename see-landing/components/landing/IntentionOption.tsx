@@ -1,4 +1,5 @@
 import { Check } from 'lucide-react';
+import AccentRule from '@/components/ui/AccentRule';
 import Typography from '@/components/ui/Typography';
 import { cn } from '@/lib/cn';
 import type { IntentionOptionProps } from '@/types/sections';
@@ -6,13 +7,7 @@ import type { IntentionOptionProps } from '@/types/sections';
 export default function IntentionOption({ title, desc, isSelected }: IntentionOptionProps) {
   return (
     <>
-      <span
-        aria-hidden="true"
-        className={cn(
-          'absolute -top-px left-0 h-0.5 w-full origin-left bg-accent transition-transform duration-300 ease-out-expo motion-reduce:transition-none',
-          isSelected ? 'scale-x-100' : 'scale-x-0',
-        )}
-      />
+      <AccentRule isActive={isSelected} />
       <span className="flex flex-col">
         <Typography
           size={20}

@@ -34,11 +34,13 @@ for another reason; don't do a bulk move without asking.
 | `FindYourCircle`, `CircleSteps` | `components/landing/` | server |
 | `Team` (section), `TeamMembers` (photo grid), `TeamMemberCard` (photo, name, role, LinkedIn link) | `components/landing/` | server |
 | `Waitlist` (centered closing CTA), `WaitlistRings` (faint concentric rings SVG behind it) | `components/landing/` | server |
-| `WaitlistForm` (email field + filled button in one bordered pill, idle/loading/error), `WaitlistSuccess` | `components/waitlist/` | client leaf, server-safe |
-| `Footer` (layout), `FooterColumn` (h2 title + content), `FooterNav` (footer links), `FooterContacts` (email/phone with icons) | `components/common/` | server |
+| `WaitlistForm` (email field + filled button in one bordered pill, idle/loading/error), `FormSuccess` (in `components/ui/`, shared with the contact forms) | `components/waitlist/` | client leaf, server-safe |
+| `Footer` (layout), `FooterColumn` (h2 title + content), `FooterNav` (a list of footer links, passed as `links`), `ContactLinks` (email/phone with icons; footer only) | `components/common/` | server |
+| `ContactHero`, `ContactDetails` (hairline-ruled `<dl>`), `ContactDetailRow` (label + value row), `ContactForms`, `ContactTabs`, `ContactForm`, `MeetingForm` | `components/contact/` | server, client leaves (tabs and forms) |
+| `Field`, `Input`, `Textarea`, `Select` (hairline underline controls; `Field` floats the label and draws the focus line, CSS only; shared classes in `lib/controls.ts`), `Honeypot` | `components/ui/` | server-safe |
 | `SocialLinks` (Instagram/LinkedIn/TikTok icon links) | `components/common/SocialLinks.tsx` | server; reuse wherever social links appear |
 | `TikTokIcon`, `InstagramIcon`, `LinkedInIcon`, `PhoneIcon` | `assets/icons/` | server-safe SVG components |
-| `navLinks`, `footerLinks`, `ctaHash`, `contactDetails`, `socialLinks`, `homeHref` | `lib/site.ts` | static data |
+| `navLinks`, `footerLinks`, `contactPageLinks`, `ctaHash`, `contactDetails`, `socialLinks`, `homeHref` | `lib/site.ts` | static data |
 | `LanguageSwitcher` (`variant`: `header` dropdown, `footer` globe + upward dropdown, `menu` collapsible `<details>` row), `LanguageOptions` (shared items) | `components/common/`; all show only the current language until opened, so they scale to any number of locales | server; hidden while only one locale exists |
 | `MobileNav` (hamburger + full-width popover menu, below `lg`) | `components/common/MobileNav.tsx` | server |
 | `page-container`, `page-section` | `app/globals.css` (`@utility`) | safe-grid layout classes |
