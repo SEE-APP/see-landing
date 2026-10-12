@@ -82,12 +82,14 @@ i18n/dictionaries/  en.ts holds EVERY user-facing string; other languages are co
 i18n/config.ts      locales, defaultLocale, localeNames, siteUrl (NEXT_PUBLIC_SITE_URL), hasLocale
 i18n/get-dictionary.ts  loads a dictionary on the server; i18n/format.ts fills {placeholders}
 assets/icons/       custom SVG icon components, one per file (lucide-react for the rest)
-components/common/  Navbar (+ AutoHideHeader client leaf), MobileNav, BrandLink, Footer (+ FooterColumn, FooterNav, FooterContacts, SocialLinks), ThemeSwitcher, LanguageSwitcher (`variant` header/footer/menu) + LanguageOptions (rendered in the root layout)
-components/ui/      Typography (`variant` display/body-lg/body), Button, NumberedList, LandingSection, EditorialHeading, Dropdown, DropdownItem (server-safe primitives; use them for all text and buttons), PopoverPanel (client leaf; `modal` for the mobile menu)
+components/common/  Navbar (+ AutoHideHeader client leaf), MobileNav, BrandLink, Footer (+ FooterColumn, FooterNav, ContactLinks, SocialLinks), ThemeSwitcher, LanguageSwitcher (`variant` header/footer/menu) + LanguageOptions (rendered in the root layout)
+components/ui/      Field, Input, Textarea, Select, Honeypot, FormSuccess (form primitives), Typography (`variant` display/body-lg/body), Button, NumberedList, LandingSection, EditorialHeading, Dropdown, DropdownItem (server-safe primitives; use them for all text and buttons), PopoverPanel (client leaf; `modal` for the mobile menu)
 components/landing/ one file per section: Hero, Story (+ StoryTimeline), FindYourCircle (+ CircleSteps), Intention (+ IntentionCards client leaf, IntentionOption), Team (+ TeamMembers, TeamMemberCard), Waitlist (+ WaitlistRings)
-components/waitlist/ WaitlistForm (client leaf), WaitlistSuccess
+components/waitlist/ WaitlistForm (client leaf)
+components/contact/ ContactHero, ContactDetails, ContactForms (+ ContactForm, MeetingForm client leaves) for app/[lang]/contact
 lib/site.ts         site data: nav links, contact details, social links
 lib/waitlist.ts     joinWaitlist (Formspree request)
+app/actions.ts      Server Actions: sendContactMessage, requestMeeting (email via lib/mail.ts, Resend; env RESEND_API_KEY, CONTACT_TO_EMAIL, CONTACT_FROM_EMAIL)
 lib/content/        list structure (ids, icons, years, avatars, URLs) for team.ts, about.ts; text lives in the dictionary
 lib/validation.ts   isValidEmail
 lib/cn.ts           className joiner (no clsx/tailwind-merge: don't pass a class that conflicts with a variant's)
