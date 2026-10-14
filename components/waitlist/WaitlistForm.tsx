@@ -1,34 +1,27 @@
 'use client';
-// client: holds the email field and the submit status
+// client: runs the waitlist Server Action and shows its result
 
-import { useId, useState, type FormEvent } from 'react';
+import { useActionState, useId, useState } from 'react';
 import { ArrowRight, CircleAlert } from 'lucide-react';
+import { joinWaitlist } from '@/app/actions/waitlist';
 import Button from '@/components/ui/Button';
 import FormSuccess from '@/components/ui/FormSuccess';
+import Honeypot from '@/components/ui/Honeypot';
 import Typography from '@/components/ui/Typography';
 import { cn } from '@/lib/cn';
-import { isValidEmail } from '@/lib/validation';
-import { joinWaitlist } from '@/lib/waitlist';
-import type { WaitlistFormProps, WaitlistStatus } from '@/types/sections';
+import { fieldLimits } from '@/lib/content/contact';
+import type { WaitlistFormProps, WaitlistState } from '@/types/sections';
+
+const initialState: WaitlistState = { status: 'idle' };
 
 export default function WaitlistForm({ t }: WaitlistFormProps) {
   const id = useId();
   const emailId = `${id}-email`;
   const errorId = `${id}-error`;
-  const [email, setEmail] = useState('');
-  const [status, setStatus] = useState<WaitlistStatus>('idle');
-  const isError = status === 'error';
-  const isSuccess = status === 'success';
-
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (!isValidEmail(email)) {
-      setStatus('error');
-      return;
-    }
-    setStatus('loading');
-    setStatus((await joinWaitlist(email)) ? 'success' : 'error');
-  }
+  const [state, formAction, isPending] = useActionState(joinWaitlist, initialState);
+  const [isEditing, setIsEditing] = useState(false);
+  const isError = state.status === 'error' && !isEditing;
+  const isSuccess = state.status === 'success';
 
   return (
     <>
@@ -36,7 +29,14 @@ export default function WaitlistForm({ t }: WaitlistFormProps) {
       <div role="status">
         {isSuccess && <FormSuccess title={t.successTitle} body={t.successBody} />}
       </div>
-      <form onSubmit={handleSubmit} noValidate hidden={isSuccess}>
+      <form
+        action={(formData) => {
+          setIsEditing(false);
+          formAction(formData);
+        }}
+        hidden={isSuccess}
+      >
+        <Honeypot />
         <label htmlFor={emailId} className="sr-only">
           {t.emailLabel}
         </label>
@@ -52,11 +52,9 @@ export default function WaitlistForm({ t }: WaitlistFormProps) {
             name="email"
             autoComplete="email"
             required
-            value={email}
-            onChange={(event) => {
-              setEmail(event.target.value);
-              if (isError) setStatus('idle');
-            }}
+            maxLength={fieldLimits.email}
+            defaultValue={state.email}
+            onChange={() => setIsEditing(true)}
             placeholder={t.emailPlaceholder}
             aria-invalid={isError}
             aria-describedby={isError ? errorId : undefined}
@@ -67,7 +65,7 @@ export default function WaitlistForm({ t }: WaitlistFormProps) {
             size="sm"
             label={t.submit}
             rightIcon={<ArrowRight size={16} />}
-            isLoading={status === 'loading'}
+            isLoading={isPending}
           />
         </div>
         <div id={errorId} role="alert">

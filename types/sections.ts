@@ -66,4 +66,8 @@ export interface WaitlistFormProps {
   t: WaitlistFormCopy;
 }
 
-export type WaitlistStatus = 'idle' | 'loading' | 'success' | 'error';
+/** What the waitlist Server Action returns. `email` refills the field after an error. */
+export interface WaitlistState {
+  status: 'idle' | 'success' | 'error';
+  email?: string;
+}
