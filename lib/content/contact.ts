@@ -18,5 +18,5 @@ export const fieldLimits = {
   notes: 2000,
 } as const;
 
-/** Name of the hidden bot-trap field in both forms. */
-export const honeypotField = 'website';
+/** Name of the hidden bot-trap field. Not a name autofill recognises (like `website`), so real visitors never fill it. */
+export const honeypotField = 'hp_ref';
