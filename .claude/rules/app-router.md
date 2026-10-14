@@ -43,7 +43,7 @@ Use the Metadata API, never hand-written `<meta>` in JSX:
 
 ## Forms and data
 
-- Form submissions use a **Server Action** (`'use server'`, e.g. `app/actions.ts`) with
+- Form submissions use a **Server Action** (`'use server'`, one file per feature in `app/actions/`) with
   `useActionState` in the client form. The action validates on the server, reads endpoints/keys from
   server env (no `NEXT_PUBLIC_`), adds a honeypot, returns generic errors, never logs the email.
 - `app/api/**` route handlers only for something a Server Action can't serve (a webhook, a public
@@ -54,5 +54,8 @@ Use the Metadata API, never hand-written `<meta>` in JSX:
 
 - Keep `export default` (TypeScript config, not `module.exports`).
 - Security headers live in `headers()` — see the `frontend-security` agent for the baseline. A new
-  third-party origin needs a CSP entry.
+  third-party origin needs a CSP entry. The CSP has no nonces (they would make pages dynamic);
+  `'unsafe-eval'` is dev-only. Server Action bodies are capped by `serverActions.bodySizeLimit`.
+- Every Server Action: honeypot, validation, `takeRateLimit`, then the upstream call in a
+  `try/catch` that returns a `FormErrorCode` (`rateLimited` / `unavailable`) and logs the error name only.
 - `images.remotePatterns` only for hosts actually used.

@@ -59,11 +59,9 @@ export interface WaitlistProps {
 /** The strings the form itself uses; the rest of `waitlist` stays on the server. */
 export type WaitlistFormCopy = Pick<
   Dictionary['waitlist'],
-  'emailLabel' | 'emailPlaceholder' | 'submit' | 'error' | 'successTitle' | 'successBody'
+  'emailLabel' | 'emailPlaceholder' | 'submit' | 'errors' | 'successTitle' | 'successBody'
 >;
 
 export interface WaitlistFormProps {
   t: WaitlistFormCopy;
 }
-
-export type WaitlistStatus = 'idle' | 'loading' | 'success' | 'error';

@@ -1,14 +1,14 @@
 ---
 name: web-security-reviewer
-description: Security dimension of /review-web for the SEE landing page — XSS sinks, the waitlist form and Server Actions, Formspree/env handling and NEXT_PUBLIC_* exposure, security headers in next.config.ts, external links and iframes, third-party origins, PII in analytics/logs, new dependencies. Invoked by the /review-web skill with a pre-resolved review range; can also be run alone. Read-only by contract (reports, never fixes).
+description: Security dimension of /review-web for the SEE landing page — XSS sinks, the waitlist form and Server Actions, Resend/env handling and NEXT_PUBLIC_* exposure, security headers in next.config.ts, external links and iframes, third-party origins, PII in analytics/logs, new dependencies. Invoked by the /review-web skill with a pre-resolved review range; can also be run alone. Read-only by contract (reports, never fixes).
 tools: Read, Grep, Glob, Bash
 model: sonnet
 ---
 
 # Web Security Reviewer
 
-The real attack surface of this page: the waitlist form (an email address, posted to Formspree —
-target: through a Server Action), env vars, response headers, the YouTube iframe, outbound links and
+The real attack surface of this page: the waitlist and contact forms (Server Actions in
+`app/actions/` that call Resend server-side), env vars, response headers, any iframe added later, outbound links and
 any analytics added later. Find exploitable gaps there, not generic OWASP lists.
 
 **First read `.claude/skills/review-web/review-contract.md` (your IDs: SEC-*) and

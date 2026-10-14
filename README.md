@@ -28,8 +28,7 @@ Goals, in order: very fast load, Lighthouse/SEO near 100, near-zero client JavaS
 | UI | React 19.2, TypeScript 5 (strict) |
 | Styling | Tailwind CSS v4 via `@tailwindcss/postcss`, design tokens in `styles/variables.css` |
 | Icons | `lucide-react`, plus custom SVG components in `assets/icons/` |
-| Waitlist | Formspree |
-| Contact emails | Resend, sent from Server Actions |
+| Waitlist and contact emails | Resend, called from Server Actions |
 | Linting | ESLint 9 with `eslint-config-next` |
 | Tests | None yet |
 
@@ -57,12 +56,24 @@ Set these in `.env.local` for development and in the Vercel project settings for
 
 | Variable | Scope | Purpose |
 |---|---|---|
-| `RESEND_API_KEY` | server only | Resend API key used to send contact and meeting emails |
+| `RESEND_API_KEY` | server only | Resend API key with **Full access** (a sending-only key cannot add waitlist contacts) |
+| `RESEND_SEGMENT_ID` | server only | Id of the Resend segment that waitlist signups join |
 | `CONTACT_TO_EMAIL` | server only | Inbox that receives the contact and meeting-request emails |
-| `CONTACT_FROM_EMAIL` | server only | Verified sender address used by Resend |
+| `CONTACT_FROM_EMAIL` | server only | Sender on a domain verified in Resend, e.g. `SEE <hello@seevrce.ge>` |
 | `NEXT_PUBLIC_SITE_URL` | public, optional | Canonical site origin. Defaults to `https://see.ge` |
 
 Never put secrets in a `NEXT_PUBLIC_*` variable; those are shipped to the browser.
+
+If a variable is missing, the form tells the visitor to try again later and the server log (terminal locally, Vercel logs in production) names the missing variable once per instance.
+
+### Setting up Resend
+
+1. Create an account at [resend.com](https://resend.com).
+2. **Domains → Add Domain**: add `seevrce.ge` and copy the DNS records it shows (MX and TXT, on a `send` subdomain and `resend._domainkey`) to the domain's DNS provider. Don't change existing records. Wait until the domain shows **Verified**.
+3. **API Keys → Create API Key** with **Full access**. Copy it right away; it is shown once.
+4. **Contacts → Segments**: create a `Waitlist` segment and copy its id.
+5. Copy `.env.example` to `.env.local` and fill in the four values. Before the domain is verified you can test with `CONTACT_FROM_EMAIL=onboarding@resend.dev`, which only delivers to your Resend account email.
+6. In Vercel, **Settings → Environment Variables**: add the same four variables for Production and Preview, then redeploy.
 
 ## Scripts
 
@@ -79,7 +90,7 @@ Never put secrets in a `NEXT_PUBLIC_*` variable; those are shipped to the browse
 app/[lang]/            Root layout per locale (html lang, metadata, Navbar, Footer) and pages
   page.tsx             Landing page, composes the sections
   contact/page.tsx     Contact page
-app/actions.ts         Server Actions: sendContactMessage, requestMeeting
+app/actions/           Server Actions: contact.ts (message, meeting), waitlist.ts
 app/globals.css        Tailwind import, utilities, base styles
 proxy.ts               Redirects paths without a locale prefix using Accept-Language
 i18n/                  config.ts (locales, siteUrl), get-dictionary.ts, format.ts
@@ -89,8 +100,9 @@ components/ui/         Shared primitives: Typography, Button, Field, Input, Drop
 components/landing/    One file per landing section (Hero, Story, Team, Waitlist, ...)
 components/waitlist/   WaitlistForm (client leaf)
 components/contact/    Contact page parts and forms
-lib/                   site.ts (nav, contact, social data), waitlist.ts, mail.ts, validation.ts, cn.ts
-lib/content/           List structure for team and about content; text lives in the dictionary
+lib/                   site.ts (nav, contact, social data), validation.ts, cn.ts
+lib/server/            Server-only Resend integration: env.ts, resend.ts, mail.ts, waitlist.ts, form-data.ts, rate-limit.ts
+lib/content/           List structure for team, about and contact content, shared form limits (forms.ts); text lives in the dictionary
 assets/icons/          Custom SVG icon components, one per file
 styles/                variables.css (design tokens), popover.css (dropdown and mobile menu panels)
 types/                 All shared types and component prop interfaces
@@ -171,6 +183,5 @@ See `.claude/README.md` for details.
 - Some sections still use static `style={{}}` and hex colours.
 - Team photos are JPG sources (served as WebP/AVIF); `public/team/sophie.jpg` is a 1.4 MB original.
 - The body uses a system font stack (no `next/font` yet).
-- The waitlist calls Formspree from the client with the form id hardcoded in `lib/site.ts`. The plan is a Server Action with the endpoint in an environment variable.
 - Metadata is incomplete: no OG image, sitemap or robots yet. Check the root layout before assuming what exists.
 - No tests.

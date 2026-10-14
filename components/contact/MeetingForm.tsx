@@ -3,7 +3,7 @@
 
 import { useActionState, useId } from 'react';
 import { ArrowRight } from 'lucide-react';
-import { requestMeeting } from '@/app/actions';
+import { requestMeeting } from '@/app/actions/contact';
 import Button from '@/components/ui/Button';
 import Field from '@/components/ui/Field';
 import FormSuccess from '@/components/ui/FormSuccess';
@@ -11,7 +11,8 @@ import Honeypot from '@/components/ui/Honeypot';
 import Input from '@/components/ui/Input';
 import Select from '@/components/ui/Select';
 import Textarea from '@/components/ui/Textarea';
-import { fieldLimits, meetingDurations, meetingSlots, meetingTopics } from '@/lib/content/contact';
+import { meetingDurations, meetingSlots, meetingTopics } from '@/lib/content/contact';
+import { fieldLimits } from '@/lib/content/forms';
 import { describedBy } from '@/lib/controls';
 import type { MeetingFormProps, MeetingState } from '@/types/contact';
 
@@ -174,9 +175,9 @@ export default function MeetingForm({ lang, t }: MeetingFormProps) {
         </Field>
       </div>
 
-      {state.status === 'error' && !state.fieldErrors && (
+      {state.formError && (
         <p role="alert" className="text-14 font-medium text-danger sm:col-span-2">
-          {t.errors.generic}
+          {t.errors[state.formError]}
         </p>
       )}
 

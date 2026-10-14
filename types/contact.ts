@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import type { FormErrorCode } from './forms';
 import type { Dictionary, Locale } from './i18n';
 
 /** Reason a field was rejected; the form turns it into text with `contact.errors[code]`. */
@@ -12,8 +13,10 @@ export type ContactFieldErrors<Field extends string> = Partial<Record<Field, Con
 /** What a contact Server Action returns. `values` refills the form after an error. */
 export interface ContactFormState<Field extends string> {
   status: 'idle' | 'success' | 'error';
-  /** Set on `error` when the input was rejected; absent when sending failed. */
+  /** Set on `error` when the input was rejected. */
   fieldErrors?: ContactFieldErrors<Field>;
+  /** Set on `error` when the input was fine but the submission could not go through. */
+  formError?: FormErrorCode;
   values?: Partial<Record<Field, string>>;
 }
 

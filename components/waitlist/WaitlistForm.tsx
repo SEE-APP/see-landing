@@ -1,34 +1,29 @@
 'use client';
-// client: holds the email field and the submit status
+// client: runs the waitlist Server Action and shows its result
 
-import { useId, useState, type FormEvent } from 'react';
+import { useActionState, useId, useState } from 'react';
 import { ArrowRight, CircleAlert } from 'lucide-react';
+import { joinWaitlist } from '@/app/actions/waitlist';
 import Button from '@/components/ui/Button';
 import FormSuccess from '@/components/ui/FormSuccess';
+import Honeypot from '@/components/ui/Honeypot';
 import Typography from '@/components/ui/Typography';
 import { cn } from '@/lib/cn';
-import { isValidEmail } from '@/lib/validation';
-import { joinWaitlist } from '@/lib/waitlist';
-import type { WaitlistFormProps, WaitlistStatus } from '@/types/sections';
+import { fieldLimits } from '@/lib/content/forms';
+import type { WaitlistState } from '@/types/forms';
+import type { WaitlistFormProps } from '@/types/sections';
+
+const initialState: WaitlistState = { status: 'idle' };
 
 export default function WaitlistForm({ t }: WaitlistFormProps) {
   const id = useId();
   const emailId = `${id}-email`;
   const errorId = `${id}-error`;
-  const [email, setEmail] = useState('');
-  const [status, setStatus] = useState<WaitlistStatus>('idle');
-  const isError = status === 'error';
-  const isSuccess = status === 'success';
-
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (!isValidEmail(email)) {
-      setStatus('error');
-      return;
-    }
-    setStatus('loading');
-    setStatus((await joinWaitlist(email)) ? 'success' : 'error');
-  }
+  const [state, formAction, isPending] = useActionState(joinWaitlist, initialState);
+  const [isEditing, setIsEditing] = useState(false);
+  // Cleared while a submission is pending, so the same error coming back is announced again.
+  const error = isEditing || isPending ? undefined : state.error;
+  const isSuccess = state.status === 'success';
 
   return (
     <>
@@ -36,14 +31,15 @@ export default function WaitlistForm({ t }: WaitlistFormProps) {
       <div role="status">
         {isSuccess && <FormSuccess title={t.successTitle} body={t.successBody} />}
       </div>
-      <form onSubmit={handleSubmit} noValidate hidden={isSuccess}>
+      <form action={formAction} onSubmit={() => setIsEditing(false)} hidden={isSuccess}>
+        <Honeypot />
         <label htmlFor={emailId} className="sr-only">
           {t.emailLabel}
         </label>
         <div
           className={cn(
             'flex items-center gap-2 rounded-full border bg-surface-solid p-1.5 transition-colors duration-200 focus-ring-within',
-            isError ? 'border-danger' : 'border-input focus-within:border-accent',
+            error === 'invalid' ? 'border-danger' : 'border-input focus-within:border-accent',
           )}
         >
           <input
@@ -52,14 +48,12 @@ export default function WaitlistForm({ t }: WaitlistFormProps) {
             name="email"
             autoComplete="email"
             required
-            value={email}
-            onChange={(event) => {
-              setEmail(event.target.value);
-              if (isError) setStatus('idle');
-            }}
+            maxLength={fieldLimits.email}
+            defaultValue={state.email}
+            onChange={() => setIsEditing(true)}
             placeholder={t.emailPlaceholder}
-            aria-invalid={isError}
-            aria-describedby={isError ? errorId : undefined}
+            aria-invalid={error === 'invalid'}
+            aria-describedby={error ? errorId : undefined}
             className="h-10 min-w-0 flex-1 bg-transparent pl-5 text-16 md:pl-6 text-ink outline-none placeholder:text-ink-muted"
           />
           <Button
@@ -67,14 +61,14 @@ export default function WaitlistForm({ t }: WaitlistFormProps) {
             size="sm"
             label={t.submit}
             rightIcon={<ArrowRight size={16} />}
-            isLoading={status === 'loading'}
+            isLoading={isPending}
           />
         </div>
         <div id={errorId} role="alert">
-          {isError && (
+          {error && (
             <Typography as="p" size={14} weight="medium" className="mt-4 flex items-center justify-center gap-2 text-danger">
               <CircleAlert size={16} aria-hidden="true" />
-              {t.error}
+              {t.errors[error]}
             </Typography>
           )}
         </div>

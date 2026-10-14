@@ -1,4 +1,5 @@
-import { fieldLimits, meetingDurations, meetingSlots, meetingTopics } from '@/lib/content/contact';
+import { meetingDurations, meetingSlots, meetingTopics } from '@/lib/content/contact';
+import { fieldLimits } from '@/lib/content/forms';
 import type {
   ContactFieldError,
   ContactFieldErrors,
@@ -11,7 +12,7 @@ import type {
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 
-export function isValidEmail(value: string): boolean {
+function isValidEmail(value: string): boolean {
   return EMAIL_PATTERN.test(value);
 }
 
@@ -26,7 +27,7 @@ function checkText(value: string, max: number, isRequired: boolean): ContactFiel
   return value.length > max ? 'tooLong' : undefined;
 }
 
-function checkEmail(value: string): ContactFieldError | undefined {
+export function checkEmail(value: string): ContactFieldError | undefined {
   if (value === '') return 'required';
   if (value.length > fieldLimits.email) return 'tooLong';
   return isValidEmail(value) ? undefined : 'email';

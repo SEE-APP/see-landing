@@ -3,14 +3,14 @@
 
 import { useActionState, useId } from 'react';
 import { ArrowRight } from 'lucide-react';
-import { sendContactMessage } from '@/app/actions';
+import { sendContactMessage } from '@/app/actions/contact';
 import Button from '@/components/ui/Button';
 import Field from '@/components/ui/Field';
 import FormSuccess from '@/components/ui/FormSuccess';
 import Honeypot from '@/components/ui/Honeypot';
 import Input from '@/components/ui/Input';
 import Textarea from '@/components/ui/Textarea';
-import { fieldLimits } from '@/lib/content/contact';
+import { fieldLimits } from '@/lib/content/forms';
 import { describedBy } from '@/lib/controls';
 import type { ContactFormProps, ContactMessageState } from '@/types/contact';
 
@@ -71,9 +71,9 @@ export default function ContactForm({ lang, t }: ContactFormProps) {
         />
       </Field>
 
-      {state.status === 'error' && !state.fieldErrors && (
+      {state.formError && (
         <p role="alert" className="text-14 font-medium text-danger">
-          {t.errors.generic}
+          {t.errors[state.formError]}
         </p>
       )}
 

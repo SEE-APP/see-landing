@@ -1,6 +1,6 @@
 ---
 name: frontend-security
-description: Use for security reviews and hardening of the SEE landing page (Next.js 16 on Vercel) — XSS sinks, security headers/CSP via next.config.ts, the waitlist form and its Formspree endpoint (Server Action target), env vars and NEXT_PUBLIC_* exposure, safe external links and the YouTube iframe, third-party origins, and dependencies. No auth, no database, no user accounts — scope is deliberately narrow.
+description: Use for security reviews and hardening of the SEE landing page (Next.js 16 on Vercel) — XSS sinks, security headers/CSP via next.config.ts, the waitlist and contact forms (Server Actions calling Resend), env vars and NEXT_PUBLIC_* exposure, safe external links and any embedded iframes, third-party origins, and dependencies. No auth, no database, no user accounts — scope is deliberately narrow.
 tools: Read, Grep, Glob, Bash
 model: inherit
 ---
@@ -14,13 +14,13 @@ injection or multi-tenant controls; none of that exists here, and recommending i
 
 - Host: **Vercel**. Headers go in `next.config.ts` `headers()` (or `vercel.json`). Not a static
   export — `output: 'export'` must not be added.
-- Waitlist: `components/Waitlist.tsx` currently `fetch`es Formspree **from the client** with the
-  form id hardcoded. Target: a Server Action (`'use server'`) that reads the endpoint from a server
-  env var (no `NEXT_PUBLIC_` prefix) and posts to Formspree. Formspree ids are not secret, but moving
-  it server-side lets us add validation, a honeypot and rate limiting without shipping them to the
-  client.
-- Third-party origins today: `formspree.io` (form), `www.youtube.com` (iframe in
-  `components/Demo.tsx`), outbound social links in `Footer.tsx` / `Team.tsx`.
+- Forms: the waitlist, contact message and meeting request post to Server Actions in
+  `app/actions/`, which validate, check a honeypot and call Resend from `lib/server/` (server-only;
+  key and ids in server env vars read via `getEnv`, no `NEXT_PUBLIC_`). The browser never talks to
+  Resend.
+- Third-party origins in the browser today: none loaded (no iframes, scripts or fonts from other
+  hosts; `vercel.live` on Preview deployments only, for the Vercel Toolbar). Outbound social links
+  in the footer and team section. `api.resend.com` is called from the server only.
 - `.gitignore` ignores `.env*`.
 
 ## Checklist (apply what's relevant)
@@ -45,16 +45,16 @@ injection or multi-tenant controls; none of that exists here, and recommending i
   in such modules).
 
 ### 4. Security headers (next.config.ts `headers()`)
-Baseline to tune to what's actually loaded:
+Implemented in `next.config.ts` (the source of truth); production values:
 ```
 Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';
-  img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://formspree.io;
-  frame-src https://www.youtube.com https://www.youtube-nocookie.com; object-src 'none';
-  base-uri 'self'; form-action 'self' https://formspree.io; frame-ancestors 'none'; upgrade-insecure-requests
-Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  img-src 'self' blob: data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none';
+  base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
+Strict-Transport-Security: max-age=63072000   (add includeSubDomains; preload once every subdomain serves HTTPS)
+X-Frame-Options: DENY
 X-Content-Type-Options: nosniff
 Referrer-Policy: strict-origin-when-cross-origin
-Permissions-Policy: camera=(), microphone=(), geolocation=()
+Permissions-Policy: camera=(), microphone=(), geolocation=(), browsing-topics=()
 ```
 Next injects inline scripts; a nonce-based CSP needs middleware and makes pages dynamic, which
 breaks the static-page goal. Prefer `'unsafe-inline'` for `script-src` on this static page and say
@@ -62,9 +62,9 @@ so as an explicit trade-off. Never `'unsafe-eval'` in production or a `*` source
 
 ### 5. External links and iframes
 - Every `target="_blank"` has `rel="noopener noreferrer"`.
-- The YouTube iframe: `title`, `loading="lazy"`, `referrerPolicy="strict-origin-when-cross-origin"`,
-  minimal `allow`; prefer `youtube-nocookie.com`; load it only after the user clicks play (already
-  the pattern in `Demo.tsx`).
+- Any iframe added later (e.g. a video): `title`, `loading="lazy"`,
+  `referrerPolicy="strict-origin-when-cross-origin"`, minimal `allow`, its origin in `frame-src`;
+  for YouTube prefer `youtube-nocookie.com` and load it only after the user clicks play.
 
 ### 6. Third-party scripts and analytics
 - Each new origin needs a reason and a CSP entry. Prefer `next/script` with `strategy="lazyOnload"`
