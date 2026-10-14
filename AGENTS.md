@@ -19,7 +19,7 @@ This file is the single source of project rules for every AI tool (Cursor reads 
 
 ## Stack
 
-Next.js 16.2 App Router · React 19.2 · TypeScript 5 strict · Tailwind v4 (`@tailwindcss/postcss`) · lucide-react · Formspree (waitlist) · ESLint 9 (`eslint-config-next`). No test runner.
+Next.js 16.2 App Router · React 19.2 · TypeScript 5 strict · Tailwind v4 (`@tailwindcss/postcss`) · lucide-react · Resend (waitlist contacts + contact emails, via Server Actions) · ESLint 9 (`eslint-config-next`). No test runner.
 
 ## Commands
 
@@ -88,8 +88,8 @@ components/landing/ one file per section: Hero, Story (+ StoryTimeline), FindYou
 components/waitlist/ WaitlistForm (client leaf)
 components/contact/ ContactHero, ContactDetails, ContactForms (+ ContactForm, MeetingForm client leaves) for app/[lang]/contact
 lib/site.ts         site data: nav links, contact details, social links
-lib/waitlist.ts     joinWaitlist (Formspree request)
-app/actions.ts      Server Actions: sendContactMessage, requestMeeting (email via lib/mail.ts, Resend; env RESEND_API_KEY, CONTACT_TO_EMAIL, CONTACT_FROM_EMAIL)
+app/actions/        Server Actions, one file per feature: contact.ts (sendContactMessage, requestMeeting), waitlist.ts (joinWaitlist)
+lib/server/         server-only integrations: env.ts (getEnv; RESEND_API_KEY, RESEND_SEGMENT_ID, CONTACT_TO_EMAIL, CONTACT_FROM_EMAIL), resend.ts (resendPost), mail.ts (sendTeamMail), waitlist.ts (addWaitlistContact), form-data.ts (read, isBot)
 lib/content/        list structure (ids, icons, years, avatars, URLs) for team.ts, about.ts; text lives in the dictionary
 lib/validation.ts   isValidEmail
 lib/cn.ts           className joiner (no clsx/tailwind-merge: don't pass a class that conflicts with a variant's)
@@ -101,7 +101,7 @@ public/             logo, favicon, team photos
 Target layout (move a file when you touch it; ask before bulk moves):
 `components/landing/` (Hero), `components/common/` (Navbar, Footer, MobileNav),
 `components/ui/` (Button, Input, EditorialHeading),
-`lib/` (pure helpers, site constants), `app/actions.ts` (Server Actions).
+`lib/` (pure helpers, site constants), `lib/server/` (server-only integrations), `app/actions/` (Server Actions).
 `@/*` points at the project root (`@/components/landing/Hero`). No barrel files.
 
 ## Code standards
@@ -154,8 +154,6 @@ only: `.claude/design-references/`.
 - Many static `style={{}}` and hex colours in the sections.
 - Team photos are JPG sources (`next/image` serves them as WebP/AVIF); `public/team/sophie.jpg` is a 1.4 MB 2500px original.
 - Body uses a system font stack (no `next/font` yet).
-- Waitlist `fetch`es Formspree from the client with the form id hardcoded
-  (`lib/waitlist.ts`, `lib/site.ts`) → Server Action + env var.
 - Metadata is title/description/icons only: no `metadataBase`, OG, Twitter, canonical, sitemap,
   robots or OG image.
 - Duplicates: see `known-duplicates.md`.

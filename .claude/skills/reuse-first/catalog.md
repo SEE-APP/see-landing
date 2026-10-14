@@ -7,12 +7,13 @@
 | Route, metadata, sitemap, robots, OG image | `app/[lang]/` | `page.tsx` / `layout.tsx` stay Server Components and load the dictionary |
 | Copy and translations | `i18n/dictionaries/en.ts` | every user-facing string; `Dictionary` type is inferred from it |
 | Locale config, dictionary loader, `format` | `i18n/` | `locales`, `hasLocale`, `getDictionary`, `{placeholder}` filling |
-| Server Actions | `app/actions.ts` (or `app/<feature>/actions.ts`) | `'use server'`; secrets from `process.env` only |
+| Server Actions | `app/actions/<feature>.ts` | `'use server'`; form helpers `read`/`isBot` in `lib/server/form-data.ts` |
+| Server env and Resend | `lib/server/` | `getEnv` (env.ts), `resendPost` (resend.ts), `sendTeamMail` (mail.ts), `addWaitlistContact` (waitlist.ts); all `server-only` |
 | Page sections | `components/landing/` (target) | Story, FindYourCircle, Intention, Team, Waitlist (moved); Hero (not yet); Server Components with small client leaves |
 | Site chrome | `components/common/` | Navbar, MobileNav, Footer, ThemeSwitcher, LanguageSwitcher (in the root layout) |
 | Primitives | `components/ui/` | Typography, Button, NumberedList, EditorialHeading, Dropdown, PopoverPanel; Input (target) |
 | Custom SVG icons | `assets/icons/` | one component per file, `IconProps` from `types/ui.ts`; use `lucide-react` when it has the icon |
-| Waitlist form | `components/waitlist/` | WaitlistForm is the client leaf; the request is `joinWaitlist` in `lib/waitlist.ts` |
+| Waitlist form | `components/waitlist/` | WaitlistForm is the client leaf; it runs the `joinWaitlist` Server Action in `app/actions/waitlist.ts` |
 | Pure helpers and static data | `lib/` | no JSX; `lib/site.ts` (nav, contacts, socials), `lib/content/*.ts` (page lists), `lib/motion.ts`, `lib/validation.ts`, `lib/cn.ts` |
 | Types and prop interfaces | `types/` | `content.ts`, `site.ts`, `sections.ts`, `layout.ts`, `ui.ts`, `i18n.ts` |
 | Design tokens and CSS variables | `styles/variables.css` | `@theme` tokens + gutters; imported by `app/globals.css`; never hex in components |

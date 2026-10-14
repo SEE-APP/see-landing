@@ -43,7 +43,7 @@ Use the Metadata API, never hand-written `<meta>` in JSX:
 
 ## Forms and data
 
-- Form submissions use a **Server Action** (`'use server'`, e.g. `app/actions.ts`) with
+- Form submissions use a **Server Action** (`'use server'`, one file per feature in `app/actions/`) with
   `useActionState` in the client form. The action validates on the server, reads endpoints/keys from
   server env (no `NEXT_PUBLIC_`), adds a honeypot, returns generic errors, never logs the email.
 - `app/api/**` route handlers only for something a Server Action can't serve (a webhook, a public
