@@ -11,7 +11,8 @@ import Honeypot from '@/components/ui/Honeypot';
 import Input from '@/components/ui/Input';
 import Select from '@/components/ui/Select';
 import Textarea from '@/components/ui/Textarea';
-import { fieldLimits, meetingDurations, meetingSlots, meetingTopics } from '@/lib/content/contact';
+import { meetingDurations, meetingSlots, meetingTopics } from '@/lib/content/contact';
+import { fieldLimits } from '@/lib/content/forms';
 import { describedBy } from '@/lib/controls';
 import type { MeetingFormProps, MeetingState } from '@/types/contact';
 

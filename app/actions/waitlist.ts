@@ -1,19 +1,16 @@
 'use server';
 
-import { fieldLimits } from '@/lib/content/contact';
 import { isBot, logActionError, read } from '@/lib/server/form-data';
 import { takeRateLimit } from '@/lib/server/rate-limit';
 import { addWaitlistContact } from '@/lib/server/waitlist';
-import { isValidEmail } from '@/lib/validation';
-import type { WaitlistState } from '@/types/sections';
+import { checkEmail } from '@/lib/validation';
+import type { WaitlistState } from '@/types/forms';
 
 export async function joinWaitlist(_previous: WaitlistState, formData: FormData): Promise<WaitlistState> {
   if (isBot(formData)) return { status: 'success' };
 
   const email = read(formData, 'email');
-  if (email.length > fieldLimits.email || !isValidEmail(email)) {
-    return { status: 'error', error: 'invalid', email };
-  }
+  if (checkEmail(email)) return { status: 'error', error: 'invalid', email };
 
   try {
     if (!(await takeRateLimit('waitlist'))) return { status: 'error', error: 'rateLimited', email };

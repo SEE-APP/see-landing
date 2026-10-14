@@ -1,5 +1,6 @@
 'use server';
 
+import { hasLocale } from '@/i18n/config';
 import { meetingTimeZone } from '@/lib/content/contact';
 import { isBot, logActionError, read } from '@/lib/server/form-data';
 import { oneLine, sendTeamMail } from '@/lib/server/mail';
@@ -11,6 +12,12 @@ import type {
   MeetingState,
   MeetingValues,
 } from '@/types/contact';
+
+/** The page language the form was sent from; anything else is reported as `unknown`. */
+function formLanguage(formData: FormData): string {
+  const lang = read(formData, 'lang');
+  return hasLocale(lang) ? lang : 'unknown';
+}
 
 /** Today's date in the team's time zone as `YYYY-MM-DD`. */
 function todayInTbilisi(): string {
@@ -37,7 +44,7 @@ export async function sendContactMessage(
     const sent = await sendTeamMail({
       subject: `[SEE contact] Message from ${oneLine(values.name)}`,
       replyTo: values.email,
-      text: [`Name: ${values.name}`, `Email: ${values.email}`, `Language: ${read(formData, 'lang')}`, '', values.message].join('\n'),
+      text: [`Name: ${values.name}`, `Email: ${values.email}`, `Language: ${formLanguage(formData)}`, '', values.message].join('\n'),
     });
     return sent ? { status: 'success' } : { status: 'error', formError: 'unavailable', values };
   } catch (error) {
@@ -71,7 +78,7 @@ export async function requestMeeting(_previous: MeetingState, formData: FormData
       text: [
         `Name: ${values.name}`,
         `Email: ${values.email}`,
-        `Language: ${read(formData, 'lang')}`,
+        `Language: ${formLanguage(formData)}`,
         `Topic: ${values.topic}`,
         `Preferred date: ${values.date}`,
         `Preferred time: ${values.time} (Tbilisi, GMT+4)`,

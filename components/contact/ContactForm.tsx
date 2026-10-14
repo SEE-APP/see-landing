@@ -10,7 +10,7 @@ import FormSuccess from '@/components/ui/FormSuccess';
 import Honeypot from '@/components/ui/Honeypot';
 import Input from '@/components/ui/Input';
 import Textarea from '@/components/ui/Textarea';
-import { fieldLimits } from '@/lib/content/contact';
+import { fieldLimits } from '@/lib/content/forms';
 import { describedBy } from '@/lib/controls';
 import type { ContactFormProps, ContactMessageState } from '@/types/contact';
 

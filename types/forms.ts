@@ -1,5 +1,12 @@
-/**
- * Why a form submission failed as a whole (not a single field). Each code has its own message in the dictionary.
- * `rateLimited`: too many submissions from this visitor; `unavailable`: the email service failed or is not configured.
- */
+/** Why a valid submission could not go through; shared by every form. */
 export type FormErrorCode = 'rateLimited' | 'unavailable';
+
+/** Why a waitlist signup failed: `invalid` is a bad address; the rest are shared form errors. */
+export type WaitlistErrorCode = 'invalid' | FormErrorCode;
+
+/** What the waitlist Server Action returns. `email` refills the field after an error. */
+export interface WaitlistState {
+  status: 'idle' | 'success' | 'error';
+  error?: WaitlistErrorCode;
+  email?: string;
+}

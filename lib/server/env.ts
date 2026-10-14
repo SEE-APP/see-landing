@@ -1,6 +1,6 @@
 import 'server-only';
 
-export type ServerEnvName = 'RESEND_API_KEY' | 'RESEND_SEGMENT_ID' | 'CONTACT_TO_EMAIL' | 'CONTACT_FROM_EMAIL';
+type ServerEnvName = 'RESEND_API_KEY' | 'RESEND_SEGMENT_ID' | 'CONTACT_TO_EMAIL' | 'CONTACT_FROM_EMAIL';
 
 const reported = new Set<ServerEnvName>();
 

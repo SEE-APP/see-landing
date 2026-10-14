@@ -16,7 +16,7 @@ const MAX_TRACKED_KEYS = 10_000;
 const TEN_MINUTES = 10 * 60 * 1000;
 
 /** Per visitor: enough for a retry or a typo fix, not for a script. */
-export const formRateLimits = {
+const formRateLimits = {
   waitlist: { limit: 5, windowMs: TEN_MINUTES },
   contact: { limit: 5, windowMs: TEN_MINUTES },
   meeting: { limit: 3, windowMs: TEN_MINUTES },
@@ -35,7 +35,10 @@ function prune(now: number) {
   if (windows.size > MAX_TRACKED_KEYS) windows.clear();
 }
 
-/** The visitor's IP as reported by Vercel's proxy; `unknown` when there is none (local tools). */
+/**
+ * The visitor's IP. Vercel overwrites `x-forwarded-for`, so it can't be spoofed there; on another host behind
+ * no trusted proxy a client could set it. `unknown` when there is none (local tools).
+ */
 async function clientIp(): Promise<string> {
   const list = await headers();
   return list.get('x-forwarded-for')?.split(',')[0]?.trim() || list.get('x-real-ip')?.trim() || 'unknown';

@@ -4,8 +4,8 @@ import { getEnv } from '@/lib/server/env';
 const RESEND_API = 'https://api.resend.com';
 const REQUEST_TIMEOUT_MS = 8000;
 
-/** `rejected`: Resend answered with an error status; `failed`: no key, network error or timeout. */
-export type ResendResult = 'ok' | 'rejected' | 'failed';
+/** `rejected`: Resend refused this request; `failed`: missing or refused key, network error or timeout. */
+type ResendResult = 'ok' | 'rejected' | 'failed';
 
 /** Keeps addresses out of the logs when a path contains one (`/contacts/{email}/…`). */
 function loggablePath(path: string): string {
@@ -36,7 +36,7 @@ export async function resendPost(path: string, body?: unknown): Promise<ResendRe
     if (response.ok) return 'ok';
 
     console.error(`[resend] POST ${loggablePath(path)} failed: ${response.status} ${await errorName(response)}`);
-    return 'rejected';
+    return response.status === 401 || response.status === 403 ? 'failed' : 'rejected';
   } catch (error) {
     const reason = error instanceof Error ? error.name : 'unknown';
     console.error(`[resend] POST ${loggablePath(path)} did not complete: ${reason}`);

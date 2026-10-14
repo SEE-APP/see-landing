@@ -9,8 +9,9 @@ import FormSuccess from '@/components/ui/FormSuccess';
 import Honeypot from '@/components/ui/Honeypot';
 import Typography from '@/components/ui/Typography';
 import { cn } from '@/lib/cn';
-import { fieldLimits } from '@/lib/content/contact';
-import type { WaitlistFormProps, WaitlistState } from '@/types/sections';
+import { fieldLimits } from '@/lib/content/forms';
+import type { WaitlistState } from '@/types/forms';
+import type { WaitlistFormProps } from '@/types/sections';
 
 const initialState: WaitlistState = { status: 'idle' };
 
@@ -20,7 +21,8 @@ export default function WaitlistForm({ t }: WaitlistFormProps) {
   const errorId = `${id}-error`;
   const [state, formAction, isPending] = useActionState(joinWaitlist, initialState);
   const [isEditing, setIsEditing] = useState(false);
-  const error = isEditing ? undefined : state.error;
+  // Cleared while a submission is pending, so the same error coming back is announced again.
+  const error = isEditing || isPending ? undefined : state.error;
   const isSuccess = state.status === 'success';
 
   return (
@@ -29,13 +31,7 @@ export default function WaitlistForm({ t }: WaitlistFormProps) {
       <div role="status">
         {isSuccess && <FormSuccess title={t.successTitle} body={t.successBody} />}
       </div>
-      <form
-        action={(formData) => {
-          setIsEditing(false);
-          formAction(formData);
-        }}
-        hidden={isSuccess}
-      >
+      <form action={formAction} onSubmit={() => setIsEditing(false)} hidden={isSuccess}>
         <Honeypot />
         <label htmlFor={emailId} className="sr-only">
           {t.emailLabel}

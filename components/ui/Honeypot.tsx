@@ -1,4 +1,4 @@
-import { honeypotField } from '@/lib/content/contact';
+import { honeypotField } from '@/lib/content/forms';
 
 /**
  * A field people never see or reach, but bots that fill every input do. The Server Action drops the request

@@ -1,5 +1,5 @@
 import 'server-only';
-import { honeypotField } from '@/lib/content/contact';
+import { honeypotField } from '@/lib/content/forms';
 
 export function read(formData: FormData, key: string): string {
   const value = formData.get(key);

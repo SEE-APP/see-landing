@@ -1,5 +1,4 @@
 import type { TeamMember } from './content';
-import type { FormErrorCode } from './forms';
 import type { Dictionary, Locale } from './i18n';
 
 export interface HeroProps {
@@ -65,14 +64,4 @@ export type WaitlistFormCopy = Pick<
 
 export interface WaitlistFormProps {
   t: WaitlistFormCopy;
-}
-
-/** Why a waitlist signup failed: `invalid` is a bad address; the rest are shared form errors. */
-export type WaitlistErrorCode = 'invalid' | FormErrorCode;
-
-/** What the waitlist Server Action returns. `email` refills the field after an error. */
-export interface WaitlistState {
-  status: 'idle' | 'success' | 'error';
-  error?: WaitlistErrorCode;
-  email?: string;
 }
