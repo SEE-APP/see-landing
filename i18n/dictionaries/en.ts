@@ -109,7 +109,11 @@ const en = {
     submit: 'Get Early Access',
     successTitle: "You're on the list!",
     successBody: "We'll email you the moment spots open up.",
-    error: 'Please enter a valid email address or try again.',
+    errors: {
+      invalid: 'Please enter a valid email address.',
+      rateLimited: 'Too many attempts. Please wait a few minutes and try again.',
+      unavailable: 'We couldn’t add you right now. Please try again in a few minutes.',
+    },
     noSpam: 'No spam. Unsubscribe anytime.',
   },
 
@@ -136,7 +140,8 @@ const en = {
       date: 'Choose a date from tomorrow onwards.',
       time: 'Choose one of the available times.',
       option: 'Choose an option.',
-      generic: 'Something went wrong. Please try again in a moment.',
+      rateLimited: 'Too many attempts. Please wait a few minutes and try again.',
+      unavailable: 'We couldn’t send this right now. Please try again in a few minutes.',
     },
     message: {
       title: 'Send us a message',

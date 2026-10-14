@@ -71,9 +71,9 @@ export default function ContactForm({ lang, t }: ContactFormProps) {
         />
       </Field>
 
-      {state.status === 'error' && !state.fieldErrors && (
+      {state.formError && (
         <p role="alert" className="text-14 font-medium text-danger">
-          {t.errors.generic}
+          {t.errors[state.formError]}
         </p>
       )}
 

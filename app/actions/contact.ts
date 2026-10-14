@@ -1,8 +1,9 @@
 'use server';
 
 import { meetingTimeZone } from '@/lib/content/contact';
-import { isBot, read } from '@/lib/server/form-data';
+import { isBot, logActionError, read } from '@/lib/server/form-data';
 import { oneLine, sendTeamMail } from '@/lib/server/mail';
+import { takeRateLimit } from '@/lib/server/rate-limit';
 import { validateContactMessage, validateMeetingRequest } from '@/lib/validation';
 import type {
   ContactMessageState,
@@ -30,13 +31,19 @@ export async function sendContactMessage(
   const fieldErrors = validateContactMessage(values);
   if (Object.keys(fieldErrors).length > 0) return { status: 'error', fieldErrors, values };
 
-  const sent = await sendTeamMail({
-    subject: `[SEE contact] Message from ${oneLine(values.name)}`,
-    replyTo: values.email,
-    text: [`Name: ${values.name}`, `Email: ${values.email}`, `Language: ${read(formData, 'lang')}`, '', values.message].join('\n'),
-  });
+  try {
+    if (!(await takeRateLimit('contact'))) return { status: 'error', formError: 'rateLimited', values };
 
-  return sent ? { status: 'success' } : { status: 'error', values };
+    const sent = await sendTeamMail({
+      subject: `[SEE contact] Message from ${oneLine(values.name)}`,
+      replyTo: values.email,
+      text: [`Name: ${values.name}`, `Email: ${values.email}`, `Language: ${read(formData, 'lang')}`, '', values.message].join('\n'),
+    });
+    return sent ? { status: 'success' } : { status: 'error', formError: 'unavailable', values };
+  } catch (error) {
+    logActionError('contact', error);
+    return { status: 'error', formError: 'unavailable', values };
+  }
 }
 
 export async function requestMeeting(_previous: MeetingState, formData: FormData): Promise<MeetingState> {
@@ -55,22 +62,28 @@ export async function requestMeeting(_previous: MeetingState, formData: FormData
   const fieldErrors = validateMeetingRequest(values, todayInTbilisi());
   if (Object.keys(fieldErrors).length > 0) return { status: 'error', fieldErrors, values };
 
-  const sent = await sendTeamMail({
-    subject: `[SEE meeting] Request from ${oneLine(values.name)}`,
-    replyTo: values.email,
-    text: [
-      `Name: ${values.name}`,
-      `Email: ${values.email}`,
-      `Language: ${read(formData, 'lang')}`,
-      `Topic: ${values.topic}`,
-      `Preferred date: ${values.date}`,
-      `Preferred time: ${values.time} (Tbilisi, GMT+4)`,
-      `Duration: ${values.duration} minutes`,
-      `Visitor time zone: ${values.timezone || 'not given'}`,
-      '',
-      values.notes || '(no notes)',
-    ].join('\n'),
-  });
+  try {
+    if (!(await takeRateLimit('meeting'))) return { status: 'error', formError: 'rateLimited', values };
 
-  return sent ? { status: 'success' } : { status: 'error', values };
+    const sent = await sendTeamMail({
+      subject: `[SEE meeting] Request from ${oneLine(values.name)}`,
+      replyTo: values.email,
+      text: [
+        `Name: ${values.name}`,
+        `Email: ${values.email}`,
+        `Language: ${read(formData, 'lang')}`,
+        `Topic: ${values.topic}`,
+        `Preferred date: ${values.date}`,
+        `Preferred time: ${values.time} (Tbilisi, GMT+4)`,
+        `Duration: ${values.duration} minutes`,
+        `Visitor time zone: ${values.timezone || 'not given'}`,
+        '',
+        values.notes || '(no notes)',
+      ].join('\n'),
+    });
+    return sent ? { status: 'success' } : { status: 'error', formError: 'unavailable', values };
+  } catch (error) {
+    logActionError('meeting', error);
+    return { status: 'error', formError: 'unavailable', values };
+  }
 }

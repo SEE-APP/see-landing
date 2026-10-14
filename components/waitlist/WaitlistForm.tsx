@@ -20,7 +20,7 @@ export default function WaitlistForm({ t }: WaitlistFormProps) {
   const errorId = `${id}-error`;
   const [state, formAction, isPending] = useActionState(joinWaitlist, initialState);
   const [isEditing, setIsEditing] = useState(false);
-  const isError = state.status === 'error' && !isEditing;
+  const error = isEditing ? undefined : state.error;
   const isSuccess = state.status === 'success';
 
   return (
@@ -43,7 +43,7 @@ export default function WaitlistForm({ t }: WaitlistFormProps) {
         <div
           className={cn(
             'flex items-center gap-2 rounded-full border bg-surface-solid p-1.5 transition-colors duration-200 focus-ring-within',
-            isError ? 'border-danger' : 'border-input focus-within:border-accent',
+            error === 'invalid' ? 'border-danger' : 'border-input focus-within:border-accent',
           )}
         >
           <input
@@ -56,8 +56,8 @@ export default function WaitlistForm({ t }: WaitlistFormProps) {
             defaultValue={state.email}
             onChange={() => setIsEditing(true)}
             placeholder={t.emailPlaceholder}
-            aria-invalid={isError}
-            aria-describedby={isError ? errorId : undefined}
+            aria-invalid={error === 'invalid'}
+            aria-describedby={error ? errorId : undefined}
             className="h-10 min-w-0 flex-1 bg-transparent pl-5 text-16 md:pl-6 text-ink outline-none placeholder:text-ink-muted"
           />
           <Button
@@ -69,10 +69,10 @@ export default function WaitlistForm({ t }: WaitlistFormProps) {
           />
         </div>
         <div id={errorId} role="alert">
-          {isError && (
+          {error && (
             <Typography as="p" size={14} weight="medium" className="mt-4 flex items-center justify-center gap-2 text-danger">
               <CircleAlert size={16} aria-hidden="true" />
-              {t.error}
+              {t.errors[error]}
             </Typography>
           )}
         </div>

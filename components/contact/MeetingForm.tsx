@@ -174,9 +174,9 @@ export default function MeetingForm({ lang, t }: MeetingFormProps) {
         </Field>
       </div>
 
-      {state.status === 'error' && !state.fieldErrors && (
+      {state.formError && (
         <p role="alert" className="text-14 font-medium text-danger sm:col-span-2">
-          {t.errors.generic}
+          {t.errors[state.formError]}
         </p>
       )}
 

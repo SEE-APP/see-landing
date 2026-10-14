@@ -20,6 +20,5 @@ export async function sendTeamMail({ subject, text, replyTo }: Mail): Promise<bo
   const from = getEnv('CONTACT_FROM_EMAIL');
   if (!to || !from) return false;
 
-  const response = await resendPost('/emails', { from, to: [to], subject, text, reply_to: replyTo });
-  return response?.ok ?? false;
+  return (await resendPost('/emails', { from, to: [to], subject, text, reply_to: replyTo })) === 'ok';
 }

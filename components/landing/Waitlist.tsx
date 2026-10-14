@@ -31,7 +31,7 @@ export default function Waitlist({ t }: WaitlistProps) {
                 emailLabel: t.emailLabel,
                 emailPlaceholder: t.emailPlaceholder,
                 submit: t.submit,
-                error: t.error,
+                errors: t.errors,
                 successTitle: t.successTitle,
                 successBody: t.successBody,
               }}

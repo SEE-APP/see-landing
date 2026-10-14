@@ -6,6 +6,11 @@ export function read(formData: FormData, key: string): string {
   return typeof value === 'string' ? value.trim() : '';
 }
 
+/** Logs an unexpected action failure by error name only, so no visitor data reaches the logs. */
+export function logActionError(action: string, error: unknown): void {
+  console.error(`[${action}] failed unexpectedly: ${error instanceof Error ? error.name : 'unknown error'}`);
+}
+
 /** Real visitors never see the honeypot field; bots fill it. In development a dropped submission is reported. */
 export function isBot(formData: FormData): boolean {
   const filled = read(formData, honeypotField) !== '';
