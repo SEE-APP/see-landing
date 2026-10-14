@@ -14,8 +14,8 @@
 | Primitives | `components/ui/` | Typography, Button, NumberedList, EditorialHeading, Dropdown, PopoverPanel; Input (target) |
 | Custom SVG icons | `assets/icons/` | one component per file, `IconProps` from `types/ui.ts`; use `lucide-react` when it has the icon |
 | Waitlist form | `components/waitlist/` | WaitlistForm is the client leaf; it runs the `joinWaitlist` Server Action in `app/actions/waitlist.ts` |
-| Pure helpers and static data | `lib/` | no JSX; `lib/site.ts` (nav, contacts, socials), `lib/content/*.ts` (page lists), `lib/motion.ts`, `lib/validation.ts`, `lib/cn.ts` |
-| Types and prop interfaces | `types/` | `content.ts`, `site.ts`, `sections.ts`, `layout.ts`, `ui.ts`, `i18n.ts` |
+| Pure helpers and static data | `lib/` | no JSX; `lib/site.ts` (nav, contacts, socials), `lib/content/*.ts` (page lists; `forms.ts` for `fieldLimits` and `honeypotField`), `lib/motion.ts`, `lib/validation.ts`, `lib/cn.ts` |
+| Types and prop interfaces | `types/` | `content.ts`, `site.ts`, `sections.ts`, `layout.ts`, `ui.ts`, `i18n.ts`, `contact.ts`, `forms.ts` (form error codes, waitlist state) |
 | Design tokens and CSS variables | `styles/variables.css` | `@theme` tokens + gutters; imported by `app/globals.css`; never hex in components |
 | Static assets | `public/` | images as `.webp`/`.avif`, served through `next/image` |
 

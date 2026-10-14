@@ -90,10 +90,10 @@ components/contact/ ContactHero, ContactDetails, ContactForms (+ ContactForm, Me
 lib/site.ts         site data: nav links, contact details, social links
 app/actions/        Server Actions, one file per feature: contact.ts (sendContactMessage, requestMeeting), waitlist.ts (joinWaitlist)
 lib/server/         server-only integrations: env.ts (getEnv; RESEND_API_KEY, RESEND_SEGMENT_ID, CONTACT_TO_EMAIL, CONTACT_FROM_EMAIL), resend.ts (resendPost), mail.ts (sendTeamMail), waitlist.ts (addWaitlistContact), form-data.ts (read, isBot, logActionError), rate-limit.ts (takeRateLimit: in-memory, per instance, per form + IP)
-lib/content/        list structure (ids, icons, years, avatars, URLs) for team.ts, about.ts; text lives in the dictionary
-lib/validation.ts   isValidEmail
+lib/content/        list structure (ids, icons, years, avatars, URLs) for team.ts, about.ts, contact.ts; forms.ts (fieldLimits, honeypotField); text lives in the dictionary
+lib/validation.ts   checkEmail, validateContactMessage, validateMeetingRequest
 lib/cn.ts           className joiner (no clsx/tailwind-merge: don't pass a class that conflicts with a variant's)
-types/              all shared types: content.ts, site.ts, sections.ts, layout.ts, ui.ts (component props), i18n.ts (Dictionary, Locale)
+types/              all shared types: content.ts, site.ts, sections.ts, layout.ts, ui.ts (component props), i18n.ts (Dictionary, Locale), contact.ts (contact forms), forms.ts (FormErrorCode, WaitlistState)
 styles/variables.css  design tokens (@theme) and layout variables (gutters, header height)
 styles/popover.css  panel styles for the native-popover dropdown and mobile menu
 public/             logo, favicon, team photos

@@ -64,7 +64,7 @@ Set these in `.env.local` for development and in the Vercel project settings for
 
 Never put secrets in a `NEXT_PUBLIC_*` variable; those are shipped to the browser.
 
-If a variable is missing, the form shows its generic error and, in development, the terminal prints a warning with the variable's name.
+If a variable is missing, the form tells the visitor to try again later and the server log (terminal locally, Vercel logs in production) names the missing variable once per instance.
 
 ### Setting up Resend
 
@@ -102,7 +102,7 @@ components/waitlist/   WaitlistForm (client leaf)
 components/contact/    Contact page parts and forms
 lib/                   site.ts (nav, contact, social data), validation.ts, cn.ts
 lib/server/            Server-only Resend integration: env.ts, resend.ts, mail.ts, waitlist.ts, form-data.ts, rate-limit.ts
-lib/content/           List structure for team and about content; text lives in the dictionary
+lib/content/           List structure for team, about and contact content, shared form limits (forms.ts); text lives in the dictionary
 assets/icons/          Custom SVG icon components, one per file
 styles/                variables.css (design tokens), popover.css (dropdown and mobile menu panels)
 types/                 All shared types and component prop interfaces
