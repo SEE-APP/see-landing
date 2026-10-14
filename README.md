@@ -101,7 +101,7 @@ components/landing/    One file per landing section (Hero, Story, Team, Waitlist
 components/waitlist/   WaitlistForm (client leaf)
 components/contact/    Contact page parts and forms
 lib/                   site.ts (nav, contact, social data), validation.ts, cn.ts
-lib/server/            Server-only Resend integration: env.ts, resend.ts, mail.ts, waitlist.ts, form-data.ts
+lib/server/            Server-only Resend integration: env.ts, resend.ts, mail.ts, waitlist.ts, form-data.ts, rate-limit.ts
 lib/content/           List structure for team and about content; text lives in the dictionary
 assets/icons/          Custom SVG icon components, one per file
 styles/                variables.css (design tokens), popover.css (dropdown and mobile menu panels)

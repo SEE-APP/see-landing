@@ -89,7 +89,7 @@ components/waitlist/ WaitlistForm (client leaf)
 components/contact/ ContactHero, ContactDetails, ContactForms (+ ContactForm, MeetingForm client leaves) for app/[lang]/contact
 lib/site.ts         site data: nav links, contact details, social links
 app/actions/        Server Actions, one file per feature: contact.ts (sendContactMessage, requestMeeting), waitlist.ts (joinWaitlist)
-lib/server/         server-only integrations: env.ts (getEnv; RESEND_API_KEY, RESEND_SEGMENT_ID, CONTACT_TO_EMAIL, CONTACT_FROM_EMAIL), resend.ts (resendPost), mail.ts (sendTeamMail), waitlist.ts (addWaitlistContact), form-data.ts (read, isBot)
+lib/server/         server-only integrations: env.ts (getEnv; RESEND_API_KEY, RESEND_SEGMENT_ID, CONTACT_TO_EMAIL, CONTACT_FROM_EMAIL), resend.ts (resendPost), mail.ts (sendTeamMail), waitlist.ts (addWaitlistContact), form-data.ts (read, isBot, logActionError), rate-limit.ts (takeRateLimit: in-memory, per instance, per form + IP)
 lib/content/        list structure (ids, icons, years, avatars, URLs) for team.ts, about.ts; text lives in the dictionary
 lib/validation.ts   isValidEmail
 lib/cn.ts           className joiner (no clsx/tailwind-merge: don't pass a class that conflicts with a variant's)

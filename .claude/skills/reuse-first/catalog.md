@@ -7,7 +7,7 @@
 | Route, metadata, sitemap, robots, OG image | `app/[lang]/` | `page.tsx` / `layout.tsx` stay Server Components and load the dictionary |
 | Copy and translations | `i18n/dictionaries/en.ts` | every user-facing string; `Dictionary` type is inferred from it |
 | Locale config, dictionary loader, `format` | `i18n/` | `locales`, `hasLocale`, `getDictionary`, `{placeholder}` filling |
-| Server Actions | `app/actions/<feature>.ts` | `'use server'`; form helpers `read`/`isBot` in `lib/server/form-data.ts` |
+| Server Actions | `app/actions/<feature>.ts` | `'use server'`; form helpers `read`/`isBot`/`logActionError` in `lib/server/form-data.ts`, `takeRateLimit` in `lib/server/rate-limit.ts`; form-level error codes `FormErrorCode` in `types/forms.ts` |
 | Server env and Resend | `lib/server/` | `getEnv` (env.ts), `resendPost` (resend.ts), `sendTeamMail` (mail.ts), `addWaitlistContact` (waitlist.ts); all `server-only` |
 | Page sections | `components/landing/` (target) | Story, FindYourCircle, Intention, Team, Waitlist (moved); Hero (not yet); Server Components with small client leaves |
 | Site chrome | `components/common/` | Navbar, MobileNav, Footer, ThemeSwitcher, LanguageSwitcher (in the root layout) |

@@ -54,5 +54,8 @@ Use the Metadata API, never hand-written `<meta>` in JSX:
 
 - Keep `export default` (TypeScript config, not `module.exports`).
 - Security headers live in `headers()` — see the `frontend-security` agent for the baseline. A new
-  third-party origin needs a CSP entry.
+  third-party origin needs a CSP entry. The CSP has no nonces (they would make pages dynamic);
+  `'unsafe-eval'` is dev-only. Server Action bodies are capped by `serverActions.bodySizeLimit`.
+- Every Server Action: honeypot, validation, `takeRateLimit`, then the upstream call in a
+  `try/catch` that returns a `FormErrorCode` (`rateLimited` / `unavailable`) and logs the error name only.
 - `images.remotePatterns` only for hosts actually used.
