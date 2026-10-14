@@ -3,7 +3,7 @@
 
 import { useActionState, useId } from 'react';
 import { ArrowRight } from 'lucide-react';
-import { requestMeeting } from '@/app/actions';
+import { requestMeeting } from '@/app/actions/contact';
 import Button from '@/components/ui/Button';
 import Field from '@/components/ui/Field';
 import FormSuccess from '@/components/ui/FormSuccess';

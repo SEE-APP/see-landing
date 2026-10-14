@@ -1,7 +1,8 @@
 'use server';
 
-import { honeypotField, meetingTimeZone } from '@/lib/content/contact';
-import { oneLine, sendTeamMail } from '@/lib/mail';
+import { meetingTimeZone } from '@/lib/content/contact';
+import { isBot, read } from '@/lib/server/form-data';
+import { oneLine, sendTeamMail } from '@/lib/server/mail';
 import { validateContactMessage, validateMeetingRequest } from '@/lib/validation';
 import type {
   ContactMessageState,
@@ -9,16 +10,6 @@ import type {
   MeetingState,
   MeetingValues,
 } from '@/types/contact';
-
-function read(formData: FormData, key: string): string {
-  const value = formData.get(key);
-  return typeof value === 'string' ? value.trim() : '';
-}
-
-/** Real visitors never see the honeypot field; bots fill it. */
-function isBot(formData: FormData): boolean {
-  return read(formData, honeypotField) !== '';
-}
 
 /** Today's date in the team's time zone as `YYYY-MM-DD`. */
 function todayInTbilisi(): string {
