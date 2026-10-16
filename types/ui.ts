@@ -76,6 +76,20 @@ export interface LandingSectionProps {
   children: ReactNode;
 }
 
+export interface BackLinkProps {
+  href: string;
+  label: string;
+  className?: string;
+}
+
+/** The page's `<h1>` with a lead paragraph beside it. */
+export interface PageHeroProps {
+  title: string;
+  description: string;
+  /** A back link shown above the title. */
+  back?: Pick<BackLinkProps, 'href' | 'label'>;
+}
+
 export interface NumberedListItem {
   id: string;
   /** Step number or year shown large above the title. */
