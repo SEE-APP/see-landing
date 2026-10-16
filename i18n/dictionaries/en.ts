@@ -13,12 +13,14 @@ const en = {
     links: {
       findYourCircle: 'Find Your Circle',
       about: 'About Us',
+      news: 'News',
       team: 'Team',
       contact: 'Contact',
       message: 'Message us',
       meeting: 'Plan a meeting',
     },
     cta: 'Get Early Access',
+    backToHome: 'Back to home',
     menu: 'Menu',
     openMenu: 'Open menu',
     closeMenu: 'Close menu',
@@ -98,6 +100,23 @@ const en = {
       sophie: { name: 'Sophie Darchiashvili', role: 'COO (Chief Operating Officer)' },
       nika: { name: 'Nika Ebralidze', role: 'CTO (Chief Technology Officer)' },
     },
+  },
+
+  news: {
+    meta: {
+      title: 'News. Stories from SEE.',
+      description: 'Updates, stories and ideas from the team building SEE.',
+    },
+    title: 'News',
+    description: 'Updates, stories and ideas from the team building SEE.',
+    viewAll: 'View all news',
+    backToNews: 'Back to news',
+    searchLabel: 'Search news',
+    empty: 'No posts match your search.',
+    tagFilterLabel: 'Show posts tagged {tag}',
+    share: 'Share',
+    shareLabel: 'Share this article',
+    copied: 'Link copied',
   },
 
   waitlist: {
