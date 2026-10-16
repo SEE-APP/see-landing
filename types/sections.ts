@@ -52,6 +52,11 @@ export interface TeamMemberCardProps {
   linkedinLabel: string;
 }
 
+export interface NewsProps {
+  lang: Locale;
+  t: Dictionary['news'];
+}
+
 export interface WaitlistProps {
   t: Dictionary['waitlist'];
 }

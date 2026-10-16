@@ -2,10 +2,10 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import ContactDetails from '@/components/contact/ContactDetails';
 import ContactForms from '@/components/contact/ContactForms';
-import ContactHero from '@/components/contact/ContactHero';
+import PageHero from '@/components/ui/PageHero';
 import { hasLocale, locales } from '@/i18n/config';
 import { getDictionary } from '@/i18n/get-dictionary';
-import { contactPath, localeHref } from '@/lib/site';
+import { contactPath, homeHref, localeHref } from '@/lib/site';
 
 export async function generateMetadata({ params }: PageProps<'/[lang]/contact'>): Promise<Metadata> {
   const { lang } = await params;
@@ -36,7 +36,11 @@ export default async function ContactPage({ params }: PageProps<'/[lang]/contact
 
   return (
     <>
-      <ContactHero title={t.title} description={t.description} />
+      <PageHero
+        title={t.title}
+        description={t.description}
+        back={{ href: homeHref(lang), label: dict.nav.backToHome }}
+      />
       <div className="page-container">
         <div className="mx-auto grid max-w-content gap-16 border-t border-line pt-12 pb-24 md:pt-16 md:pb-32 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-4">

@@ -5,9 +5,11 @@ export const findYourCircleHash = '#find-your-circle';
 
 export const contactPath = '/contact';
 
+export const blogPath = '/blog';
+
 export const navLinks: NavLink[] = [
   { id: 'about', hash: '#about' },
-  { id: 'findYourCircle', hash: findYourCircleHash },
+  { id: 'news', path: blogPath },
   { id: 'team', hash: '#team' },
   { id: 'contact', path: contactPath },
 ];
@@ -15,6 +17,7 @@ export const navLinks: NavLink[] = [
 export const footerLinks: NavLink[] = [
   { id: 'about', hash: '#about' },
   { id: 'findYourCircle', hash: findYourCircleHash },
+  { id: 'news', path: blogPath },
   { id: 'team', hash: '#team' },
   { id: 'contact', path: contactPath },
 ];
@@ -40,6 +43,10 @@ export const socialLinks: SocialLink[] = [
 
 export function localeHref(locale: Locale, path = '', hash = ''): string {
   return `/${locale}${path}${hash}`;
+}
+
+export function blogPostHref(locale: Locale, slug: string): string {
+  return localeHref(locale, `${blogPath}/${slug}`);
 }
 
 export function homeHref(locale: Locale, hash = ''): string {

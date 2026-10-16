@@ -35,11 +35,6 @@ export interface ContactProps {
   socialLabels: Dictionary['footer']['social'];
 }
 
-export interface ContactHeroProps {
-  title: string;
-  description: string;
-}
-
 export interface ContactDetailsProps {
   t: Dictionary['contact'];
   socialLabels: Dictionary['footer']['social'];

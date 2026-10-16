@@ -30,17 +30,16 @@ npm run lint    # eslint
 npm run start   # serve the production build
 ```
 
-## Gates (run before claiming done)
+## Gates
 
-```bash
-npm run lint && npm run build
-```
-- In the build's route table `/` must stay `○ (Static)`. Note `/`'s first-load JS; any increase
-  needs a reason.
-- UI change: ask before starting `npm run dev`. If the user agrees, check the page at desktop and
-  393px width and stop the server afterwards. Perf/SEO change: also run Lighthouse (mobile).
-  Budget: Performance and SEO ≥ 95, LCP < 2.5s, CLS < 0.1.
-- Say plainly what you did not check.
+The user runs the dev server, browser and builds themselves. Never start `npm run dev`, a browser
+or `npm run build`; check your edits with the linter (`ReadLints` in Cursor,
+`mcp__ide__getDiagnostics` in Claude Code).
+
+What the user verifies: `npm run lint && npm run build` passes, `/` stays `○ (Static)` in the
+route table (note its first-load JS; any increase needs a reason), the page works at desktop and
+393px width, and Lighthouse (mobile) holds Performance and SEO ≥ 95, LCP < 2.5s, CLS < 0.1.
+Say plainly what you did not check.
 
 ## Rendering and architecture
 
@@ -110,8 +109,9 @@ Target layout (move a file when you touch it; ask before bulk moves):
   `known-duplicates.md`. The second copy is the trigger to promote to `components/ui/`; don't
   pre-abstract for a single use.
 - No hard-coded copy in components or `lib/`: every visible string, `aria-label`, `alt` and metadata
-  text goes in `i18n/dictionaries/en.ts` and reaches components as a `t` prop (server components get it
+  text goes in `i18n/dictionaries/en.ts` **and `ka.ts`** and reaches components as a `t` prop (server components get it
   from the page/layout; client sections get only their own slice). Internal links use `homeHref(lang, hash)`.
+  Georgian copy needs native review: say so when you add or change it.
   Adding a language: copy `en.ts` to `<code>.ts` typed `Dictionary`, add the code to `locales` and
   `localeNames`, and register it in `get-dictionary.ts`.
 - Component files hold rendering only: data goes in `lib/content/` or `lib/site.ts`, types
@@ -129,6 +129,22 @@ Target layout (move a file when you touch it; ask before bulk moves):
 - Accessibility floor: semantic elements, visible `focus-visible`, labelled inputs, one `<h1>`,
   alt text, contrast ≥ 4.5:1 on the dark surface.
 - Delete dead code instead of commenting it out. No `console.log` left behind.
+
+## Design language
+
+Apple-like: editorial and calm. Structure references: `.claude/design-references/apple/`.
+
+- **Hairlines, not boxes.** Separate with `border-line` rules. Skip pill badges, decorative cards,
+  glows and gradients.
+- **Layout.** `page-container` plus an inner `max-w-content` (1100px) column. Wrap every landing
+  section in `components/ui/LandingSection`: title left, muted paragraphs right on a 12-column
+  grid, content below.
+- **Type, always via `Typography`.** Headlines 40/64px semibold, tracking -0.02em. Body 18px,
+  `ink-muted`, `leading-[1.7]`. Small labels 14px.
+- **Colour.** One teal accent (`text-accent` / `bg-accent-strong`) on teal-tinted neutrals; theme
+  classes only.
+- **Interaction.** Hover changes colour only. Focus uses the `focus-ring` utility. Motion sits
+  behind `motion-safe` / `motion-reduce`.
 
 ## Design tokens
 
@@ -180,9 +196,11 @@ Agents: `.claude/agents/`. Skills (including the `/` workflows above): `.claude/
 
 ## Collaboration
 
-- When a decision is the user's (scope, copy, a trade-off without a clear default), ask with the
-  structured question tool (`AskQuestion` in Cursor, `AskUserQuestion` in Claude Code); don't guess
-  and continue.
+- Do exactly what was asked; scope is the user's call. When a decision is theirs (scope, copy, a
+  trade-off without a clear default), ask with the structured question tool (`AskQuestion` in
+  Cursor, `AskUserQuestion` in Claude Code) and wait for the answer.
+- Before starting work, read `AGENTS.md`, `.claude/rules/styles.md`, `.claude/rules/components.md`
+  and `.claude/skills/reuse-first/catalog.md`.
 - Plans are agreed in the conversation. Don't create docs, specs or guides unless asked.
 - Fact-check copy: no invented numbers, dates or user counts on the page.
 

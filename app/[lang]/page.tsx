@@ -4,6 +4,7 @@ import Story from '@/components/landing/Story';
 import FindYourCircle from '@/components/landing/FindYourCircle';
 import Intention from '@/components/landing/Intention';
 import Team from '@/components/landing/Team';
+import News from '@/components/landing/News';
 import Waitlist from '@/components/landing/Waitlist';
 import { hasLocale } from '@/i18n/config';
 import { getDictionary } from '@/i18n/get-dictionary';
@@ -20,6 +21,7 @@ export default async function Home({ params }: PageProps<'/[lang]'>) {
       <FindYourCircle t={dict.findYourCircle} />
       <Intention t={dict.intention} />
       <Team t={dict.team} />
+      <News lang={lang} t={dict.news} />
       <Waitlist t={dict.waitlist} />
     </>
   );
